@@ -1,0 +1,90 @@
+{
+  "tools": [
+    "Claude",
+    "Codex"
+  ],
+  "rubric": [
+    {
+      "name": "Accuracy",
+      "description": "How correct was the final output?"
+    },
+    {
+      "name": "Speed",
+      "description": "How quickly did the tool get to a useful answer?"
+    },
+    {
+      "name": "Explanation",
+      "description": "How well did it explain the reasoning and tradeoffs?"
+    },
+    {
+      "name": "Cleanup",
+      "description": "How much manual cleanup did you need after the result?"
+    },
+    {
+      "name": "Business Value",
+      "description": "How useful was the result in a real analyst or operator workflow?"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "tool-triage-memo",
+      "title": "Tool Triage Memo",
+      "scenario": "Take 3 items from the latest briefing and write a short memo that labels each one watch, test, or implement.",
+      "artifact": "One-page decision memo with reasoning and next step.",
+      "timebox_minutes": 25,
+      "success_criteria": [
+        "Clear recommendation for each tool",
+        "Tradeoffs explained in business language",
+        "One next experiment proposed"
+      ]
+    },
+    {
+      "id": "analytics-copilot",
+      "title": "Natural Language to SQL",
+      "scenario": "Turn a business question about revenue, churn, or customer behavior into safe SQL plus a short interpretation.",
+      "artifact": "SQL query, explanation, and one chart suggestion.",
+      "timebox_minutes": 30,
+      "success_criteria": [
+        "Correct query logic",
+        "No unsafe assumptions about the schema",
+        "Clear explanation for a non-technical stakeholder"
+      ]
+    },
+    {
+      "id": "notebook-to-pipeline",
+      "title": "Notebook to Repeatable Workflow",
+      "scenario": "Convert a rough notebook or analysis snippet into a repeatable script or lightweight pipeline.",
+      "artifact": "Runnable script plus README notes.",
+      "timebox_minutes": 35,
+      "success_criteria": [
+        "Code is reproducible",
+        "Inputs and outputs are clear",
+        "Hand-off quality is strong enough for a teammate"
+      ]
+    },
+    {
+      "id": "etl-debugging",
+      "title": "Data Workflow Debugging",
+      "scenario": "Fix a broken transformation, parsing bug, or dashboard data issue and explain the root cause.",
+      "artifact": "Patch, short root-cause note, and validation steps.",
+      "timebox_minutes": 25,
+      "success_criteria": [
+        "Bug fixed correctly",
+        "Root cause identified clearly",
+        "Validation plan is credible"
+      ]
+    },
+    {
+      "id": "dashboard-extension",
+      "title": "Delivery Layer Extension",
+      "scenario": "Add one useful improvement to the AI Signal dashboard, such as a new filter, chart, or workflow helper.",
+      "artifact": "Working enhancement and short demo note.",
+      "timebox_minutes": 40,
+      "success_criteria": [
+        "Improvement is actually useful",
+        "UI remains easy to use",
+        "Change is explained clearly"
+      ]
+    }
+  ]
+}

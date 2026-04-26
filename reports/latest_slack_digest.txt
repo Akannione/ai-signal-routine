@@ -1,0 +1,11 @@
+*AI Signal Briefing* | 2026-04-25 22:21 UTC
+*Top themes:* coding-agents (15), research-radar (13), workflow-automation (12)
+*Queue:* implement 0 | test 0 | watch 0
+
+*Top signals*
+- <https://github.com/browser-use/browser-use|browser-use/browser-use> | score 94.0 | `unreviewed` | Hits your focus: agent, agents, automation; Fresh signal from the last week
+- <https://github.com/openai/openai-agents-python|openai/openai-agents-python> | score 94.0 | `unreviewed` | Hits your focus: agent, agents, llm; Fresh signal from the last week
+- <https://github.com/OpenHands/OpenHands|OpenHands/OpenHands> | score 94.0 | `unreviewed` | Hits your focus: agent, claude, developer; Fresh signal from the last week
+- <https://github.com/affaan-m/everything-claude-code|affaan-m/everything-claude-code> | score 83.0 | `unreviewed` | Hits your focus: agent, agents, anthropic; Business angle: memo, productivity
+- <https://github.com/ultraworkers/claw-code|ultraworkers/claw-code> | score 76.0 | `unreviewed` | Hits your focus: agent, codex, coding; Fresh signal from the last week
+- <https://github.com/ollama/ollama|ollama/ollama> | score 76.0 | `unreviewed` | Hits your focus: agent, coding, llm; Fresh signal from the last week
