@@ -1,6 +1,6 @@
 # AI Signal Digest
 
-Generated: 2026-04-25 22:21 UTC
+Generated: 2026-04-26 06:29 UTC
 
 ## Queue
 
@@ -8,23 +8,23 @@ Generated: 2026-04-25 22:21 UTC
 
 ## Priority Signals
 
-### browser-use/browser-use
-- Decision: `unreviewed`
-- Source: GitHub Watchlist | Score: 94.0
-- Link: https://github.com/browser-use/browser-use
-- Why it matters: Hits your focus: agent, agents, automation; Fresh signal from the last week; Strong adoption signal: 90,267 GitHub stars
-
 ### openai/openai-agents-python
 - Decision: `unreviewed`
 - Source: GitHub Watchlist | Score: 94.0
 - Link: https://github.com/openai/openai-agents-python
-- Why it matters: Hits your focus: agent, agents, llm; Fresh signal from the last week; Strong adoption signal: 25,139 GitHub stars
+- Why it matters: Hits your focus: agent, agents, llm; Fresh signal from the last week; Strong adoption signal: 25,198 GitHub stars
+
+### browser-use/browser-use
+- Decision: `unreviewed`
+- Source: GitHub Watchlist | Score: 94.0
+- Link: https://github.com/browser-use/browser-use
+- Why it matters: Hits your focus: agent, agents, automation; Fresh signal from the last week; Strong adoption signal: 90,325 GitHub stars
 
 ### OpenHands/OpenHands
 - Decision: `unreviewed`
 - Source: GitHub Watchlist | Score: 94.0
 - Link: https://github.com/OpenHands/OpenHands
-- Why it matters: Hits your focus: agent, claude, developer; Fresh signal from the last week; Strong adoption signal: 72,074 GitHub stars
+- Why it matters: Hits your focus: agent, claude, developer; Fresh signal from the last week; Strong adoption signal: 72,090 GitHub stars
 
 ### affaan-m/everything-claude-code
 - Decision: `unreviewed`
@@ -32,17 +32,17 @@ Generated: 2026-04-25 22:21 UTC
 - Link: https://github.com/affaan-m/everything-claude-code
 - Why it matters: Hits your focus: agent, agents, anthropic; Business angle: memo, productivity; Fresh signal from the last week
 
-### ultraworkers/claw-code
-- Decision: `unreviewed`
-- Source: GitHub Radar | Score: 76.0
-- Link: https://github.com/ultraworkers/claw-code
-- Why it matters: Hits your focus: agent, codex, coding; Fresh signal from the last week; Strong adoption signal: 188,349 GitHub stars
-
 ### ollama/ollama
 - Decision: `unreviewed`
 - Source: GitHub Radar | Score: 76.0
 - Link: https://github.com/ollama/ollama
-- Why it matters: Hits your focus: agent, coding, llm; Fresh signal from the last week; Strong adoption signal: 169,993 GitHub stars
+- Why it matters: Hits your focus: agent, coding, llm; Fresh signal from the last week; Strong adoption signal: 170,022 GitHub stars
+
+### ultraworkers/claw-code
+- Decision: `unreviewed`
+- Source: GitHub Radar | Score: 76.0
+- Link: https://github.com/ultraworkers/claw-code
+- Why it matters: Hits your focus: agent, codex, coding; Fresh signal from the last week; Strong adoption signal: 188,412 GitHub stars
 
 ### Salesforce rolls out new Slackbot AI agent as it battles Microsoft and Google in workplace AI
 - Decision: `unreviewed`

@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from .benchmark import write_benchmark_pack
+from .agent_briefing import create_agent_briefing
 from .digests import (
     build_email_digest,
     build_slack_digest,
@@ -80,7 +81,14 @@ def main(argv: list[str] | None = None) -> int:
 
     if not args.skip_digests:
         email_digest = build_email_digest(payload)
-        slack_digest = build_slack_digest(payload)
+        raw_slack_digest = build_slack_digest(payload)
+
+        try:
+            slack_digest = create_agent_briefing(raw_slack_digest)
+        except Exception as error:
+            print(f"Agent briefing failed, using normal digest: {error}")
+            slack_digest = raw_slack_digest
+
         email_path, slack_path = write_digests(email_digest, slack_digest, outdir)
         print(f"Wrote email digest to {email_path}")
         print(f"Wrote Slack digest to {slack_path}")

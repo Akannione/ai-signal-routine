@@ -1,45 +1,45 @@
 # AI Signal Briefing
 
-Generated: 2026-04-25 22:21 UTC
+Generated: 2026-04-26 06:29 UTC
 
 ## Snapshot
 
 - Reviewed 18 ranked signals for `ai-analytics-operator`.
-- Strongest themes: `coding-agents` (15), `research-radar` (13), `workflow-automation` (12), `analytics-ai` (6).
+- Strongest themes: `coding-agents` (15), `research-radar` (13), `workflow-automation` (11), `data-science-systems` (5).
 - Review queue: `implement` 0, `test` 0, `watch` 0, `unreviewed` 18.
-- Highest-priority signal: [browser-use/browser-use](https://github.com/browser-use/browser-use).
+- Highest-priority signal: [openai/openai-agents-python](https://github.com/openai/openai-agents-python).
 
 ## Top Signals
 
 | Score | Source | Published | Decision | Signal | Why it matters |
 | --- | --- | --- | --- | --- | --- |
-| 94.0 | GitHub Watchlist | 2026-04-25 | unreviewed | [browser-use/browser-use](https://github.com/browser-use/browser-use) | Hits your focus: agent, agents, automation; Fresh signal from the last week; Strong adoption signal: 90,267 GitHub stars |
-| 94.0 | GitHub Watchlist | 2026-04-25 | unreviewed | [openai/openai-agents-python](https://github.com/openai/openai-agents-python) | Hits your focus: agent, agents, llm; Fresh signal from the last week; Strong adoption signal: 25,139 GitHub stars |
-| 94.0 | GitHub Watchlist | 2026-04-25 | unreviewed | [OpenHands/OpenHands](https://github.com/OpenHands/OpenHands) | Hits your focus: agent, claude, developer; Fresh signal from the last week; Strong adoption signal: 72,074 GitHub stars |
-| 83.0 | GitHub Radar | 2026-04-25 | unreviewed | [affaan-m/everything-claude-code](https://github.com/affaan-m/everything-claude-code) | Hits your focus: agent, agents, anthropic; Business angle: memo, productivity; Fresh signal from the last week |
-| 76.0 | GitHub Radar | 2026-04-25 | unreviewed | [ultraworkers/claw-code](https://github.com/ultraworkers/claw-code) | Hits your focus: agent, codex, coding; Fresh signal from the last week; Strong adoption signal: 188,349 GitHub stars |
-| 76.0 | GitHub Radar | 2026-04-25 | unreviewed | [ollama/ollama](https://github.com/ollama/ollama) | Hits your focus: agent, coding, llm; Fresh signal from the last week; Strong adoption signal: 169,993 GitHub stars |
+| 94.0 | GitHub Watchlist | 2026-04-26 | unreviewed | [openai/openai-agents-python](https://github.com/openai/openai-agents-python) | Hits your focus: agent, agents, llm; Fresh signal from the last week; Strong adoption signal: 25,198 GitHub stars |
+| 94.0 | GitHub Watchlist | 2026-04-26 | unreviewed | [browser-use/browser-use](https://github.com/browser-use/browser-use) | Hits your focus: agent, agents, automation; Fresh signal from the last week; Strong adoption signal: 90,325 GitHub stars |
+| 94.0 | GitHub Watchlist | 2026-04-26 | unreviewed | [OpenHands/OpenHands](https://github.com/OpenHands/OpenHands) | Hits your focus: agent, claude, developer; Fresh signal from the last week; Strong adoption signal: 72,090 GitHub stars |
+| 83.0 | GitHub Radar | 2026-04-26 | unreviewed | [affaan-m/everything-claude-code](https://github.com/affaan-m/everything-claude-code) | Hits your focus: agent, agents, anthropic; Business angle: memo, productivity; Fresh signal from the last week |
+| 76.0 | GitHub Radar | 2026-04-26 | unreviewed | [ollama/ollama](https://github.com/ollama/ollama) | Hits your focus: agent, coding, llm; Fresh signal from the last week; Strong adoption signal: 170,022 GitHub stars |
+| 76.0 | GitHub Radar | 2026-04-26 | unreviewed | [ultraworkers/claw-code](https://github.com/ultraworkers/claw-code) | Hits your focus: agent, codex, coding; Fresh signal from the last week; Strong adoption signal: 188,412 GitHub stars |
 | 71.0 | VentureBeat AI | 2026-01-13 | unreviewed | [Salesforce rolls out new Slackbot AI agent as it battles Microsoft and Google in workplace AI](https://venturebeat.com/technology/salesforce-rolls-out-new-slackbot-ai-agent-as-it-battles-microsoft-and) | Hits your focus: agent, agents, anthropic; Business angle: cost, customer |
 | 71.0 | arXiv | 2026-04-23 | unreviewed | [Speculative Actions: A Lossless Framework for Faster Agentic Systems](https://arxiv.org/abs/2510.04371v2) | Hits your focus: agent, agents, coding; Business angle: analysis, cost; Fresh signal from the last week |
-| 69.0 | Hacker News | 2026-04-18 | unreviewed | [Show HN: How Are You-elderly fall detection app I built solo with AI in 6 months](https://news.ycombinator.com/item?id=47819553) | Hits your focus: agent, agents, analytics; Business angle: analysis, cost |
 | 66.0 | arXiv | 2026-04-23 | unreviewed | [SQLyzr: A Comprehensive Benchmark and Evaluation Platform for Text-to-SQL](https://arxiv.org/abs/2604.21214v1) | Hits your focus: analytics, benchmark, data science; Business angle: analysis; Fresh signal from the last week |
 | 65.0 | AWS ML Blog | 2026-04-24 | unreviewed | [Building Workforce AI Agents with Visier and Amazon Quick](https://aws.amazon.com/blogs/machine-learning/building-workforce-ai-agents-with-visier-and-amazon-quick/) | Hits your focus: agent, agents, mcp; Fresh signal from the last week |
-| 65.0 | Hacker News | 2026-04-25 | unreviewed | [Show HN: Routiium – self-hosted LLM gateway with a tool-result guard](https://github.com/labiium/routiium) | Hits your focus: agent, analytics, llm; Fresh signal from the last week |
 | 63.0 | VentureBeat AI | 2026-01-19 | unreviewed | [Claude Code costs up to $200 a month. Goose does the same thing for free.](https://venturebeat.com/infrastructure/claude-code-costs-up-to-usd200-a-month-goose-does-the-same-thing-for-free) | Hits your focus: agent, agents, anthropic; Business angle: analysis, cost |
 | 63.0 | KDnuggets | 2026-04-24 | unreviewed | [7 Practical OpenClaw Use Cases You Should Know](https://www.kdnuggets.com/7-practical-openclaw-use-cases-you-should-know) | Hits your focus: agent, agents, analytics; Business angle: productivity; Fresh signal from the last week |
 | 63.0 | KDnuggets | 2026-04-22 | unreviewed | [10 GitHub Repositories To Master Claude Code](https://www.kdnuggets.com/10-github-repositories-to-master-claude-code) | Hits your focus: agent, agents, analytics; Fresh signal from the last week |
 | 63.0 | Hacker News | 2026-04-24 | unreviewed | [Show HN: Browser Harness – Gives LLM freedom to complete any browser task](https://github.com/browser-use/browser-harness) | Hits your focus: agent, browser, claude; Fresh signal from the last week |
 | 63.0 | arXiv | 2026-04-23 | unreviewed | [NPU Design for Diffusion Language Model Inference](https://arxiv.org/abs/2601.20706v2) | Hits your focus: analytics, data science, generative ai; Business angle: memo; Fresh signal from the last week |
+| 61.0 | Hacker News | 2026-04-25 | unreviewed | [Show HN: The Order of the Agents – Make Codex and Claude Create the Perfect PRD](https://github.com/btahir/agent-order) | Hits your focus: agent, agents, claude; Business angle: decision; Fresh signal from the last week |
 | 59.0 | OpenAI News | 2026-04-23 | unreviewed | [Automations](https://openai.com/academy/codex-automations) | Hits your focus: automation, codex, openai; Fresh signal from the last week |
+| 58.0 | VentureBeat AI | 2026-01-07 | unreviewed | [Nous Research's NousCoder-14B is an open-source coding model landing right in the Claude Code moment](https://venturebeat.com/technology/nous-researchs-nouscoder-14b-is-an-open-source-coding-model-landing-right-in) | Hits your focus: agent, anthropic, benchmark; Business angle: efficiency, memo |
 
 ## GitHub Radar
 
-- [browser-use/browser-use](https://github.com/browser-use/browser-use) | 90,267 stars | unreviewed | 🌐 Make websites accessible for AI agents. Automate tasks online with ease. Stars: 90,267. Language: Python.
-- [openai/openai-agents-python](https://github.com/openai/openai-agents-python) | 25,139 stars | unreviewed | A lightweight, powerful framework for multi-agent workflows Stars: 25,139. Language: Python.
-- [OpenHands/OpenHands](https://github.com/OpenHands/OpenHands) | 72,074 stars | unreviewed | 🙌 OpenHands: AI-Driven Development Stars: 72,074. Language: Python.
-- [affaan-m/everything-claude-code](https://github.com/affaan-m/everything-claude-code) | 166,923 stars | unreviewed | The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond. Stars: 166,923. Language: JavaScript.
-- [ultraworkers/claw-code](https://github.com/ultraworkers/claw-code) | 188,349 stars | unreviewed | The repo is finally unlocked. enjoy the party! The fastest repo in history to surpass 100K stars ⭐. Join Discord: https://discord.gg/5TUQKqFWd Built in Rust using oh-my-codex. Stars: 188,349. Language: Rust.
-- [ollama/ollama](https://github.com/ollama/ollama) | 169,993 stars | unreviewed | Get up and running with Kimi-K2.5, GLM-5, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models. Stars: 169,993. Language: Go.
+- [openai/openai-agents-python](https://github.com/openai/openai-agents-python) | 25,198 stars | unreviewed | A lightweight, powerful framework for multi-agent workflows Stars: 25,198. Language: Python.
+- [browser-use/browser-use](https://github.com/browser-use/browser-use) | 90,325 stars | unreviewed | 🌐 Make websites accessible for AI agents. Automate tasks online with ease. Stars: 90,325. Language: Python.
+- [OpenHands/OpenHands](https://github.com/OpenHands/OpenHands) | 72,090 stars | unreviewed | 🙌 OpenHands: AI-Driven Development Stars: 72,090. Language: Python.
+- [affaan-m/everything-claude-code](https://github.com/affaan-m/everything-claude-code) | 167,106 stars | unreviewed | The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond. Stars: 167,106. Language: JavaScript.
+- [ollama/ollama](https://github.com/ollama/ollama) | 170,022 stars | unreviewed | Get up and running with Kimi-K2.5, GLM-5, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models. Stars: 170,022. Language: Go.
+- [ultraworkers/claw-code](https://github.com/ultraworkers/claw-code) | 188,412 stars | unreviewed | The repo is finally unlocked. enjoy the party! The fastest repo in history to surpass 100K stars ⭐. Join Discord: https://discord.gg/5TUQKqFWd Built in Rust using oh-my-codex. Stars: 188,412. Language: Rust.
 
 ## Mini Projects
 
