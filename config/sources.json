@@ -1,0 +1,198 @@
+{
+  "profile": {
+    "name": "ai-analytics-operator",
+    "description": "A high-signal feed for generative AI, data analytics, data science, and business workflow leverage.",
+    "topic_keywords": [
+      "agent",
+      "agents",
+      "generative ai",
+      "genai",
+      "llm",
+      "mcp",
+      "model context protocol",
+      "workflow",
+      "automation",
+      "analytics",
+      "data science",
+      "data engineering",
+      "sql",
+      "dashboard",
+      "warehouse",
+      "evaluation",
+      "observability",
+      "benchmark",
+      "browser",
+      "retrieval",
+      "rag",
+      "tool use",
+      "coding",
+      "developer",
+      "claude",
+      "codex",
+      "openai",
+      "anthropic",
+      "hugging face",
+      "dbt",
+      "databricks",
+      "snowflake",
+      "streamlit",
+      "notebook",
+      "mlops",
+      "copilot"
+    ],
+    "business_keywords": [
+      "sales",
+      "finance",
+      "operations",
+      "customer",
+      "productivity",
+      "roi",
+      "cost",
+      "efficiency",
+      "incident",
+      "reporting",
+      "forecast",
+      "decision",
+      "memo",
+      "analysis",
+      "book of business",
+      "spreadsheet"
+    ],
+    "learning_keywords": [
+      "tutorial",
+      "guide",
+      "example",
+      "demo",
+      "how to",
+      "cookbook",
+      "notebook",
+      "starter",
+      "quickstart"
+    ],
+    "source_group_weights": {
+      "official": 16,
+      "repo": 15,
+      "research": 12,
+      "community": 10,
+      "discussion": 8
+    }
+  },
+  "limits": {
+    "per_source": 6,
+    "final_items": 18,
+    "max_per_source_in_report": 3
+  },
+  "sources": [
+    {
+      "type": "rss",
+      "name": "OpenAI News",
+      "group": "official",
+      "url": "https://openai.com/news/rss.xml",
+      "tags": ["openai", "official"]
+    },
+    {
+      "type": "rss",
+      "name": "GitHub Blog",
+      "group": "official",
+      "url": "https://github.blog/feed/",
+      "tags": ["github", "developer"]
+    },
+    {
+      "type": "rss",
+      "name": "AWS ML Blog",
+      "group": "official",
+      "url": "https://aws.amazon.com/blogs/machine-learning/feed/",
+      "tags": ["aws", "mlops"]
+    },
+    {
+      "type": "rss",
+      "name": "Hugging Face Blog",
+      "group": "official",
+      "url": "https://huggingface.co/blog/feed.xml",
+      "tags": ["huggingface", "models"]
+    },
+    {
+      "type": "rss",
+      "name": "VentureBeat AI",
+      "group": "community",
+      "url": "https://venturebeat.com/category/ai/feed/",
+      "tags": ["industry", "ai"]
+    },
+    {
+      "type": "rss",
+      "name": "KDnuggets",
+      "group": "community",
+      "url": "https://www.kdnuggets.com/feed",
+      "tags": ["analytics", "data-science"]
+    },
+    {
+      "type": "hn_algolia",
+      "name": "Hacker News",
+      "group": "discussion",
+      "queries": [
+        "Claude Code",
+        "Codex",
+        "MCP",
+        "browser-use",
+        "AI agents",
+        "data analytics AI"
+      ],
+      "hits_per_query": 5,
+      "tags": ["discussion", "hacker-news"]
+    },
+    {
+      "type": "github_search",
+      "name": "GitHub Radar",
+      "group": "repo",
+      "queries": [
+        {
+          "query": "mcp in:name,description,readme stars:>500 archived:false",
+          "sort": "stars"
+        },
+        {
+          "query": "\"agentic coding\" OR \"coding agent\" in:name,description,readme stars:>500 archived:false",
+          "sort": "stars"
+        },
+        {
+          "query": "\"browser automation\" llm in:name,description,readme stars:>200 archived:false",
+          "sort": "stars"
+        },
+        {
+          "query": "\"data science\" llm in:name,description,readme stars:>200 archived:false",
+          "sort": "stars"
+        }
+      ],
+      "per_query": 5,
+      "tags": ["github", "repos"]
+    },
+    {
+      "type": "github_watchlist",
+      "name": "GitHub Watchlist",
+      "group": "repo",
+      "repos": [
+        "browser-use/browser-use",
+        "modelcontextprotocol/servers",
+        "All-Hands-AI/OpenHands",
+        "Aider-AI/aider",
+        "openai/openai-agents-python",
+        "microsoft/playwright-mcp",
+        "simonw/llm",
+        "evidentlyai/evidently",
+        "dagster-io/dagster",
+        "dbt-labs/dbt-core"
+      ],
+      "tags": ["github", "watchlist"]
+    },
+    {
+      "type": "arxiv",
+      "name": "arXiv",
+      "group": "research",
+      "queries": [
+        "all:(llm OR \"language model\") AND all:(agent OR \"tool use\" OR evaluation)",
+        "all:(analytics OR sql OR \"data science\") AND all:(llm OR \"generative ai\")"
+      ],
+      "per_query": 4,
+      "tags": ["research", "papers"]
+    }
+  ]
+}

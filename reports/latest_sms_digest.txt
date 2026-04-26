@@ -1,0 +1,6 @@
+AI intel 2026-04-25 22:21 UTC
+Queue: impl 0, test 0, watch 0
+Themes: coding-agents, research-radar
+1. browser-use/browser-use [unreviewed] score 94
+2. openai/openai-agents-python [unreviewed] score 94
+3. OpenHands/OpenHands [unreviewed] score 94

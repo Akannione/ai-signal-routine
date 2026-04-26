@@ -1,0 +1,11 @@
+run_date,task_id,tool,accuracy,speed,explanation,cleanup,business_value,overall_score,notes
+,tool-triage-memo,Claude,,,,,,,
+,tool-triage-memo,Codex,,,,,,,
+,analytics-copilot,Claude,,,,,,,
+,analytics-copilot,Codex,,,,,,,
+,notebook-to-pipeline,Claude,,,,,,,
+,notebook-to-pipeline,Codex,,,,,,,
+,etl-debugging,Claude,,,,,,,
+,etl-debugging,Codex,,,,,,,
+,dashboard-extension,Claude,,,,,,,
+,dashboard-extension,Codex,,,,,,,
