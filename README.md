@@ -15,6 +15,8 @@ This project monitors technical sources, scores each signal for career and busin
 Open the generated proof artifacts:
 
 - [Latest briefing](reports/latest_briefing.md)
+- [Sample briefing JSON](sample_data/sample_briefing.json)
+- [Sample operator memory](sample_data/sample_operator_memory.json)
 - [Benchmark tasks](benchmarks/benchmark_tasks.json)
 - [Benchmark scorecard](benchmarks/benchmark_scorecard.md)
 - [Results template](benchmarks/results_template.csv)
@@ -78,11 +80,19 @@ pip install -r requirements.txt
 python3 main.py
 ```
 
-Run the dashboard:
+Run the dashboard with a generated briefing:
 
 ```bash
 streamlit run dashboard.py
 ```
+
+Run the public-safe demo without API keys or private local files:
+
+```bash
+AI_SIGNAL_SAMPLE_MODE=1 streamlit run dashboard.py
+```
+
+If `reports/latest_briefing.json` does not exist, the dashboard automatically falls back to the sanitized files in `sample_data/`.
 
 Optional environment variables:
 
@@ -105,6 +115,11 @@ A normal run writes:
 - `benchmarks/benchmark_scorecard.md`
 - `benchmarks/results_template.csv`
 
+The public-safe demo reads:
+
+- `sample_data/sample_briefing.json`
+- `sample_data/sample_operator_memory.json`
+
 ## Dashboard Workflow
 
 The Streamlit dashboard helps you:
@@ -116,16 +131,26 @@ The Streamlit dashboard helps you:
 - review generated mini-project ideas
 - keep a repeatable loop for weekly experimentation
 
+## Public-Safe Sample Workflow
+
+The sample data shows the workflow shape without exposing live research sources, tokens, local paths, or private notes:
+
+1. A synthetic signal enters the briefing with score, source, tags, and rationale.
+2. The operator memory layer labels it as `watch`, `test`, `implement`, or `archive`.
+3. The dashboard turns those labels into an action queue.
+4. Mini-project prompts connect the highest-value signals to portfolio builds.
+5. Email and Slack-style digests convert the queue into stakeholder-ready summaries.
+
 ## Roadmap
 
 The next version is the [AI Ops Command Center](ROADMAP.md): a public-safe dashboard that combines signal queue review, benchmark results, project backlog, automation opportunities, and a weekly executive brief.
 
-Immediate next build:
+Version 1 progress:
 
-- Add sanitized sample briefing data.
-- Add sanitized sample operator memory data.
-- Add a true Streamlit dashboard screenshot from sample data.
-- Add a demo path that works without private API keys.
+- Added sanitized sample briefing data.
+- Added sanitized sample operator memory data.
+- Added a demo path that works without private API keys.
+- Remaining: add a true Streamlit dashboard screenshot from sample data.
 
 ## Portfolio Relevance
 
@@ -140,11 +165,10 @@ That makes it relevant to:
 
 ## Next Improvements
 
-- Add true Streamlit dashboard screenshots from a fresh public-safe run.
-- Add a sample-data demo mode that does not require private credentials.
+- Add a true Streamlit dashboard screenshot from a fresh public-safe run.
 - Add a SQLite-backed trend layer for signal history and stale actions.
 - Add a Power BI or Looker-style export view for analyst-facing portfolio polish.
-- Publish a sanitized sample briefing and operator memory file.
+- Add tests for sample data loading, scoring, and dashboard data transforms.
 - Promote stronger local automation extensions after private paths and machine-specific scripts are cleaned.
 
 ## Related Portfolio Projects
