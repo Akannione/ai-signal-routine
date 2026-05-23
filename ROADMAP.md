@@ -18,6 +18,7 @@ AI Signal Routine already provides:
 - Streamlit review workflow
 - benchmark files for comparing Claude and Codex on recurring work
 - mini-project generation from high-signal themes
+- a public-safe sample data path for demoing the dashboard without private credentials
 
 This is enough to show a working AI operations loop. The next phase should make the system easier to review, demo, and explain in under one minute.
 
@@ -25,13 +26,17 @@ This is enough to show a working AI operations loop. The next phase should make 
 
 Goal: make the project immediately understandable to a recruiter, hiring manager, or technical reviewer.
 
-Planned work:
+Completed:
 
-- Add a sanitized sample briefing JSON file.
-- Add a sanitized sample operator memory file.
+- Added a sanitized sample briefing JSON file.
+- Added a sanitized sample operator memory file.
+- Added a small `sample_data/` folder so the app can run without private local files or API keys.
+- Added a dashboard demo mode with `AI_SIGNAL_SAMPLE_MODE=1 streamlit run dashboard.py`.
+- Added README documentation explaining the sample workflow from signal to decision.
+
+Remaining:
+
 - Add a public-safe Streamlit screenshot from sample data.
-- Add a README section explaining the sample workflow from signal to decision.
-- Add a small `sample_data/` folder so the app can run without private local files or API keys.
 
 Success criteria:
 
@@ -123,6 +128,6 @@ This roadmap is designed to support four role lanes:
 
 ## Immediate Next Build
 
-Start with Version 1.
+Version 1 now has sample data and a public-safe dashboard path.
 
-The highest-leverage next task is to add a public-safe sample data path and a real Streamlit screenshot. That turns the project from a polished README into a reviewable product artifact.
+The highest-leverage next task is to run the dashboard from the sample path, capture a real Streamlit screenshot, and replace the static preview image with that visual proof. After that, move into Version 3 by adding a lightweight SQLite trend layer so the project becomes stronger for analytics and BI roles.
