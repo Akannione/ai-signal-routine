@@ -6,7 +6,7 @@ The goal is not to read more AI news. The goal is to decide what is worth learni
 
 ## 30-Second Summary
 
-This project monitors technical sources, scores each signal for career and business relevance, writes decision-ready briefings, and creates mini-project ideas from the strongest themes. It is built for an analytics and AI operations workflow: discover signals, filter hype, choose the next experiment, and keep a record of what deserves action.
+This project monitors technical sources, scores each signal for career and business relevance, writes decision-ready briefings, records signal history in SQLite, and creates mini-project ideas from the strongest themes. It is built for an analytics and AI operations workflow: discover signals, filter hype, choose the next experiment, and keep a record of what deserves action.
 
 ## Visual Proof
 
@@ -28,8 +28,9 @@ Open the generated proof artifacts:
 
 - Python automation for recurring research and reporting
 - Signal scoring logic for AI, analytics, and workflow tooling
-- Streamlit dashboarding for review and action tracking
-- Markdown/JSON report generation for decision briefs
+- SQLite history modeling for trend reporting and stale-action review
+- Streamlit dashboarding for review, action tracking, and trend analysis
+- Markdown/JSON/CSV report generation for decision briefs and analytics exports
 - Memory layer for `watch`, `test`, `implement`, and `archive` decisions
 - Benchmark workflow for comparing Claude and Codex on recurring tasks
 - Business judgment around which AI tools create real leverage
@@ -49,16 +50,19 @@ Then it:
 1. Scores each item by relevance, freshness, business value, learning value, and adoption signals.
 2. Groups signals into themes such as coding agents, workflow automation, analytics AI, data science systems, and research radar.
 3. Produces a ranked briefing in Markdown and JSON.
-4. Generates email and Slack-style digest files.
-5. Maintains a lightweight memory file for decisions and next actions.
-6. Creates mini-project prompts from the strongest signals.
-7. Provides a Streamlit dashboard for reviewing the queue.
+4. Writes signal history to SQLite for trend analysis.
+5. Exports history tables to CSV for Excel, Power BI, or stakeholder reporting.
+6. Generates email and Slack-style digest files.
+7. Maintains a lightweight memory file for decisions and next actions.
+8. Creates mini-project prompts from the strongest signals.
+9. Provides a Streamlit dashboard for reviewing the queue and trend history.
 
 ## System Flow
 
 ```text
 Sources -> scoring -> ranked briefing -> dashboard review -> memory update -> next experiment
                          |                    |
+                         |                    -> SQLite history -> trends / CSV exports
                          |                    -> benchmark tasks
                          -> email / Slack digest outputs
 ```
@@ -67,8 +71,9 @@ Sources -> scoring -> ranked briefing -> dashboard review -> memory update -> ne
 
 - Python
 - Streamlit
+- SQLite
 - requests
-- Markdown and JSON report outputs
+- Markdown, JSON, and CSV report outputs
 - GitHub/API-oriented source collection
 - Local file-based memory and benchmark artifacts
 
@@ -80,6 +85,8 @@ source .venv/bin/activate
 pip install -r requirements.txt
 python3 main.py
 ```
+
+A normal run writes the latest briefing, digest files, benchmark files, SQLite history database, and CSV history exports.
 
 Run the dashboard with a generated briefing:
 
@@ -94,6 +101,12 @@ AI_SIGNAL_SAMPLE_MODE=1 streamlit run dashboard.py
 ```
 
 If `reports/latest_briefing.json` does not exist, the dashboard automatically falls back to the sanitized files in `sample_data/`.
+
+Optional CLI controls:
+
+- `python3 main.py --skip-history` skips SQLite and CSV history outputs.
+- `python3 main.py --history-db data/custom_history.sqlite` writes history to a custom database path.
+- `python3 main.py --history-export-dir reports/custom_history_exports` writes CSV exports to a custom folder.
 
 Optional environment variables:
 
@@ -112,6 +125,12 @@ A normal run writes:
 - `reports/latest_email_digest.md`
 - `reports/latest_slack_digest.txt`
 - `data/operator_memory.json`
+- `data/signal_history.sqlite`
+- `reports/history_exports/signal_history_runs.csv`
+- `reports/history_exports/signal_history_signals.csv`
+- `reports/history_exports/signal_history_decision_counts.csv`
+- `reports/history_exports/signal_history_source_counts.csv`
+- `reports/history_exports/signal_history_themes.csv`
 - `benchmarks/benchmark_tasks.json`
 - `benchmarks/benchmark_scorecard.md`
 - `benchmarks/results_template.csv`
@@ -121,6 +140,12 @@ The public-safe demo reads:
 - `sample_data/sample_briefing.json`
 - `sample_data/sample_operator_memory.json`
 
+The public-safe demo writes generated local history to:
+
+- `data/sample_signal_history.sqlite`
+
+Generated SQLite databases and CSV export folders are ignored by git.
+
 ## Dashboard Workflow
 
 The Streamlit dashboard helps you:
@@ -129,8 +154,21 @@ The Streamlit dashboard helps you:
 - inspect source, score, theme, and rationale
 - label items as `watch`, `test`, `implement`, or `archive`
 - capture notes and next actions
+- review historical run trends from SQLite
+- inspect decision, source, theme, open-action, and stale-action tables
+- export history tables to CSV
 - review generated mini-project ideas
 - keep a repeatable loop for weekly experimentation
+
+## SQLite Trend Layer
+
+The history layer turns each briefing into analytics-ready tables:
+
+- `briefing_runs` stores run-level metrics such as item count, review count, decision counts, top theme, and average score.
+- `signals` stores each ranked signal with source, score, decision, priority, next action, linked project, tags, and theme hint.
+- `theme_counts` stores theme distribution by run.
+
+This makes the project stronger for analytics and BI roles because the workflow now has durable data modeling, trend views, CSV exports, and stale-action reporting instead of only a latest-report snapshot.
 
 ## Public-Safe Sample Workflow
 
@@ -139,12 +177,13 @@ The sample data shows the workflow shape without exposing live research sources,
 1. A synthetic signal enters the briefing with score, source, tags, and rationale.
 2. The operator memory layer labels it as `watch`, `test`, `implement`, or `archive`.
 3. The dashboard turns those labels into an action queue.
-4. Mini-project prompts connect the highest-value signals to portfolio builds.
-5. Email and Slack-style digests convert the queue into stakeholder-ready summaries.
+4. The SQLite trend layer records the briefing for run history and exportable analytics.
+5. Mini-project prompts connect the highest-value signals to portfolio builds.
+6. Email and Slack-style digests convert the queue into stakeholder-ready summaries.
 
 ## Roadmap
 
-The next version is the [AI Ops Command Center](ROADMAP.md): a public-safe dashboard that combines signal queue review, benchmark results, project backlog, automation opportunities, and a weekly executive brief.
+The next version is the [AI Ops Command Center](ROADMAP.md): a public-safe dashboard that combines signal queue review, benchmark results, project backlog, automation opportunities, trend history, and a weekly executive brief.
 
 Version 1 progress:
 
@@ -153,9 +192,16 @@ Version 1 progress:
 - Added a demo path that works without private API keys.
 - Added a real Streamlit dashboard screenshot from the sample workflow.
 
+Version 3 progress:
+
+- Added SQLite signal history storage.
+- Added dashboard trend tables.
+- Added CSV history exports.
+- Added stale-action reporting foundation.
+
 ## Portfolio Relevance
 
-This project is aimed at AI operations and analytics automation roles. It shows that I can build a system that does more than summarize content: it creates a decision process around emerging tools, business value, implementation risk, and next experiments.
+This project is aimed at AI operations and analytics automation roles. It shows that I can build a system that does more than summarize content: it creates a decision process around emerging tools, business value, implementation risk, next experiments, and historical reporting.
 
 That makes it relevant to:
 
@@ -166,9 +212,9 @@ That makes it relevant to:
 
 ## Next Improvements
 
-- Add a SQLite-backed trend layer for signal history and stale actions.
+- Capture a fresh Trends tab screenshot from the public-safe sample workflow.
 - Add a Power BI or Looker-style export view for analyst-facing portfolio polish.
-- Add tests for sample data loading, scoring, and dashboard data transforms.
+- Add richer weekly summary tables for trend deltas and stale actions.
 - Promote stronger local automation extensions after private paths and machine-specific scripts are cleaned.
 
 ## Related Portfolio Projects
