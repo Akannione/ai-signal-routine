@@ -10,13 +10,14 @@ This project monitors technical sources, scores each signal for career and busin
 
 ## Visual Proof
 
-![AI Signal Routine briefing preview](assets/screenshots/ai_signal_briefing_preview.svg)
+![AI Signal Routine sample dashboard](assets/screenshots/ai_signal_streamlit_sample.png)
 
 Open the generated proof artifacts:
 
 - [Latest briefing](reports/latest_briefing.md)
 - [Sample briefing JSON](sample_data/sample_briefing.json)
 - [Sample operator memory](sample_data/sample_operator_memory.json)
+- [Static briefing preview](assets/screenshots/ai_signal_briefing_preview.svg)
 - [Benchmark tasks](benchmarks/benchmark_tasks.json)
 - [Benchmark scorecard](benchmarks/benchmark_scorecard.md)
 - [Results template](benchmarks/results_template.csv)
@@ -150,7 +151,7 @@ Version 1 progress:
 - Added sanitized sample briefing data.
 - Added sanitized sample operator memory data.
 - Added a demo path that works without private API keys.
-- Remaining: add a true Streamlit dashboard screenshot from sample data.
+- Added a real Streamlit dashboard screenshot from the sample workflow.
 
 ## Portfolio Relevance
 
@@ -165,7 +166,6 @@ That makes it relevant to:
 
 ## Next Improvements
 
-- Add a true Streamlit dashboard screenshot from a fresh public-safe run.
 - Add a SQLite-backed trend layer for signal history and stale actions.
 - Add a Power BI or Looker-style export view for analyst-facing portfolio polish.
 - Add tests for sample data loading, scoring, and dashboard data transforms.
