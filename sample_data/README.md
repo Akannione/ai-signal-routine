@@ -15,4 +15,6 @@ AI_SIGNAL_SAMPLE_MODE=1 streamlit run dashboard.py
 
 The dashboard also falls back to this folder automatically when `reports/latest_briefing.json` does not exist.
 
+When the sample dashboard runs, it writes a generated local SQLite history database to `data/sample_signal_history.sqlite`. That database is ignored by git and can be deleted or regenerated at any time.
+
 The sample links use `example.com` intentionally. They are placeholders for demonstrating the workflow shape, not live research sources.
