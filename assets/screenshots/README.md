@@ -9,12 +9,12 @@ These files provide quick visual proof for the portfolio README and LinkedIn/pro
 
 ## Next Screenshot Targets
 
+- SQLite Trends tab from the public-safe sample workflow.
 - Generated Markdown briefing in a browser or editor preview.
 - Benchmark scorecard summary.
-- Future SQLite trend view after the analytics layer is added.
 
 Quality rules:
 
 - Do not include private local paths, tokens, personal phone numbers, or private config values.
 - Keep sample data sanitized and focused on the workflow.
-- Lead with the action queue and decisions, not raw news volume.
+- Lead with the action queue, decisions, and trend history, not raw news volume.
