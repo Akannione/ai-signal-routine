@@ -1,0 +1,268 @@
+{
+  "generated_at": "2026-05-23T12:00:00+00:00",
+  "profile": "Public AI Operations Demo",
+  "top_sources": [
+    {
+      "source": "Synthetic AI Ops Radar",
+      "count": 1
+    },
+    {
+      "source": "Synthetic Analytics Radar",
+      "count": 1
+    },
+    {
+      "source": "Synthetic Automation Radar",
+      "count": 1
+    },
+    {
+      "source": "Synthetic Benchmark Radar",
+      "count": 1
+    },
+    {
+      "source": "Synthetic News Radar",
+      "count": 1
+    }
+  ],
+  "themes": [
+    {
+      "theme": "workflow-automation",
+      "count": 2
+    },
+    {
+      "theme": "analytics-ops",
+      "count": 2
+    },
+    {
+      "theme": "ai-operations",
+      "count": 1
+    }
+  ],
+  "memory_summary": {
+    "unreviewed": 0,
+    "watch": 1,
+    "test": 2,
+    "implement": 1,
+    "archive": 1,
+    "reviewed": 5,
+    "total": 5
+  },
+  "items": [
+    {
+      "title": "AI workflow orchestration moves from experiments to operating routines",
+      "url": "https://example.com/signals/workflow-orchestration",
+      "source": "Synthetic AI Ops Radar",
+      "group": "ai_operations",
+      "source_type": "sample",
+      "published_at": "2026-05-22T14:00:00+00:00",
+      "summary": "Teams are standardizing repeatable AI workflows instead of running one-off prompts, creating demand for dashboards, decision queues, and operator memory.",
+      "tags": [
+        "ai-operations",
+        "workflow-automation",
+        "process-design"
+      ],
+      "score": 92.0,
+      "rationale": [
+        "High business leverage for recurring research and reporting loops",
+        "Maps directly to operator dashboards and queue management",
+        "Useful for AI operations and solutions engineering interviews"
+      ],
+      "operator": {
+        "decision": "implement",
+        "priority": "high",
+        "notes": "Build this into the command center view first.",
+        "next_action": "Turn the weekly signal review into a dashboard tab with decision states.",
+        "linked_project": "AI Ops Command Center",
+        "updated_at": "2026-05-23T12:00:00+00:00"
+      },
+      "metadata": {
+        "category": "ai_operations",
+        "freshness_days": 1,
+        "scorecard": {
+          "business_value": 28,
+          "career_value": 24,
+          "learning_value": 20,
+          "adoption_signal": 20
+        }
+      }
+    },
+    {
+      "title": "SQL quality checks become table stakes for analytics automation",
+      "url": "https://example.com/signals/sql-quality-checks",
+      "source": "Synthetic Analytics Radar",
+      "group": "analytics_ops",
+      "source_type": "sample",
+      "published_at": "2026-05-21T16:30:00+00:00",
+      "summary": "Analytics teams are adding automated checks for duplicate rows, missing fields, stale extracts, and KPI drift before reports reach stakeholders.",
+      "tags": [
+        "sql",
+        "data-quality",
+        "analytics-automation"
+      ],
+      "score": 88.0,
+      "rationale": [
+        "Strong fit for data analytics and BI portfolio positioning",
+        "Connects automation to measurable reporting reliability",
+        "Can become a reusable quality gate for weekly operations reports"
+      ],
+      "operator": {
+        "decision": "test",
+        "priority": "high",
+        "notes": "Prototype against the operations reporting sample dataset.",
+        "next_action": "Add a data quality checklist and failing-row export to the reporting workflow.",
+        "linked_project": "Business Operations Reporting System",
+        "updated_at": "2026-05-23T12:00:00+00:00"
+      },
+      "metadata": {
+        "category": "analytics_ops",
+        "freshness_days": 2,
+        "scorecard": {
+          "business_value": 26,
+          "career_value": 25,
+          "learning_value": 18,
+          "adoption_signal": 19
+        }
+      }
+    },
+    {
+      "title": "Lead research workflows shift toward human-in-the-loop automation",
+      "url": "https://example.com/signals/lead-research-automation",
+      "source": "Synthetic Automation Radar",
+      "group": "sales_operations",
+      "source_type": "sample",
+      "published_at": "2026-05-20T11:15:00+00:00",
+      "summary": "Sales operations teams are using automation to enrich accounts, prioritize outreach, and keep humans focused on judgment calls.",
+      "tags": [
+        "crm",
+        "sales-operations",
+        "automation"
+      ],
+      "score": 84.0,
+      "rationale": [
+        "Supports CRM and solutions engineering story",
+        "Shows automation judgment without fully automating sensitive outreach",
+        "Pairs well with pipeline scoring dashboards"
+      ],
+      "operator": {
+        "decision": "watch",
+        "priority": "medium",
+        "notes": "Keep this tied to analytics and prioritization, not spam automation.",
+        "next_action": "Track whether the CRM demo needs an enrichment or next-best-action view.",
+        "linked_project": "CRM Sales Pipeline Automation System",
+        "updated_at": "2026-05-23T12:00:00+00:00"
+      },
+      "metadata": {
+        "category": "sales_operations",
+        "freshness_days": 3,
+        "scorecard": {
+          "business_value": 24,
+          "career_value": 22,
+          "learning_value": 17,
+          "adoption_signal": 21
+        }
+      }
+    },
+    {
+      "title": "Benchmarking AI assistants needs repeatable tasks, not vibes",
+      "url": "https://example.com/signals/benchmarking-ai-assistants",
+      "source": "Synthetic Benchmark Radar",
+      "group": "ai_evaluation",
+      "source_type": "sample",
+      "published_at": "2026-05-19T09:45:00+00:00",
+      "summary": "Teams are comparing AI tools using repeatable tasks, defined success criteria, and notes on where each tool is strongest.",
+      "tags": [
+        "ai-evaluation",
+        "benchmarking",
+        "operator-playbook"
+      ],
+      "score": 80.0,
+      "rationale": [
+        "Strengthens AI operations credibility",
+        "Turns tool comparison into an evidence-based workflow",
+        "Creates reusable portfolio proof for automation roles"
+      ],
+      "operator": {
+        "decision": "test",
+        "priority": "medium",
+        "notes": "Keep the benchmark lightweight and focused on real workflows.",
+        "next_action": "Run one task through the benchmark pack and record a scored result.",
+        "linked_project": "Claude vs Codex Benchmark Pack",
+        "updated_at": "2026-05-23T12:00:00+00:00"
+      },
+      "metadata": {
+        "category": "ai_evaluation",
+        "freshness_days": 4,
+        "scorecard": {
+          "business_value": 20,
+          "career_value": 24,
+          "learning_value": 20,
+          "adoption_signal": 16
+        }
+      }
+    },
+    {
+      "title": "Raw AI news summaries create more noise than decisions",
+      "url": "https://example.com/signals/raw-news-summaries",
+      "source": "Synthetic News Radar",
+      "group": "research_hygiene",
+      "source_type": "sample",
+      "published_at": "2026-05-18T08:00:00+00:00",
+      "summary": "Generic summaries can be useful for awareness, but they rarely explain which workflow should change next.",
+      "tags": [
+        "research",
+        "triage",
+        "decision-support"
+      ],
+      "score": 61.0,
+      "rationale": [
+        "Useful contrast for the repo's decision-first positioning",
+        "Lower implementation value than workflow-specific signals",
+        "Good candidate for archive unless tied to a concrete project"
+      ],
+      "operator": {
+        "decision": "archive",
+        "priority": "low",
+        "notes": "Archive unless a future item ties this to a concrete workflow change.",
+        "next_action": "No action needed.",
+        "linked_project": "",
+        "updated_at": "2026-05-23T12:00:00+00:00"
+      },
+      "metadata": {
+        "category": "research_hygiene",
+        "freshness_days": 5,
+        "scorecard": {
+          "business_value": 12,
+          "career_value": 16,
+          "learning_value": 18,
+          "adoption_signal": 15
+        }
+      }
+    }
+  ],
+  "mini_projects": [
+    {
+      "title": "Weekly AI Ops Command Center",
+      "why_now": "The strongest signal is the need to convert AI tooling noise into a weekly decision routine.",
+      "build_scope": "Add a dashboard view that shows signal status, next action, linked project, and weekly summary metrics.",
+      "stack": "Python, Streamlit, JSON, optional SQLite",
+      "success_metric": "A reviewer can understand the weekly AI operations workflow in under one minute.",
+      "prompt_seed": "Design a weekly AI operations review that turns ranked signals into watch, test, implement, and archive decisions."
+    },
+    {
+      "title": "Analytics Quality Alert Pack",
+      "why_now": "The analytics signal shows clear value in preventing bad rows and stale metrics from reaching stakeholders.",
+      "build_scope": "Create checks for duplicate records, missing KPI fields, stale dates, and unexpected metric shifts.",
+      "stack": "Python, SQL, pandas, SQLite",
+      "success_metric": "The reporting workflow outputs both the dashboard and a clear data quality exception list.",
+      "prompt_seed": "Build a lightweight quality gate for an operations reporting pipeline before generating stakeholder dashboards."
+    },
+    {
+      "title": "Lead Research Automation Brief",
+      "why_now": "Sales operations workflows benefit from automation when they preserve human review and prioritization.",
+      "build_scope": "Add a sample next-best-action table for CRM leads using score, stage, risk, and recommended follow-up.",
+      "stack": "Python, Streamlit, CSV, SQLite",
+      "success_metric": "A sales ops reviewer can see which leads need action and why.",
+      "prompt_seed": "Create a human-in-the-loop CRM prioritization workflow that explains recommended next actions."
+    }
+  ],
+  "errors": []
+}
