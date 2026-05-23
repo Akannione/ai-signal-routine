@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -27,6 +28,8 @@ from ai_signal_routine.memory import (  # noqa: E402
 
 REPORT_PATH = ROOT / "reports" / "latest_briefing.json"
 MEMORY_PATH = ROOT / "data" / "operator_memory.json"
+SAMPLE_REPORT_PATH = ROOT / "sample_data" / "sample_briefing.json"
+SAMPLE_MEMORY_PATH = ROOT / "sample_data" / "sample_operator_memory.json"
 BENCHMARK_DIR = ROOT / "benchmarks"
 
 
@@ -50,17 +53,27 @@ def main() -> None:
     st.title("AI Signal Routine")
     st.caption("Delivery, memory, and evaluation for your AI operator workflow.")
 
-    if not REPORT_PATH.exists():
-        st.error("No briefing found yet. Run `python3 main.py` first.")
+    report_path, memory_path, using_sample_data = resolve_data_paths()
+    if not report_path.exists():
+        st.error(
+            "No briefing found yet. Run `python3 main.py` first, or run "
+            "`AI_SIGNAL_SAMPLE_MODE=1 streamlit run dashboard.py` for the public-safe demo."
+        )
         return
 
-    payload = json.loads(REPORT_PATH.read_text(encoding="utf-8"))
-    memory = ensure_memory_file(MEMORY_PATH)
+    payload = json.loads(report_path.read_text(encoding="utf-8"))
+    memory = ensure_memory_file(memory_path)
     payload = enrich_payload_with_memory(payload, memory)
 
     benchmark_paths = write_benchmark_pack(BENCHMARK_DIR)
     email_digest = build_email_digest(payload)
     slack_digest = build_slack_digest(payload)
+
+    if using_sample_data:
+        st.info(
+            "Demo mode is using sanitized sample data from `sample_data/`. "
+            "Run `python3 main.py` to generate a live briefing."
+        )
 
     render_header(payload)
 
@@ -69,7 +82,7 @@ def main() -> None:
     )
 
     with tab_radar:
-        render_radar(payload, memory)
+        render_radar(payload, memory, memory_path)
 
     with tab_queue:
         render_queue(payload)
@@ -82,6 +95,22 @@ def main() -> None:
 
     with tab_benchmark:
         render_benchmark(benchmark_paths)
+
+
+def resolve_data_paths() -> tuple[Path, Path, bool]:
+    sample_mode = os.getenv("AI_SIGNAL_SAMPLE_MODE", "").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+        "demo",
+    }
+    if sample_mode:
+        return SAMPLE_REPORT_PATH, SAMPLE_MEMORY_PATH, True
+    if REPORT_PATH.exists():
+        return REPORT_PATH, MEMORY_PATH, False
+    if SAMPLE_REPORT_PATH.exists():
+        return SAMPLE_REPORT_PATH, SAMPLE_MEMORY_PATH, True
+    return REPORT_PATH, MEMORY_PATH, False
 
 
 def render_header(payload: dict) -> None:
@@ -117,7 +146,7 @@ def render_header(payload: dict) -> None:
         )
 
 
-def render_radar(payload: dict, memory: dict) -> None:
+def render_radar(payload: dict, memory: dict, memory_path: Path) -> None:
     items = payload.get("items", [])
     all_sources = sorted({item["source"] for item in items})
 
@@ -200,7 +229,7 @@ def render_radar(payload: dict, memory: dict) -> None:
                 next_action=next_action,
                 linked_project=linked_project,
             )
-            save_memory(MEMORY_PATH, memory)
+            save_memory(memory_path, memory)
             st.success("Memory saved.")
             st.rerun()
 
