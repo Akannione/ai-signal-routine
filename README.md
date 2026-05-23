@@ -1,36 +1,60 @@
 # AI Signal Routine
 
-This project gives you a practical monitoring loop for:
+AI Signal Routine is a Python and Streamlit workflow for turning noisy AI, analytics, and automation updates into a ranked action queue.
 
-- generative AI news and tooling
-- data analytics and data science ideas
-- open-source repo adoption signals
-- Claude and Codex workflow opportunities
-- mini-project generation for ongoing skill growth
-- a memory layer for decisions and notes
-- delivery digests for email and Slack
-- a benchmark harness for Claude vs Codex on recurring work
+The goal is not to read more AI news. The goal is to decide what is worth learning, testing, building with, monetizing, or ignoring.
 
-It is intentionally built as a `signal system`, not a generic scraper. The goal is to help you decide what is worth learning, testing, or implementing.
+## 30-Second Summary
+
+This project monitors technical sources, scores each signal for career and business relevance, writes decision-ready briefings, and creates mini-project ideas from the strongest themes. It is built for an analytics and AI operations workflow: discover signals, filter hype, choose the next experiment, and keep a record of what deserves action.
+
+## What It Demonstrates
+
+- Python automation for recurring research and reporting
+- Signal scoring logic for AI, analytics, and workflow tooling
+- Streamlit dashboarding for review and action tracking
+- Markdown/JSON report generation for decision briefs
+- Memory layer for `watch`, `test`, `implement`, and `archive` decisions
+- Benchmark workflow for comparing Claude and Codex on recurring tasks
+- Business judgment around which AI tools create real leverage
 
 ## What It Does
 
-The pipeline pulls from multiple sources:
+The routine pulls from sources such as:
 
-- official blogs and release feeds
-- GitHub repository search
-- Hacker News discussion
+- official product and engineering blogs
+- GitHub repository search and watchlists
+- Hacker News discussions
 - arXiv research feeds
+- AI, analytics, and automation-focused sources configured in `config/sources.json`
 
 Then it:
 
-- scores items by relevance, business value, freshness, and learning potential
-- ranks the strongest signals
-- writes a Markdown briefing and JSON payload
-- stores your `watch`, `test`, and `implement` decisions
-- writes email and Slack digest files
-- creates a benchmark pack for Claude and Codex
-- generates mini-project ideas from the strongest themes
+1. Scores each item by relevance, freshness, business value, learning value, and adoption signals.
+2. Groups signals into themes such as coding agents, workflow automation, analytics AI, data science systems, and research radar.
+3. Produces a ranked briefing in Markdown and JSON.
+4. Generates email and Slack-style digest files.
+5. Maintains a lightweight memory file for decisions and next actions.
+6. Creates mini-project prompts from the strongest signals.
+7. Provides a Streamlit dashboard for reviewing the queue.
+
+## System Flow
+
+```text
+Sources -> scoring -> ranked briefing -> dashboard review -> memory update -> next experiment
+                         |                    |
+                         |                    -> benchmark tasks
+                         -> email / Slack digest outputs
+```
+
+## Tech Stack
+
+- Python
+- Streamlit
+- requests
+- Markdown and JSON report outputs
+- GitHub/API-oriented source collection
+- Local file-based memory and benchmark artifacts
 
 ## Quick Start
 
@@ -41,31 +65,23 @@ pip install -r requirements.txt
 python3 main.py
 ```
 
-Optional:
-
-- Set `GITHUB_TOKEN` for higher GitHub API limits.
-- Set `SLACK_WEBHOOK_URL` to send the Slack digest automatically.
-- Set `SMTP_HOST`, `SMTP_FROM`, and `SMTP_TO` to send the email digest automatically.
-
-## Dashboard
-
-Run the dashboard with:
+Run the dashboard:
 
 ```bash
 streamlit run dashboard.py
 ```
 
-The dashboard lets you:
+Optional environment variables:
 
-- review signals visually
-- label items as `watch`, `test`, `implement`, or `archive`
-- capture notes and next actions
-- regenerate digest files from your current queue
-- review the benchmark pack in one place
+- `GITHUB_TOKEN` for higher GitHub API limits
+- `SLACK_WEBHOOK_URL` if you want to wire digest delivery later
+- `SMTP_HOST`, `SMTP_FROM`, and `SMTP_TO` if you want email delivery later
 
-## Output
+Do not commit local env files or API keys. Keep private settings in ignored local config files.
 
-The main run writes:
+## Outputs
+
+A normal run writes:
 
 - `reports/latest_briefing.md`
 - `reports/latest_briefing.json`
@@ -76,31 +92,39 @@ The main run writes:
 - `benchmarks/benchmark_scorecard.md`
 - `benchmarks/results_template.csv`
 
-It also archives timestamped copies in `reports/archive/`.
+## Dashboard Workflow
 
-## Customize It
+The Streamlit dashboard helps you:
 
-Edit `config/sources.json` to:
+- review the highest-scoring signals
+- inspect source, score, theme, and rationale
+- label items as `watch`, `test`, `implement`, or `archive`
+- capture notes and next actions
+- review generated mini-project ideas
+- keep a repeatable loop for weekly experimentation
 
-- add or remove sources
-- change keyword priorities
-- tune scoring weights
-- narrow the routine toward business use cases, analytics, or pure engineering
+## Portfolio Relevance
 
-## How To Use The System
+This project is aimed at AI operations and analytics automation roles. It shows that I can build a system that does more than summarize content: it creates a decision process around emerging tools, business value, implementation risk, and next experiments.
 
-Each day:
+That makes it relevant to:
 
-1. Read the top 5 items.
-2. In the dashboard, label each one as `watch`, `test`, `implement`, or `archive`.
-3. Add one next action to the top item you care about.
-4. Send or archive the digest.
+- AI Operations / AI Workflow Specialist roles
+- Automation Analyst roles
+- Data Analyst and BI Analyst roles with AI tooling exposure
+- Solutions Engineering roles where technical research must become a clear recommendation
 
-Each week:
+## Next Improvements
 
-1. Build one small project from the report.
-2. Use the benchmark pack to compare Claude and Codex on one recurring task.
-3. Use Claude to pressure-test the idea and Codex to implement it.
-4. Keep notes on which tools saved time, improved quality, or were mostly hype.
+- Add screenshots of the Streamlit dashboard and generated briefing.
+- Add a short walkthrough video.
+- Rename the public repo to `ai-signal-routine` to remove the trailing hyphen.
+- Add a Power BI or Looker-style export view for analyst-facing portfolio polish.
+- Publish a sanitized sample briefing and operator memory file.
+- Promote the stronger local WSL automation extensions after private paths and machine-specific scripts are cleaned.
 
-The playbook for that loop is in `docs/operator_playbook.md`.
+## Related Portfolio Projects
+
+- [Business Operations Reporting System](https://github.com/Akannione/business-operations-reporting-system)
+- [CRM Sales Pipeline Automation System](https://github.com/Akannione/crm-sales-pipeline-automation-system)
+- [AlignDeskApp Demo](https://github.com/Akannione/aligndeskapp-demo)
