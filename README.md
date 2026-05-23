@@ -19,6 +19,7 @@ Open the generated proof artifacts:
 - [Benchmark scorecard](benchmarks/benchmark_scorecard.md)
 - [Results template](benchmarks/results_template.csv)
 - [Operator playbook](docs/operator_playbook.md)
+- [Roadmap: AI Ops Command Center](ROADMAP.md)
 
 ## What It Demonstrates
 
@@ -115,6 +116,17 @@ The Streamlit dashboard helps you:
 - review generated mini-project ideas
 - keep a repeatable loop for weekly experimentation
 
+## Roadmap
+
+The next version is the [AI Ops Command Center](ROADMAP.md): a public-safe dashboard that combines signal queue review, benchmark results, project backlog, automation opportunities, and a weekly executive brief.
+
+Immediate next build:
+
+- Add sanitized sample briefing data.
+- Add sanitized sample operator memory data.
+- Add a true Streamlit dashboard screenshot from sample data.
+- Add a demo path that works without private API keys.
+
 ## Portfolio Relevance
 
 This project is aimed at AI operations and analytics automation roles. It shows that I can build a system that does more than summarize content: it creates a decision process around emerging tools, business value, implementation risk, and next experiments.
@@ -129,11 +141,11 @@ That makes it relevant to:
 ## Next Improvements
 
 - Add true Streamlit dashboard screenshots from a fresh public-safe run.
-- Add a short walkthrough video.
-- Rename the public repo to `ai-signal-routine` to remove the trailing hyphen.
+- Add a sample-data demo mode that does not require private credentials.
+- Add a SQLite-backed trend layer for signal history and stale actions.
 - Add a Power BI or Looker-style export view for analyst-facing portfolio polish.
 - Publish a sanitized sample briefing and operator memory file.
-- Promote the stronger local WSL automation extensions after private paths and machine-specific scripts are cleaned.
+- Promote stronger local automation extensions after private paths and machine-specific scripts are cleaned.
 
 ## Related Portfolio Projects
 
