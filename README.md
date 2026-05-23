@@ -8,6 +8,18 @@ The goal is not to read more AI news. The goal is to decide what is worth learni
 
 This project monitors technical sources, scores each signal for career and business relevance, writes decision-ready briefings, and creates mini-project ideas from the strongest themes. It is built for an analytics and AI operations workflow: discover signals, filter hype, choose the next experiment, and keep a record of what deserves action.
 
+## Visual Proof
+
+![AI Signal Routine briefing preview](assets/screenshots/ai_signal_briefing_preview.svg)
+
+Open the generated proof artifacts:
+
+- [Latest briefing](reports/latest_briefing.md)
+- [Benchmark tasks](benchmarks/benchmark_tasks.json)
+- [Benchmark scorecard](benchmarks/benchmark_scorecard.md)
+- [Results template](benchmarks/results_template.csv)
+- [Operator playbook](docs/operator_playbook.md)
+
 ## What It Demonstrates
 
 - Python automation for recurring research and reporting
@@ -116,7 +128,7 @@ That makes it relevant to:
 
 ## Next Improvements
 
-- Add screenshots of the Streamlit dashboard and generated briefing.
+- Add true Streamlit dashboard screenshots from a fresh public-safe run.
 - Add a short walkthrough video.
 - Rename the public repo to `ai-signal-routine` to remove the trailing hyphen.
 - Add a Power BI or Looker-style export view for analyst-facing portfolio polish.
