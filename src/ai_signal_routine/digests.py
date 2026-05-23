@@ -22,6 +22,16 @@ def build_slack_digest(payload: dict[str, Any], max_items: int = 3) -> str:
         lines.append(f"Themes: {clean}")
         lines.append("")
 
+    queue = payload.get("memory_summary", {})
+    if queue:
+        lines.append(
+            "*Queue:* "
+            f"Implement {queue.get('implement', 0)} | "
+            f"Test {queue.get('test', 0)} | "
+            f"Watch {queue.get('watch', 0)}"
+        )
+        lines.append("")
+
     items = payload.get("items", [])[:max_items]
 
     lines.append("Top Signals:")
@@ -52,6 +62,7 @@ def build_slack_digest(payload: dict[str, Any], max_items: int = 3) -> str:
     message = "\n".join(lines)
 
     return message[:1400]  # hard cap to keep ONE message
+
 
 def build_email_digest(payload: dict[str, Any], max_items: int = 8) -> str:
     lines: list[str] = []
