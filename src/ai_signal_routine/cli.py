@@ -15,6 +15,7 @@ from .digests import (
     send_slack_digest,
     write_digests,
 )
+from .history import export_history_tables, record_briefing
 from .memory import attach_memory_to_items, ensure_memory_file
 from .mini_projects import generate_projects
 from .reporting import build_markdown_report, build_report_payload, write_reports
@@ -40,6 +41,21 @@ def main(argv: list[str] | None = None) -> int:
         help="Path to the operator memory JSON file.",
     )
     parser.add_argument(
+        "--history-db",
+        default="data/signal_history.sqlite",
+        help="Path to the SQLite history database for trend reporting.",
+    )
+    parser.add_argument(
+        "--history-export-dir",
+        default="reports/history_exports",
+        help="Directory where history CSV exports will be written.",
+    )
+    parser.add_argument(
+        "--skip-history",
+        action="store_true",
+        help="Skip writing the SQLite history database and CSV exports.",
+    )
+    parser.add_argument(
         "--benchmark-dir",
         default="benchmarks",
         help="Directory where the benchmark pack will be written.",
@@ -59,6 +75,8 @@ def main(argv: list[str] | None = None) -> int:
     config_path = Path(args.config)
     outdir = Path(args.outdir)
     memory_path = Path(args.memory)
+    history_db = Path(args.history_db)
+    history_export_dir = Path(args.history_export_dir)
     benchmark_dir = Path(args.benchmark_dir)
     config = load_config(config_path)
 
@@ -78,6 +96,16 @@ def main(argv: list[str] | None = None) -> int:
 
     print(f"Wrote {len(selected)} ranked items to {latest_md}")
     print(f"Wrote JSON payload to {latest_json}")
+
+    if not args.skip_history:
+        history_result = record_briefing(history_db, payload)
+        export_paths = export_history_tables(history_db, history_export_dir)
+        print(
+            "Wrote SQLite history to "
+            f"{history_db} ({history_result['items_recorded']} signals in run {history_result['run_id']})"
+        )
+        if export_paths:
+            print(f"Wrote history CSV exports to {history_export_dir}")
 
     if not args.skip_digests:
         email_digest = build_email_digest(payload)
