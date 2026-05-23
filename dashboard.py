@@ -16,6 +16,11 @@ if str(SRC) not in sys.path:
 
 from ai_signal_routine.benchmark import BENCHMARK_PACK, write_benchmark_pack  # noqa: E402
 from ai_signal_routine.digests import build_email_digest, build_slack_digest, write_digests  # noqa: E402
+from ai_signal_routine.history import (  # noqa: E402
+    build_history_snapshot,
+    export_history_tables,
+    record_briefing,
+)
 from ai_signal_routine.memory import (  # noqa: E402
     VALID_DECISIONS,
     VALID_PRIORITIES,
@@ -28,8 +33,11 @@ from ai_signal_routine.memory import (  # noqa: E402
 
 REPORT_PATH = ROOT / "reports" / "latest_briefing.json"
 MEMORY_PATH = ROOT / "data" / "operator_memory.json"
+HISTORY_PATH = ROOT / "data" / "signal_history.sqlite"
 SAMPLE_REPORT_PATH = ROOT / "sample_data" / "sample_briefing.json"
 SAMPLE_MEMORY_PATH = ROOT / "sample_data" / "sample_operator_memory.json"
+SAMPLE_HISTORY_PATH = ROOT / "data" / "sample_signal_history.sqlite"
+HISTORY_EXPORT_DIR = ROOT / "reports" / "history_exports"
 BENCHMARK_DIR = ROOT / "benchmarks"
 
 
@@ -54,6 +62,7 @@ def main() -> None:
     st.caption("Delivery, memory, and evaluation for your AI operator workflow.")
 
     report_path, memory_path, using_sample_data = resolve_data_paths()
+    history_path = SAMPLE_HISTORY_PATH if using_sample_data else HISTORY_PATH
     if not report_path.exists():
         st.error(
             "No briefing found yet. Run `python3 main.py` first, or run "
@@ -68,6 +77,7 @@ def main() -> None:
     benchmark_paths = write_benchmark_pack(BENCHMARK_DIR)
     email_digest = build_email_digest(payload)
     slack_digest = build_slack_digest(payload)
+    history_result = record_briefing(history_path, payload)
 
     if using_sample_data:
         st.info(
@@ -77,8 +87,8 @@ def main() -> None:
 
     render_header(payload)
 
-    tab_radar, tab_queue, tab_projects, tab_digests, tab_benchmark = st.tabs(
-        ["Radar", "Queue", "Mini Projects", "Digests", "Benchmark"]
+    tab_radar, tab_queue, tab_trends, tab_projects, tab_digests, tab_benchmark = st.tabs(
+        ["Radar", "Queue", "Trends", "Mini Projects", "Digests", "Benchmark"]
     )
 
     with tab_radar:
@@ -86,6 +96,9 @@ def main() -> None:
 
     with tab_queue:
         render_queue(payload)
+
+    with tab_trends:
+        render_trends(history_path, history_result, using_sample_data)
 
     with tab_projects:
         render_projects(payload)
@@ -256,6 +269,59 @@ def render_queue(payload: dict) -> None:
             )
 
 
+def render_trends(history_path: Path, history_result: dict, using_sample_data: bool) -> None:
+    st.subheader("SQLite Trend History")
+    snapshot = build_history_snapshot(history_path)
+    relative_path = _relative_path(history_path)
+    st.caption(f"SQLite store: `{relative_path}` | run `{history_result.get('run_id', 'unknown')}`")
+    if using_sample_data:
+        st.info(
+            "Sample mode writes a generated local history database to `data/sample_signal_history.sqlite`. "
+            "The database is ignored by git; CSV exports can be regenerated anytime."
+        )
+
+    latest_run = snapshot.get("latest_run") or {}
+    metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
+    metric_col1.metric("Runs", snapshot.get("run_count", 0))
+    metric_col2.metric("Signals Stored", snapshot.get("signal_count", 0))
+    metric_col3.metric("Latest Avg Score", latest_run.get("avg_score", 0))
+    metric_col4.metric("Open Actions", len(snapshot.get("open_actions", [])))
+
+    st.markdown("### Run Trend")
+    _dataframe_or_caption(snapshot.get("trend_rows", []), "No history rows have been recorded yet.")
+
+    decision_col, source_col, theme_col = st.columns(3, gap="large")
+    with decision_col:
+        st.markdown("### Decisions")
+        _dataframe_or_caption(snapshot.get("decision_counts", []), "No decision counts yet.")
+    with source_col:
+        st.markdown("### Sources")
+        _dataframe_or_caption(snapshot.get("source_counts", []), "No source counts yet.")
+    with theme_col:
+        st.markdown("### Themes")
+        _dataframe_or_caption(snapshot.get("theme_counts", []), "No theme counts yet.")
+
+    st.markdown("### Open Actions")
+    _dataframe_or_caption(snapshot.get("open_actions", []), "No open actions in the latest run.")
+
+    st.markdown("### Stale Actions")
+    stale_actions = snapshot.get("stale_actions", [])
+    if stale_actions:
+        st.dataframe(stale_actions, use_container_width=True, hide_index=True)
+    else:
+        st.caption(
+            f"No open actions older than {snapshot.get('stale_after_days', 14)} days in the latest run."
+        )
+
+    if st.button("Export history CSVs", use_container_width=False):
+        paths = export_history_tables(history_path, HISTORY_EXPORT_DIR)
+        if paths:
+            exported = ", ".join(_relative_path(path) for path in paths.values())
+            st.success(f"Exported {len(paths)} files: {exported}")
+        else:
+            st.warning("No history database exists yet.")
+
+
 def render_projects(payload: dict) -> None:
     st.subheader("Mini Projects")
     for project in payload.get("mini_projects", []):
@@ -321,6 +387,20 @@ def _matches_search(item: dict, search: str) -> bool:
         ]
     ).lower()
     return search.lower() in haystack
+
+
+def _relative_path(path: Path) -> str:
+    try:
+        return str(path.relative_to(ROOT))
+    except ValueError:
+        return str(path)
+
+
+def _dataframe_or_caption(rows: list[dict], empty_message: str) -> None:
+    if rows:
+        st.dataframe(rows, use_container_width=True, hide_index=True)
+    else:
+        st.caption(empty_message)
 
 
 if __name__ == "__main__":
