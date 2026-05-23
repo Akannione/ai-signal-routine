@@ -4,13 +4,14 @@ These files provide quick visual proof for the portfolio README and LinkedIn/pro
 
 ## Included
 
-- `ai_signal_briefing_preview.svg`: portfolio preview of the generated AI operator briefing workflow.
+- `ai_signal_streamlit_sample.png`: real Streamlit dashboard screenshot captured from the sanitized sample workflow.
+- `ai_signal_briefing_preview.svg`: static portfolio preview of the generated AI operator briefing workflow.
 
 ## Next Screenshot Targets
 
-- Streamlit dashboard queue review screen.
 - Generated Markdown briefing in a browser or editor preview.
 - Benchmark scorecard summary.
+- Future SQLite trend view after the analytics layer is added.
 
 Quality rules:
 
