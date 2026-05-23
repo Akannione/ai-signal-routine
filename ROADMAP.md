@@ -20,8 +20,9 @@ AI Signal Routine already provides:
 - mini-project generation from high-signal themes
 - a public-safe sample data path for demoing the dashboard without private credentials
 - a real Streamlit screenshot captured from the sample workflow
+- SQLite signal history for trend reporting and CSV analytics exports
 
-This is enough to show a working AI operations loop. The next phase should make the system stronger as an analytics product, not just an automation demo.
+This is enough to show a working AI operations loop with a real analytics layer. The next phase should make the trend history more visually polished and easier to explain in one screenshot.
 
 ## Version 1: Public-Safe Proof Layer
 
@@ -49,6 +50,7 @@ Goal: turn the dashboard into a compact command center for AI operations and ana
 Planned dashboard tabs:
 
 - `Signal Queue`: ranked signals with score, source, category, recommendation, and decision status.
+- `Trends`: SQLite-backed run history, decision counts, source counts, open actions, and stale actions.
 - `Benchmarks`: Claude/Codex task results, scores, notes, and best-use recommendations.
 - `Project Backlog`: generated mini-project ideas grouped by career value and build scope.
 - `Automation Opportunities`: recurring workflows that could become scripts, dashboards, or client offers.
@@ -65,13 +67,19 @@ Success criteria:
 
 Goal: make the project stronger for data analytics and BI roles.
 
-Planned work:
+Completed:
 
 - Store signal history in SQLite.
-- Add trend views by source, category, recommendation, and theme.
-- Add freshness and stale-action tracking.
-- Add CSV exports for signal history, decision queue, and benchmark results.
+- Add trend views by source, decision, theme, score, and run.
+- Add stale-action tracking foundation.
+- Add CSV exports for signal history, decision counts, source counts, themes, and runs.
+
+Remaining:
+
+- Add richer trend deltas by source, category, recommendation, and theme.
 - Add a weekly summary table that can be opened in Excel or Power BI.
+- Add a polished Trends tab screenshot for the README.
+- Add Power BI or Looker-style sample export documentation.
 
 Success criteria:
 
@@ -126,6 +134,6 @@ This roadmap is designed to support four role lanes:
 
 ## Immediate Next Build
 
-Version 1 is now complete enough for portfolio review.
+Version 3 now has its first real analytics layer.
 
-The highest-leverage next task is Version 3: add a lightweight SQLite trend layer so the project shows historical signal tracking, stale-action reporting, and exportable analytics tables. That will make the repo stronger for analytics, BI, AI operations, and solutions engineering roles at the same time.
+The highest-leverage next task is to capture a fresh screenshot of the new Trends tab from the sample workflow and then add a weekly summary export that turns SQLite history into a stakeholder-ready table. That will make the repo easier to understand visually and stronger for analytics interviews.
