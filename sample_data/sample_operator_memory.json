@@ -1,0 +1,55 @@
+{
+  "updated_at": "2026-05-23T12:00:00+00:00",
+  "signals": {
+    "https://example.com/signals/workflow-orchestration": {
+      "decision": "implement",
+      "priority": "high",
+      "notes": "Build this into the command center view first.",
+      "next_action": "Turn the weekly signal review into a dashboard tab with decision states.",
+      "linked_project": "AI Ops Command Center",
+      "title": "AI workflow orchestration moves from experiments to operating routines",
+      "source": "Synthetic AI Ops Radar",
+      "updated_at": "2026-05-23T12:00:00+00:00"
+    },
+    "https://example.com/signals/sql-quality-checks": {
+      "decision": "test",
+      "priority": "high",
+      "notes": "Prototype against the operations reporting sample dataset.",
+      "next_action": "Add a data quality checklist and failing-row export to the reporting workflow.",
+      "linked_project": "Business Operations Reporting System",
+      "title": "SQL quality checks become table stakes for analytics automation",
+      "source": "Synthetic Analytics Radar",
+      "updated_at": "2026-05-23T12:00:00+00:00"
+    },
+    "https://example.com/signals/lead-research-automation": {
+      "decision": "watch",
+      "priority": "medium",
+      "notes": "Keep this tied to analytics and prioritization, not spam automation.",
+      "next_action": "Track whether the CRM demo needs an enrichment or next-best-action view.",
+      "linked_project": "CRM Sales Pipeline Automation System",
+      "title": "Lead research workflows shift toward human-in-the-loop automation",
+      "source": "Synthetic Automation Radar",
+      "updated_at": "2026-05-23T12:00:00+00:00"
+    },
+    "https://example.com/signals/benchmarking-ai-assistants": {
+      "decision": "test",
+      "priority": "medium",
+      "notes": "Keep the benchmark lightweight and focused on real workflows.",
+      "next_action": "Run one task through the benchmark pack and record a scored result.",
+      "linked_project": "Claude vs Codex Benchmark Pack",
+      "title": "Benchmarking AI assistants needs repeatable tasks, not vibes",
+      "source": "Synthetic Benchmark Radar",
+      "updated_at": "2026-05-23T12:00:00+00:00"
+    },
+    "https://example.com/signals/raw-news-summaries": {
+      "decision": "archive",
+      "priority": "low",
+      "notes": "Archive unless a future item ties this to a concrete workflow change.",
+      "next_action": "No action needed.",
+      "linked_project": "",
+      "title": "Raw AI news summaries create more noise than decisions",
+      "source": "Synthetic News Radar",
+      "updated_at": "2026-05-23T12:00:00+00:00"
+    }
+  }
+}
