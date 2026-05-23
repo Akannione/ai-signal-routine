@@ -10,4 +10,6 @@ __pycache__/
 .runtime-test/
 logs/
 config/local.env
+data/*.sqlite
 reports/archive/
+reports/history_exports/
