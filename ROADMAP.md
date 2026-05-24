@@ -21,6 +21,7 @@ AI Signal Routine already provides:
 - a public-safe sample data path for demoing the dashboard without private credentials
 - a real Streamlit screenshot captured from the sample workflow
 - SQLite signal history for trend reporting and CSV analytics exports
+- a weekly summary export for stakeholder-ready operating reviews
 
 This is enough to show a working AI operations loop with a real analytics layer. The next phase should make the trend history more visually polished and easier to explain in one screenshot.
 
@@ -50,7 +51,7 @@ Goal: turn the dashboard into a compact command center for AI operations and ana
 Planned dashboard tabs:
 
 - `Signal Queue`: ranked signals with score, source, category, recommendation, and decision status.
-- `Trends`: SQLite-backed run history, decision counts, source counts, open actions, and stale actions.
+- `Trends`: SQLite-backed run history, weekly summary, decision counts, source counts, open actions, and stale actions.
 - `Benchmarks`: Claude/Codex task results, scores, notes, and best-use recommendations.
 - `Project Backlog`: generated mini-project ideas grouped by career value and build scope.
 - `Automation Opportunities`: recurring workflows that could become scripts, dashboards, or client offers.
@@ -73,11 +74,11 @@ Completed:
 - Add trend views by source, decision, theme, score, and run.
 - Add stale-action tracking foundation.
 - Add CSV exports for signal history, decision counts, source counts, themes, and runs.
+- Add a weekly summary table that can be opened in Excel or Power BI.
 
 Remaining:
 
 - Add richer trend deltas by source, category, recommendation, and theme.
-- Add a weekly summary table that can be opened in Excel or Power BI.
 - Add a polished Trends tab screenshot for the README.
 - Add Power BI or Looker-style sample export documentation.
 
@@ -134,6 +135,6 @@ This roadmap is designed to support four role lanes:
 
 ## Immediate Next Build
 
-Version 3 now has its first real analytics layer.
+Version 3 now has a stronger analytics layer and stakeholder-ready weekly summary export.
 
-The highest-leverage next task is to capture a fresh screenshot of the new Trends tab from the sample workflow and then add a weekly summary export that turns SQLite history into a stakeholder-ready table. That will make the repo easier to understand visually and stronger for analytics interviews.
+The highest-leverage next task is to capture a fresh screenshot of the new Trends tab from the sample workflow, then add Power BI or Looker-style sample export documentation. That will make the repo easier to understand visually and stronger for analytics interviews.
