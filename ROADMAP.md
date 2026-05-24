@@ -20,13 +20,14 @@ AI Signal Routine already provides:
 - mini-project generation from high-signal themes
 - a public-safe sample data path for demoing the dashboard without private credentials
 - a real Streamlit screenshot captured from the sample workflow
+- a static Trends tab proof mockup for the SQLite analytics layer
 - SQLite signal history for trend reporting and CSV analytics exports
 - a weekly summary export for stakeholder-ready operating reviews
 - run-over-run trend delta exports for open actions, average score, and review rate
 - analytics export documentation for Excel, Power BI, Looker Studio, and operating-review use cases
 - a BI-style export mockup for analyst-facing portfolio polish
 
-This is enough to show a working AI operations loop with a real analytics layer. The next phase should make the trend history more visually polished and easier to explain in one screenshot.
+This is enough to show a working AI operations loop with a real analytics layer. The next phase should replace the static Trends tab mockup with a live screenshot once local Streamlit capture is available.
 
 ## Version 1: Public-Safe Proof Layer
 
@@ -79,13 +80,14 @@ Completed:
 - Add CSV exports for signal history, decision counts, source counts, themes, and runs.
 - Add a weekly summary table that can be opened in Excel or Power BI.
 - Add run-level trend deltas for open actions, average score, and review rate.
+- Add a static Trends tab proof mockup while live local screenshot capture is blocked.
 - Add Power BI, Looker Studio, Excel, and operating-review export documentation.
 - Add a Power BI or Looker-style export mockup for analyst-facing portfolio polish.
 
 Remaining:
 
+- Replace the static Trends tab proof mockup with a live Streamlit screenshot when local capture is available.
 - Add deeper source, category, recommendation, theme, and stale-action delta breakdowns.
-- Add a polished Trends tab screenshot for the README.
 
 Success criteria:
 
@@ -140,6 +142,6 @@ This roadmap is designed to support four role lanes:
 
 ## Immediate Next Build
 
-Version 3 now has a stronger analytics layer, stakeholder-ready weekly summary export, run-level trend deltas, BI export documentation, and a BI-style mockup.
+Version 3 now has a stronger analytics layer, stakeholder-ready weekly summary export, run-level trend deltas, BI export documentation, a BI-style mockup, and a static Trends tab proof mockup.
 
-The highest-leverage next task is to capture a fresh screenshot of the new Trends tab from the sample workflow. After that, add deeper delta breakdowns for source, category, recommendation, theme, and stale actions.
+The highest-leverage next task is to replace the static Trends tab mockup with a live screenshot from the sample workflow when local Streamlit capture is available. After that, add deeper delta breakdowns for source, category, recommendation, theme, and stale actions.
