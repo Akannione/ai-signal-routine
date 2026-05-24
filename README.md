@@ -36,6 +36,7 @@ Open the generated proof artifacts:
 - Streamlit dashboarding for review, action tracking, and trend analysis
 - Markdown/JSON/CSV report generation for decision briefs and analytics exports
 - Stakeholder-ready weekly summary exports for Excel, Power BI, or operating reviews
+- Run-over-run trend deltas for open actions, average score, and review rate
 - Memory layer for `watch`, `test`, `implement`, and `archive` decisions
 - Benchmark workflow for comparing Claude and Codex on recurring tasks
 - Business judgment around which AI tools create real leverage
@@ -58,10 +59,11 @@ Then it:
 4. Writes signal history to SQLite for trend analysis.
 5. Exports history tables to CSV for Excel, Power BI, or stakeholder reporting.
 6. Generates a weekly summary CSV with review rate, action load, top source, top theme, and a plain-English summary.
-7. Generates email and Slack-style digest files.
-8. Maintains a lightweight memory file for decisions and next actions.
-9. Creates mini-project prompts from the strongest signals.
-10. Provides a Streamlit dashboard for reviewing the queue and trend history.
+7. Generates a trend delta CSV that compares each run against the previous run.
+8. Generates email and Slack-style digest files.
+9. Maintains a lightweight memory file for decisions and next actions.
+10. Creates mini-project prompts from the strongest signals.
+11. Provides a Streamlit dashboard for reviewing the queue and trend history.
 
 ## System Flow
 
@@ -134,6 +136,7 @@ A normal run writes:
 - `data/operator_memory.json`
 - `data/signal_history.sqlite`
 - `reports/history_exports/ai_signal_weekly_summary.csv`
+- `reports/history_exports/ai_signal_trend_deltas.csv`
 - `reports/history_exports/signal_history_runs.csv`
 - `reports/history_exports/signal_history_signals.csv`
 - `reports/history_exports/signal_history_decision_counts.csv`
@@ -163,9 +166,10 @@ The Streamlit dashboard helps you:
 - label items as `watch`, `test`, `implement`, or `archive`
 - capture notes and next actions
 - review historical run trends from SQLite
+- inspect run-over-run deltas for open actions, average score, and review rate
 - inspect a weekly summary table for stakeholder reporting
 - inspect decision, source, theme, open-action, and stale-action tables
-- export history tables and weekly summaries to CSV
+- export history tables, weekly summaries, and trend deltas to CSV
 - review generated mini-project ideas
 - keep a repeatable loop for weekly experimentation
 
@@ -177,10 +181,11 @@ The history layer turns each briefing into analytics-ready tables:
 - `signals` stores each ranked signal with source, score, decision, priority, next action, linked project, tags, and theme hint.
 - `theme_counts` stores theme distribution by run.
 - `ai_signal_weekly_summary.csv` packages the history into a compact operating-review table with review rate, open actions, top theme, top source, and stakeholder summary.
+- `ai_signal_trend_deltas.csv` compares each run with the previous run for open actions, average score, and review rate.
 
 The [analytics export guide](docs/analytics_export_guide.md) explains how to use these outputs in Excel, Power BI, Looker Studio, or an operating review.
 
-This makes the project stronger for analytics and BI roles because the workflow now has durable data modeling, trend views, CSV exports, stale-action reporting, and a summary table that can feed Excel, Power BI, or an executive operating review.
+This makes the project stronger for analytics and BI roles because the workflow now has durable data modeling, trend views, CSV exports, stale-action reporting, weekly summary output, and trend delta reporting that can feed Excel, Power BI, or an executive operating review.
 
 ## Public-Safe Sample Workflow
 
@@ -190,7 +195,7 @@ The sample data shows the workflow shape without exposing live research sources,
 2. The operator memory layer labels it as `watch`, `test`, `implement`, or `archive`.
 3. The dashboard turns those labels into an action queue.
 4. The SQLite trend layer records the briefing for run history and exportable analytics.
-5. The weekly summary export turns run history into a stakeholder-ready table.
+5. The weekly summary and trend delta exports turn run history into stakeholder-ready tables.
 6. Mini-project prompts connect the highest-value signals to portfolio builds.
 7. Email and Slack-style digests convert the queue into stakeholder-ready summaries.
 
@@ -212,6 +217,7 @@ Version 3 progress:
 - Added CSV history exports.
 - Added stale-action reporting foundation.
 - Added stakeholder-ready weekly summary export.
+- Added run-over-run trend delta export.
 - Added analytics export documentation for BI tools and operating reviews.
 - Added a BI-style export mockup for analyst-facing portfolio polish.
 
@@ -229,7 +235,7 @@ That makes it relevant to:
 ## Next Improvements
 
 - Capture a fresh Trends tab screenshot from the public-safe sample workflow.
-- Add richer trend deltas for source, category, recommendation, and stale actions.
+- Add source, category, recommendation, and stale-action delta breakdowns after the run-level trend delta export is exercised in the dashboard.
 - Promote stronger local automation extensions after private paths and machine-specific scripts are cleaned.
 
 ## Related Portfolio Projects
