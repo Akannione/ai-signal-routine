@@ -12,6 +12,7 @@ if str(SRC) not in sys.path:
 
 from ai_signal_routine.history import (  # noqa: E402
     build_history_snapshot,
+    build_weekly_summary,
     export_history_tables,
     record_briefing,
 )
@@ -124,6 +125,22 @@ class HistoryTests(unittest.TestCase):
             self.assertEqual(themes["workflow-automation"], 2)
             self.assertEqual(len(snapshot["open_actions"]), 3)
 
+    def test_weekly_summary_is_stakeholder_ready(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            db_path = Path(tmpdir) / "history.sqlite"
+            record_briefing(db_path, SAMPLE_PAYLOAD)
+            rows = build_weekly_summary(db_path)
+
+            self.assertEqual(len(rows), 1)
+            summary = rows[0]
+            self.assertEqual(summary["signals"], 3)
+            self.assertEqual(summary["reviewed"], 3)
+            self.assertEqual(summary["review_rate"], 1.0)
+            self.assertEqual(summary["open_actions"], 3)
+            self.assertEqual(summary["top_theme"], "workflow-automation")
+            self.assertEqual(summary["top_source"], "Synthetic AI Ops Radar")
+            self.assertIn("open actions", summary["stakeholder_summary"])
+
     def test_export_history_tables_writes_csvs(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
             root = Path(tmpdir)
@@ -134,8 +151,16 @@ class HistoryTests(unittest.TestCase):
 
             self.assertEqual(
                 set(paths),
-                {"runs", "signals", "decision_counts", "source_counts", "themes"},
+                {
+                    "runs",
+                    "signals",
+                    "decision_counts",
+                    "source_counts",
+                    "themes",
+                    "weekly_summary",
+                },
             )
+            self.assertEqual(paths["weekly_summary"].name, "ai_signal_weekly_summary.csv")
             for path in paths.values():
                 self.assertTrue(path.exists())
                 self.assertGreater(path.stat().st_size, 0)
