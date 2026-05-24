@@ -22,6 +22,7 @@ AI Signal Routine already provides:
 - a real Streamlit screenshot captured from the sample workflow
 - SQLite signal history for trend reporting and CSV analytics exports
 - a weekly summary export for stakeholder-ready operating reviews
+- run-over-run trend delta exports for open actions, average score, and review rate
 - analytics export documentation for Excel, Power BI, Looker Studio, and operating-review use cases
 - a BI-style export mockup for analyst-facing portfolio polish
 
@@ -77,12 +78,13 @@ Completed:
 - Add stale-action tracking foundation.
 - Add CSV exports for signal history, decision counts, source counts, themes, and runs.
 - Add a weekly summary table that can be opened in Excel or Power BI.
+- Add run-level trend deltas for open actions, average score, and review rate.
 - Add Power BI, Looker Studio, Excel, and operating-review export documentation.
 - Add a Power BI or Looker-style export mockup for analyst-facing portfolio polish.
 
 Remaining:
 
-- Add richer trend deltas by source, category, recommendation, and theme.
+- Add deeper source, category, recommendation, theme, and stale-action delta breakdowns.
 - Add a polished Trends tab screenshot for the README.
 
 Success criteria:
@@ -138,6 +140,6 @@ This roadmap is designed to support four role lanes:
 
 ## Immediate Next Build
 
-Version 3 now has a stronger analytics layer, stakeholder-ready weekly summary export, BI export documentation, and a BI-style mockup.
+Version 3 now has a stronger analytics layer, stakeholder-ready weekly summary export, run-level trend deltas, BI export documentation, and a BI-style mockup.
 
-The highest-leverage next task is to capture a fresh screenshot of the new Trends tab from the sample workflow. After that, add richer trend deltas for source, category, recommendation, and stale actions.
+The highest-leverage next task is to capture a fresh screenshot of the new Trends tab from the sample workflow. After that, add deeper delta breakdowns for source, category, recommendation, theme, and stale actions.
