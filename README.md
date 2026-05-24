@@ -12,12 +12,15 @@ This project monitors technical sources, scores each signal for career and busin
 
 ![AI Signal Routine sample dashboard](assets/screenshots/ai_signal_streamlit_sample.png)
 
+![AI Signal Routine BI export mockup](assets/screenshots/ai_signal_bi_export_mockup.svg)
+
 Open the generated proof artifacts:
 
 - [Latest briefing](reports/latest_briefing.md)
 - [Sample briefing JSON](sample_data/sample_briefing.json)
 - [Sample operator memory](sample_data/sample_operator_memory.json)
 - [Analytics export guide](docs/analytics_export_guide.md)
+- [BI export mockup](assets/screenshots/ai_signal_bi_export_mockup.svg)
 - [Static briefing preview](assets/screenshots/ai_signal_briefing_preview.svg)
 - [Benchmark tasks](benchmarks/benchmark_tasks.json)
 - [Benchmark scorecard](benchmarks/benchmark_scorecard.md)
@@ -210,6 +213,7 @@ Version 3 progress:
 - Added stale-action reporting foundation.
 - Added stakeholder-ready weekly summary export.
 - Added analytics export documentation for BI tools and operating reviews.
+- Added a BI-style export mockup for analyst-facing portfolio polish.
 
 ## Portfolio Relevance
 
@@ -225,7 +229,6 @@ That makes it relevant to:
 ## Next Improvements
 
 - Capture a fresh Trends tab screenshot from the public-safe sample workflow.
-- Add a Power BI or Looker-style export mockup for analyst-facing portfolio polish.
 - Add richer trend deltas for source, category, recommendation, and stale actions.
 - Promote stronger local automation extensions after private paths and machine-specific scripts are cleaned.
 
