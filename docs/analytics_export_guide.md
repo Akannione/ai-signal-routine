@@ -10,6 +10,12 @@ The main review question is:
 
 > Which signals changed, which actions are open, and what should be tested or implemented next?
 
+## Visual Mockup
+
+![BI export dashboard mockup](../assets/screenshots/ai_signal_bi_export_mockup.svg)
+
+This mockup shows how the exported CSV files can become an executive analytics view with review rate, open actions, decision mix, source quality, theme trend, and stakeholder summary.
+
 ## Export Files
 
 Run the normal workflow:
