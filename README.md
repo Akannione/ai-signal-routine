@@ -12,6 +12,8 @@ This project monitors technical sources, scores each signal for career and busin
 
 ![AI Signal Routine sample dashboard](assets/screenshots/ai_signal_streamlit_sample.png)
 
+![AI Signal Routine Trends tab proof mockup](assets/screenshots/ai_signal_trends_tab_mockup.svg)
+
 ![AI Signal Routine BI export mockup](assets/screenshots/ai_signal_bi_export_mockup.svg)
 
 Open the generated proof artifacts:
@@ -20,6 +22,7 @@ Open the generated proof artifacts:
 - [Sample briefing JSON](sample_data/sample_briefing.json)
 - [Sample operator memory](sample_data/sample_operator_memory.json)
 - [Analytics export guide](docs/analytics_export_guide.md)
+- [Trends tab proof mockup](assets/screenshots/ai_signal_trends_tab_mockup.svg)
 - [BI export mockup](assets/screenshots/ai_signal_bi_export_mockup.svg)
 - [Static briefing preview](assets/screenshots/ai_signal_briefing_preview.svg)
 - [Benchmark tasks](benchmarks/benchmark_tasks.json)
@@ -218,6 +221,7 @@ Version 3 progress:
 - Added stale-action reporting foundation.
 - Added stakeholder-ready weekly summary export.
 - Added run-over-run trend delta export.
+- Added a static Trends tab proof mockup while live local screenshot capture is blocked.
 - Added analytics export documentation for BI tools and operating reviews.
 - Added a BI-style export mockup for analyst-facing portfolio polish.
 
@@ -234,7 +238,7 @@ That makes it relevant to:
 
 ## Next Improvements
 
-- Capture a fresh Trends tab screenshot from the public-safe sample workflow.
+- Replace the static Trends tab proof mockup with a live Streamlit screenshot once local capture is available.
 - Add source, category, recommendation, and stale-action delta breakdowns after the run-level trend delta export is exercised in the dashboard.
 - Promote stronger local automation extensions after private paths and machine-specific scripts are cleaned.
 
