@@ -31,6 +31,7 @@ Open the generated proof artifacts:
 - SQLite history modeling for trend reporting and stale-action review
 - Streamlit dashboarding for review, action tracking, and trend analysis
 - Markdown/JSON/CSV report generation for decision briefs and analytics exports
+- Stakeholder-ready weekly summary exports for Excel, Power BI, or operating reviews
 - Memory layer for `watch`, `test`, `implement`, and `archive` decisions
 - Benchmark workflow for comparing Claude and Codex on recurring tasks
 - Business judgment around which AI tools create real leverage
@@ -52,10 +53,11 @@ Then it:
 3. Produces a ranked briefing in Markdown and JSON.
 4. Writes signal history to SQLite for trend analysis.
 5. Exports history tables to CSV for Excel, Power BI, or stakeholder reporting.
-6. Generates email and Slack-style digest files.
-7. Maintains a lightweight memory file for decisions and next actions.
-8. Creates mini-project prompts from the strongest signals.
-9. Provides a Streamlit dashboard for reviewing the queue and trend history.
+6. Generates a weekly summary CSV with review rate, action load, top source, top theme, and a plain-English summary.
+7. Generates email and Slack-style digest files.
+8. Maintains a lightweight memory file for decisions and next actions.
+9. Creates mini-project prompts from the strongest signals.
+10. Provides a Streamlit dashboard for reviewing the queue and trend history.
 
 ## System Flow
 
@@ -63,6 +65,7 @@ Then it:
 Sources -> scoring -> ranked briefing -> dashboard review -> memory update -> next experiment
                          |                    |
                          |                    -> SQLite history -> trends / CSV exports
+                         |                    -> weekly summary export
                          |                    -> benchmark tasks
                          -> email / Slack digest outputs
 ```
@@ -126,6 +129,7 @@ A normal run writes:
 - `reports/latest_slack_digest.txt`
 - `data/operator_memory.json`
 - `data/signal_history.sqlite`
+- `reports/history_exports/ai_signal_weekly_summary.csv`
 - `reports/history_exports/signal_history_runs.csv`
 - `reports/history_exports/signal_history_signals.csv`
 - `reports/history_exports/signal_history_decision_counts.csv`
@@ -155,8 +159,9 @@ The Streamlit dashboard helps you:
 - label items as `watch`, `test`, `implement`, or `archive`
 - capture notes and next actions
 - review historical run trends from SQLite
+- inspect a weekly summary table for stakeholder reporting
 - inspect decision, source, theme, open-action, and stale-action tables
-- export history tables to CSV
+- export history tables and weekly summaries to CSV
 - review generated mini-project ideas
 - keep a repeatable loop for weekly experimentation
 
@@ -167,8 +172,9 @@ The history layer turns each briefing into analytics-ready tables:
 - `briefing_runs` stores run-level metrics such as item count, review count, decision counts, top theme, and average score.
 - `signals` stores each ranked signal with source, score, decision, priority, next action, linked project, tags, and theme hint.
 - `theme_counts` stores theme distribution by run.
+- `ai_signal_weekly_summary.csv` packages the history into a compact operating-review table with review rate, open actions, top theme, top source, and stakeholder summary.
 
-This makes the project stronger for analytics and BI roles because the workflow now has durable data modeling, trend views, CSV exports, and stale-action reporting instead of only a latest-report snapshot.
+This makes the project stronger for analytics and BI roles because the workflow now has durable data modeling, trend views, CSV exports, stale-action reporting, and a summary table that can feed Excel, Power BI, or an executive operating review.
 
 ## Public-Safe Sample Workflow
 
@@ -178,8 +184,9 @@ The sample data shows the workflow shape without exposing live research sources,
 2. The operator memory layer labels it as `watch`, `test`, `implement`, or `archive`.
 3. The dashboard turns those labels into an action queue.
 4. The SQLite trend layer records the briefing for run history and exportable analytics.
-5. Mini-project prompts connect the highest-value signals to portfolio builds.
-6. Email and Slack-style digests convert the queue into stakeholder-ready summaries.
+5. The weekly summary export turns run history into a stakeholder-ready table.
+6. Mini-project prompts connect the highest-value signals to portfolio builds.
+7. Email and Slack-style digests convert the queue into stakeholder-ready summaries.
 
 ## Roadmap
 
@@ -198,6 +205,7 @@ Version 3 progress:
 - Added dashboard trend tables.
 - Added CSV history exports.
 - Added stale-action reporting foundation.
+- Added stakeholder-ready weekly summary export.
 
 ## Portfolio Relevance
 
@@ -214,7 +222,7 @@ That makes it relevant to:
 
 - Capture a fresh Trends tab screenshot from the public-safe sample workflow.
 - Add a Power BI or Looker-style export view for analyst-facing portfolio polish.
-- Add richer weekly summary tables for trend deltas and stale actions.
+- Add richer trend deltas for source, category, recommendation, and stale actions.
 - Promote stronger local automation extensions after private paths and machine-specific scripts are cleaned.
 
 ## Related Portfolio Projects
