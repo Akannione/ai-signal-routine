@@ -5,6 +5,7 @@ These files provide quick visual proof for the portfolio README and LinkedIn/pro
 ## Included
 
 - `ai_signal_streamlit_sample.png`: real Streamlit dashboard screenshot captured from the sanitized sample workflow.
+- `ai_signal_bi_export_mockup.svg`: BI-style dashboard mockup showing how the SQLite/CSV export layer can support executive analytics review.
 - `ai_signal_briefing_preview.svg`: static portfolio preview of the generated AI operator briefing workflow.
 
 ## Next Screenshot Targets
