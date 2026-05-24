@@ -23,6 +23,7 @@ AI Signal Routine already provides:
 - SQLite signal history for trend reporting and CSV analytics exports
 - a weekly summary export for stakeholder-ready operating reviews
 - analytics export documentation for Excel, Power BI, Looker Studio, and operating-review use cases
+- a BI-style export mockup for analyst-facing portfolio polish
 
 This is enough to show a working AI operations loop with a real analytics layer. The next phase should make the trend history more visually polished and easier to explain in one screenshot.
 
@@ -77,12 +78,12 @@ Completed:
 - Add CSV exports for signal history, decision counts, source counts, themes, and runs.
 - Add a weekly summary table that can be opened in Excel or Power BI.
 - Add Power BI, Looker Studio, Excel, and operating-review export documentation.
+- Add a Power BI or Looker-style export mockup for analyst-facing portfolio polish.
 
 Remaining:
 
 - Add richer trend deltas by source, category, recommendation, and theme.
 - Add a polished Trends tab screenshot for the README.
-- Add a Power BI or Looker-style export mockup for analyst-facing portfolio polish.
 
 Success criteria:
 
@@ -137,6 +138,6 @@ This roadmap is designed to support four role lanes:
 
 ## Immediate Next Build
 
-Version 3 now has a stronger analytics layer, stakeholder-ready weekly summary export, and BI export documentation.
+Version 3 now has a stronger analytics layer, stakeholder-ready weekly summary export, BI export documentation, and a BI-style mockup.
 
-The highest-leverage next task is to capture a fresh screenshot of the new Trends tab from the sample workflow. After that, add a Power BI or Looker-style export mockup for analyst-facing portfolio polish.
+The highest-leverage next task is to capture a fresh screenshot of the new Trends tab from the sample workflow. After that, add richer trend deltas for source, category, recommendation, and stale actions.
