@@ -166,16 +166,18 @@ def build_history_snapshot(path: Path, stale_after_days: int = 14) -> dict[str, 
             """,
         )
         latest_run_id = latest_run["run_id"] if latest_run else None
-        trend_rows = _all(
-            connection,
-            """
-            SELECT generated_at, item_count, reviewed_count, implement_count,
-                   test_count, watch_count, archive_count, unreviewed_count,
-                   top_theme, ROUND(avg_score, 1) AS avg_score
-            FROM briefing_runs
-            ORDER BY generated_at DESC, created_at DESC
-            LIMIT 12
-            """,
+        trend_rows = _with_run_deltas(
+            _all(
+                connection,
+                """
+                SELECT generated_at, item_count, reviewed_count, implement_count,
+                       test_count, watch_count, archive_count, unreviewed_count,
+                       top_theme, ROUND(avg_score, 1) AS avg_score
+                FROM briefing_runs
+                ORDER BY generated_at DESC, created_at DESC
+                LIMIT 12
+                """,
+            )
         )
         decision_counts = _group_rows(connection, latest_run_id, "decision")
         source_counts = _source_rows(connection, latest_run_id)
@@ -243,14 +245,10 @@ def build_weekly_summary(path: Path, limit: int = 8) -> list[dict[str, Any]]:
                 """,
                 (run_id,),
             )
-            open_action_count = (
-                _as_int(run.get("implement_count"))
-                + _as_int(run.get("test_count"))
-                + _as_int(run.get("watch_count"))
-            )
+            open_action_count = _open_action_count(run)
             item_count = _as_int(run.get("item_count"))
             reviewed_count = _as_int(run.get("reviewed_count"))
-            review_rate = round(reviewed_count / item_count, 3) if item_count else 0.0
+            review_rate = _review_rate(run)
             top_theme = run.get("top_theme") or ""
             summaries.append(
                 {
@@ -273,6 +271,26 @@ def build_weekly_summary(path: Path, limit: int = 8) -> list[dict[str, Any]]:
                 }
             )
     return summaries
+
+
+def build_trend_deltas(path: Path, limit: int = 8) -> list[dict[str, Any]]:
+    if not path.exists():
+        return []
+    initialize_history_db(path)
+    with _connect(path) as connection:
+        rows = _all(
+            connection,
+            """
+            SELECT generated_at, item_count, reviewed_count, implement_count,
+                   test_count, watch_count, archive_count, unreviewed_count,
+                   top_theme, ROUND(avg_score, 1) AS avg_score
+            FROM briefing_runs
+            ORDER BY generated_at DESC, created_at DESC
+            LIMIT ?
+            """,
+            (limit,),
+        )
+    return _with_run_deltas(rows)
 
 
 def export_history_tables(path: Path, outdir: Path) -> dict[str, Path]:
@@ -308,6 +326,10 @@ def export_history_tables(path: Path, outdir: Path) -> dict[str, Path]:
     weekly_summary_path = outdir / "ai_signal_weekly_summary.csv"
     _write_csv(weekly_summary_path, build_weekly_summary(path))
     paths["weekly_summary"] = weekly_summary_path
+
+    trend_delta_path = outdir / "ai_signal_trend_deltas.csv"
+    _write_csv(trend_delta_path, build_trend_deltas(path))
+    paths["trend_deltas"] = trend_delta_path
     return paths
 
 
@@ -464,6 +486,42 @@ def _empty_snapshot(path: Path) -> dict[str, Any]:
         "stale_actions": [],
         "stale_after_days": 14,
     }
+
+
+def _with_run_deltas(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    enriched: list[dict[str, Any]] = []
+    for index, row in enumerate(rows):
+        current = dict(row)
+        current_open_actions = _open_action_count(current)
+        current["open_actions"] = current_open_actions
+        current["review_rate"] = _review_rate(current)
+        previous = rows[index + 1] if index + 1 < len(rows) else None
+        if previous:
+            previous_open_actions = _open_action_count(previous)
+            current["open_actions_delta"] = current_open_actions - previous_open_actions
+            current["avg_score_delta"] = round(
+                float(current.get("avg_score") or 0.0) - float(previous.get("avg_score") or 0.0),
+                1,
+            )
+            current["review_rate_delta"] = round(_review_rate(current) - _review_rate(previous), 3)
+            current["comparison"] = "Compared with previous run"
+        else:
+            current["open_actions_delta"] = 0
+            current["avg_score_delta"] = 0.0
+            current["review_rate_delta"] = 0.0
+            current["comparison"] = "No previous run"
+        enriched.append(current)
+    return enriched
+
+
+def _open_action_count(row: dict[str, Any]) -> int:
+    return _as_int(row.get("implement_count")) + _as_int(row.get("test_count")) + _as_int(row.get("watch_count"))
+
+
+def _review_rate(row: dict[str, Any]) -> float:
+    item_count = _as_int(row.get("item_count")) or _as_int(row.get("signals"))
+    reviewed_count = _as_int(row.get("reviewed_count")) or _as_int(row.get("reviewed"))
+    return round(reviewed_count / item_count, 3) if item_count else 0.0
 
 
 def _optional_text(value: Any) -> str | None:
