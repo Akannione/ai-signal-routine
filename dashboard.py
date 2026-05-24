@@ -18,6 +18,7 @@ from ai_signal_routine.benchmark import BENCHMARK_PACK, write_benchmark_pack  # 
 from ai_signal_routine.digests import build_email_digest, build_slack_digest, write_digests  # noqa: E402
 from ai_signal_routine.history import (  # noqa: E402
     build_history_snapshot,
+    build_weekly_summary,
     export_history_tables,
     record_briefing,
 )
@@ -272,6 +273,7 @@ def render_queue(payload: dict) -> None:
 def render_trends(history_path: Path, history_result: dict, using_sample_data: bool) -> None:
     st.subheader("SQLite Trend History")
     snapshot = build_history_snapshot(history_path)
+    weekly_summary = build_weekly_summary(history_path)
     relative_path = _relative_path(history_path)
     st.caption(f"SQLite store: `{relative_path}` | run `{history_result.get('run_id', 'unknown')}`")
     if using_sample_data:
@@ -286,6 +288,9 @@ def render_trends(history_path: Path, history_result: dict, using_sample_data: b
     metric_col2.metric("Signals Stored", snapshot.get("signal_count", 0))
     metric_col3.metric("Latest Avg Score", latest_run.get("avg_score", 0))
     metric_col4.metric("Open Actions", len(snapshot.get("open_actions", [])))
+
+    st.markdown("### Weekly Summary")
+    _dataframe_or_caption(weekly_summary, "No weekly summary rows have been recorded yet.")
 
     st.markdown("### Run Trend")
     _dataframe_or_caption(snapshot.get("trend_rows", []), "No history rows have been recorded yet.")
