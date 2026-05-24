@@ -8,13 +8,41 @@ The goal is not to read more AI news. The goal is to decide what is worth learni
 
 This project monitors technical sources, scores each signal for career and business relevance, writes decision-ready briefings, records signal history in SQLite, and creates mini-project ideas from the strongest themes. It is built for an analytics and AI operations workflow: discover signals, filter hype, choose the next experiment, and keep a record of what deserves action.
 
-## Visual Proof
+## Proof Of Functionality
+
+The Streamlit dashboard runs in public-safe sample mode with sanitized data. In sample mode, the app shows ranked AI/analytics/automation signals, source and category filters, a decision workspace, operator recommendations, trend history, and export-ready analytics tables without requiring API keys or private local config.
+
+Run the portfolio-safe dashboard locally:
+
+```bash
+AI_SIGNAL_SAMPLE_MODE=1 streamlit run dashboard.py
+```
+
+Then open the local Streamlit URL, usually:
+
+```text
+http://localhost:8501
+```
+
+## Screenshots
+
+### Sample Streamlit Dashboard
 
 ![AI Signal Routine sample dashboard](assets/screenshots/ai_signal_streamlit_sample.png)
 
+The sample dashboard demonstrates the core review workflow: ranked signals, source filters, decision state, next actions, and operator memory.
+
+### Trends Tab Proof
+
 ![AI Signal Routine Trends tab proof mockup](assets/screenshots/ai_signal_trends_tab_mockup.svg)
 
+The Trends view shows how each briefing is recorded into SQLite for weekly summary reporting, run-over-run deltas, open-action review, decision counts, source counts, and CSV exports.
+
+### BI Export View
+
 ![AI Signal Routine BI export mockup](assets/screenshots/ai_signal_bi_export_mockup.svg)
+
+The BI export mockup shows how the SQLite/CSV layer can feed an executive analytics view for operating reviews.
 
 Open the generated proof artifacts:
 
@@ -166,8 +194,10 @@ The Streamlit dashboard helps you:
 
 - review the highest-scoring signals
 - inspect source, score, theme, and rationale
+- filter by source and decision state
 - label items as `watch`, `test`, `implement`, or `archive`
 - capture notes and next actions
+- review operator recommendations and linked portfolio projects
 - review historical run trends from SQLite
 - inspect run-over-run deltas for open actions, average score, and review rate
 - inspect a weekly summary table for stakeholder reporting
@@ -212,6 +242,7 @@ Version 1 progress:
 - Added sanitized sample operator memory data.
 - Added a demo path that works without private API keys.
 - Added a real Streamlit dashboard screenshot from the sample workflow.
+- Verified the sample-mode app running locally with ranked signals, filters, a decision workspace, and operator recommendations.
 
 Version 3 progress:
 
@@ -221,7 +252,7 @@ Version 3 progress:
 - Added stale-action reporting foundation.
 - Added stakeholder-ready weekly summary export.
 - Added run-over-run trend delta export.
-- Added a static Trends tab proof mockup while live local screenshot capture is blocked.
+- Added a static Trends tab proof mockup for the analytics layer.
 - Added analytics export documentation for BI tools and operating reviews.
 - Added a BI-style export mockup for analyst-facing portfolio polish.
 
@@ -238,7 +269,7 @@ That makes it relevant to:
 
 ## Next Improvements
 
-- Replace the static Trends tab proof mockup with a live Streamlit screenshot once local capture is available.
+- Replace the static Trends tab proof mockup with a live Streamlit Trends screenshot if a fresh screenshot is added later.
 - Add source, category, recommendation, and stale-action delta breakdowns after the run-level trend delta export is exercised in the dashboard.
 - Promote stronger local automation extensions after private paths and machine-specific scripts are cleaned.
 
