@@ -17,6 +17,7 @@ Open the generated proof artifacts:
 - [Latest briefing](reports/latest_briefing.md)
 - [Sample briefing JSON](sample_data/sample_briefing.json)
 - [Sample operator memory](sample_data/sample_operator_memory.json)
+- [Analytics export guide](docs/analytics_export_guide.md)
 - [Static briefing preview](assets/screenshots/ai_signal_briefing_preview.svg)
 - [Benchmark tasks](benchmarks/benchmark_tasks.json)
 - [Benchmark scorecard](benchmarks/benchmark_scorecard.md)
@@ -174,6 +175,8 @@ The history layer turns each briefing into analytics-ready tables:
 - `theme_counts` stores theme distribution by run.
 - `ai_signal_weekly_summary.csv` packages the history into a compact operating-review table with review rate, open actions, top theme, top source, and stakeholder summary.
 
+The [analytics export guide](docs/analytics_export_guide.md) explains how to use these outputs in Excel, Power BI, Looker Studio, or an operating review.
+
 This makes the project stronger for analytics and BI roles because the workflow now has durable data modeling, trend views, CSV exports, stale-action reporting, and a summary table that can feed Excel, Power BI, or an executive operating review.
 
 ## Public-Safe Sample Workflow
@@ -206,6 +209,7 @@ Version 3 progress:
 - Added CSV history exports.
 - Added stale-action reporting foundation.
 - Added stakeholder-ready weekly summary export.
+- Added analytics export documentation for BI tools and operating reviews.
 
 ## Portfolio Relevance
 
@@ -221,7 +225,7 @@ That makes it relevant to:
 ## Next Improvements
 
 - Capture a fresh Trends tab screenshot from the public-safe sample workflow.
-- Add a Power BI or Looker-style export view for analyst-facing portfolio polish.
+- Add a Power BI or Looker-style export mockup for analyst-facing portfolio polish.
 - Add richer trend deltas for source, category, recommendation, and stale actions.
 - Promote stronger local automation extensions after private paths and machine-specific scripts are cleaned.
 
