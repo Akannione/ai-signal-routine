@@ -201,6 +201,80 @@ def build_history_snapshot(path: Path, stale_after_days: int = 14) -> dict[str, 
     }
 
 
+def build_weekly_summary(path: Path, limit: int = 8) -> list[dict[str, Any]]:
+    if not path.exists():
+        return []
+    initialize_history_db(path)
+    with _connect(path) as connection:
+        runs = _all(
+            connection,
+            """
+            SELECT *
+            FROM briefing_runs
+            ORDER BY generated_at DESC, created_at DESC
+            LIMIT ?
+            """,
+            (limit,),
+        )
+        summaries: list[dict[str, Any]] = []
+        for run in runs:
+            run_id = str(run["run_id"])
+            top_source = _one(
+                connection,
+                """
+                SELECT source AS label, COUNT(*) AS count, ROUND(AVG(score), 1) AS avg_score
+                FROM signals
+                WHERE run_id = ?
+                GROUP BY source
+                ORDER BY count DESC, avg_score DESC, source ASC
+                LIMIT 1
+                """,
+                (run_id,),
+            )
+            top_decision = _one(
+                connection,
+                """
+                SELECT decision AS label, COUNT(*) AS count
+                FROM signals
+                WHERE run_id = ?
+                GROUP BY decision
+                ORDER BY count DESC, decision ASC
+                LIMIT 1
+                """,
+                (run_id,),
+            )
+            open_action_count = (
+                _as_int(run.get("implement_count"))
+                + _as_int(run.get("test_count"))
+                + _as_int(run.get("watch_count"))
+            )
+            item_count = _as_int(run.get("item_count"))
+            reviewed_count = _as_int(run.get("reviewed_count"))
+            review_rate = round(reviewed_count / item_count, 3) if item_count else 0.0
+            top_theme = run.get("top_theme") or ""
+            summaries.append(
+                {
+                    "generated_at": run["generated_at"],
+                    "profile": run["profile"],
+                    "signals": item_count,
+                    "reviewed": reviewed_count,
+                    "review_rate": review_rate,
+                    "open_actions": open_action_count,
+                    "implement": _as_int(run.get("implement_count")),
+                    "test": _as_int(run.get("test_count")),
+                    "watch": _as_int(run.get("watch_count")),
+                    "archive": _as_int(run.get("archive_count")),
+                    "unreviewed": _as_int(run.get("unreviewed_count")),
+                    "avg_score": round(float(run.get("avg_score") or 0.0), 1),
+                    "top_theme": top_theme,
+                    "top_source": top_source["label"] if top_source else "",
+                    "top_decision": top_decision["label"] if top_decision else "",
+                    "stakeholder_summary": _stakeholder_summary(open_action_count, top_theme),
+                }
+            )
+    return summaries
+
+
 def export_history_tables(path: Path, outdir: Path) -> dict[str, Path]:
     if not path.exists():
         return {}
@@ -230,6 +304,10 @@ def export_history_tables(path: Path, outdir: Path) -> dict[str, Path]:
             csv_path = outdir / f"signal_history_{name}.csv"
             _write_csv(csv_path, rows)
             paths[name] = csv_path
+
+    weekly_summary_path = outdir / "ai_signal_weekly_summary.csv"
+    _write_csv(weekly_summary_path, build_weekly_summary(path))
+    paths["weekly_summary"] = weekly_summary_path
     return paths
 
 
@@ -363,8 +441,12 @@ def _one(
     return dict(row) if row else None
 
 
-def _scalar(connection: sqlite3.Connection, query: str) -> int:
-    return int(connection.execute(query).fetchone()[0])
+def _scalar(
+    connection: sqlite3.Connection,
+    query: str,
+    params: tuple[Any, ...] = (),
+) -> int:
+    return int(connection.execute(query, params).fetchone()[0])
 
 
 def _empty_snapshot(path: Path) -> dict[str, Any]:
@@ -408,6 +490,16 @@ def _age_days(value: str | None) -> float:
     if parsed.tzinfo is None:
         parsed = parsed.replace(tzinfo=timezone.utc)
     return max((datetime.now(timezone.utc) - parsed.astimezone(timezone.utc)).total_seconds() / 86400, 0.0)
+
+
+def _stakeholder_summary(open_actions: int, top_theme: str) -> str:
+    if open_actions and top_theme:
+        return f"{open_actions} open actions led by {top_theme}."
+    if open_actions:
+        return f"{open_actions} open actions need review."
+    if top_theme:
+        return f"No open actions; strongest theme was {top_theme}."
+    return "No open actions or dominant theme recorded."
 
 
 def _now_iso() -> str:
