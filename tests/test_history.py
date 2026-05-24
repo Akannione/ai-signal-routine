@@ -3,6 +3,7 @@ from __future__ import annotations
 import sys
 import tempfile
 import unittest
+from copy import deepcopy
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -12,6 +13,7 @@ if str(SRC) not in sys.path:
 
 from ai_signal_routine.history import (  # noqa: E402
     build_history_snapshot,
+    build_trend_deltas,
     build_weekly_summary,
     export_history_tables,
     record_briefing,
@@ -141,6 +143,30 @@ class HistoryTests(unittest.TestCase):
             self.assertEqual(summary["top_source"], "Synthetic AI Ops Radar")
             self.assertIn("open actions", summary["stakeholder_summary"])
 
+    def test_trend_deltas_compare_latest_run_to_previous_run(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            db_path = Path(tmpdir) / "history.sqlite"
+            later_payload = deepcopy(SAMPLE_PAYLOAD)
+            later_payload["generated_at"] = "2026-05-30T12:00:00+00:00"
+            later_payload["items"][0]["score"] = 96.0
+            later_payload["items"][2]["operator"]["decision"] = "archive"
+            later_payload["memory_summary"].update({"watch": 0, "archive": 1})
+
+            record_briefing(db_path, SAMPLE_PAYLOAD)
+            record_briefing(db_path, later_payload)
+            rows = build_trend_deltas(db_path)
+
+            self.assertEqual(len(rows), 2)
+            latest = rows[0]
+            previous = rows[1]
+            self.assertEqual(latest["generated_at"], "2026-05-30T12:00:00+00:00")
+            self.assertEqual(latest["open_actions"], 2)
+            self.assertEqual(latest["open_actions_delta"], -1)
+            self.assertEqual(latest["avg_score_delta"], 1.3)
+            self.assertEqual(latest["review_rate_delta"], 0.0)
+            self.assertEqual(latest["comparison"], "Compared with previous run")
+            self.assertEqual(previous["comparison"], "No previous run")
+
     def test_export_history_tables_writes_csvs(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
             root = Path(tmpdir)
@@ -158,9 +184,11 @@ class HistoryTests(unittest.TestCase):
                     "source_counts",
                     "themes",
                     "weekly_summary",
+                    "trend_deltas",
                 },
             )
             self.assertEqual(paths["weekly_summary"].name, "ai_signal_weekly_summary.csv")
+            self.assertEqual(paths["trend_deltas"].name, "ai_signal_trend_deltas.csv")
             for path in paths.values():
                 self.assertTrue(path.exists())
                 self.assertGreater(path.stat().st_size, 0)
