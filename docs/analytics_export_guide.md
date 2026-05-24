@@ -39,6 +39,7 @@ reports/history_exports/
 Generated files:
 
 - `ai_signal_weekly_summary.csv`: stakeholder-ready weekly operating summary.
+- `ai_signal_trend_deltas.csv`: run-over-run deltas for open actions, average score, and review rate.
 - `signal_history_runs.csv`: one row per briefing run.
 - `signal_history_signals.csv`: one row per signal per run.
 - `signal_history_decision_counts.csv`: decision distribution by run.
@@ -83,6 +84,29 @@ Recommended table:
 - `top_theme`
 - `top_source`
 - `stakeholder_summary`
+
+### Trend Deltas
+
+Use `ai_signal_trend_deltas.csv`.
+
+Recommended cards:
+
+- Open action delta
+- Average score delta
+- Review rate delta
+- Latest comparison status
+
+Recommended table:
+
+- `generated_at`
+- `item_count`
+- `open_actions`
+- `open_actions_delta`
+- `avg_score`
+- `avg_score_delta`
+- `review_rate`
+- `review_rate_delta`
+- `comparison`
 
 ### Signal Queue
 
@@ -148,7 +172,7 @@ signal_history_runs.run_id
   -> signal_history_themes.run_id
 ```
 
-Use `ai_signal_weekly_summary.csv` as the easiest standalone table for an executive view.
+Use `ai_signal_weekly_summary.csv` as the easiest standalone table for an executive view. Use `ai_signal_trend_deltas.csv` when the review needs to explain what changed since the prior run.
 
 ## Portfolio Talking Points
 
@@ -157,7 +181,8 @@ This export layer demonstrates:
 - durable data modeling with SQLite
 - operational metrics from an AI workflow
 - stakeholder-ready CSV outputs
-- dashboard-ready decision, source, and theme dimensions
+- dashboard-ready decision, source, theme, and trend dimensions
+- run-over-run delta reporting for operating reviews
 - a practical bridge from automation to BI reporting
 
 That makes the project relevant for data analytics, automation, AI operations, and solutions engineering roles.
