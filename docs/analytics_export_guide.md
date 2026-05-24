@@ -10,11 +10,15 @@ The main review question is:
 
 > Which signals changed, which actions are open, and what should be tested or implemented next?
 
-## Visual Mockup
+## Visual Proof
+
+![Trends tab proof mockup](../assets/screenshots/ai_signal_trends_tab_mockup.svg)
+
+This static Trends tab proof mockup shows the SQLite-backed operating view: run history, weekly summary, trend deltas, decision mix, source mix, theme reporting, and open-action queue.
 
 ![BI export dashboard mockup](../assets/screenshots/ai_signal_bi_export_mockup.svg)
 
-This mockup shows how the exported CSV files can become an executive analytics view with review rate, open actions, decision mix, source quality, theme trend, and stakeholder summary.
+This BI mockup shows how the exported CSV files can become an executive analytics view with review rate, open actions, decision mix, source quality, theme trend, and stakeholder summary.
 
 ## Export Files
 
