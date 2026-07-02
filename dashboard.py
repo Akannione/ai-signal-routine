@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -14,11 +15,12 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 from ai_signal_routine.benchmark import BENCHMARK_PACK, write_benchmark_pack  # noqa: E402
-from ai_signal_routine.digests import (  # noqa: E402
-    build_email_digest,
-    build_slack_digest,
-    build_sms_digest,
-    write_digests,
+from ai_signal_routine.digests import build_email_digest, build_slack_digest, write_digests  # noqa: E402
+from ai_signal_routine.history import (  # noqa: E402
+    build_history_snapshot,
+    build_weekly_summary,
+    export_history_tables,
+    record_briefing,
 )
 from ai_signal_routine.memory import (  # noqa: E402
     VALID_DECISIONS,
@@ -32,6 +34,11 @@ from ai_signal_routine.memory import (  # noqa: E402
 
 REPORT_PATH = ROOT / "reports" / "latest_briefing.json"
 MEMORY_PATH = ROOT / "data" / "operator_memory.json"
+HISTORY_PATH = ROOT / "data" / "signal_history.sqlite"
+SAMPLE_REPORT_PATH = ROOT / "sample_data" / "sample_briefing.json"
+SAMPLE_MEMORY_PATH = ROOT / "sample_data" / "sample_operator_memory.json"
+SAMPLE_HISTORY_PATH = ROOT / "data" / "sample_signal_history.sqlite"
+HISTORY_EXPORT_DIR = ROOT / "reports" / "history_exports"
 BENCHMARK_DIR = ROOT / "benchmarks"
 
 
@@ -55,39 +62,69 @@ def main() -> None:
     st.title("AI Signal Routine")
     st.caption("Delivery, memory, and evaluation for your AI operator workflow.")
 
-    if not REPORT_PATH.exists():
-        st.error("No briefing found yet. Run `python3 main.py` first.")
+    report_path, memory_path, using_sample_data = resolve_data_paths()
+    history_path = SAMPLE_HISTORY_PATH if using_sample_data else HISTORY_PATH
+    if not report_path.exists():
+        st.error(
+            "No briefing found yet. Run `python3 main.py` first, or run "
+            "`AI_SIGNAL_SAMPLE_MODE=1 streamlit run dashboard.py` for the public-safe demo."
+        )
         return
 
-    payload = json.loads(REPORT_PATH.read_text(encoding="utf-8"))
-    memory = ensure_memory_file(MEMORY_PATH)
+    payload = json.loads(report_path.read_text(encoding="utf-8"))
+    memory = ensure_memory_file(memory_path)
     payload = enrich_payload_with_memory(payload, memory)
 
     benchmark_paths = write_benchmark_pack(BENCHMARK_DIR)
     email_digest = build_email_digest(payload)
     slack_digest = build_slack_digest(payload)
-    sms_digest = build_sms_digest(payload)
+    history_result = record_briefing(history_path, payload)
+
+    if using_sample_data:
+        st.info(
+            "Demo mode is using sanitized sample data from `sample_data/`. "
+            "Run `python3 main.py` to generate a live briefing."
+        )
 
     render_header(payload)
 
-    tab_radar, tab_queue, tab_projects, tab_digests, tab_benchmark = st.tabs(
-        ["Radar", "Queue", "Mini Projects", "Digests", "Benchmark"]
+    tab_radar, tab_queue, tab_trends, tab_projects, tab_digests, tab_benchmark = st.tabs(
+        ["Radar", "Queue", "Trends", "Mini Projects", "Digests", "Benchmark"]
     )
 
     with tab_radar:
-        render_radar(payload, memory)
+        render_radar(payload, memory, memory_path)
 
     with tab_queue:
         render_queue(payload)
+
+    with tab_trends:
+        render_trends(history_path, history_result, using_sample_data)
 
     with tab_projects:
         render_projects(payload)
 
     with tab_digests:
-        render_digests(payload, email_digest, slack_digest, sms_digest)
+        render_digests(payload, email_digest, slack_digest)
 
     with tab_benchmark:
         render_benchmark(benchmark_paths)
+
+
+def resolve_data_paths() -> tuple[Path, Path, bool]:
+    sample_mode = os.getenv("AI_SIGNAL_SAMPLE_MODE", "").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+        "demo",
+    }
+    if sample_mode:
+        return SAMPLE_REPORT_PATH, SAMPLE_MEMORY_PATH, True
+    if REPORT_PATH.exists():
+        return REPORT_PATH, MEMORY_PATH, False
+    if SAMPLE_REPORT_PATH.exists():
+        return SAMPLE_REPORT_PATH, SAMPLE_MEMORY_PATH, True
+    return REPORT_PATH, MEMORY_PATH, False
 
 
 def render_header(payload: dict) -> None:
@@ -123,7 +160,7 @@ def render_header(payload: dict) -> None:
         )
 
 
-def render_radar(payload: dict, memory: dict) -> None:
+def render_radar(payload: dict, memory: dict, memory_path: Path) -> None:
     items = payload.get("items", [])
     all_sources = sorted({item["source"] for item in items})
 
@@ -206,7 +243,7 @@ def render_radar(payload: dict, memory: dict) -> None:
                 next_action=next_action,
                 linked_project=linked_project,
             )
-            save_memory(MEMORY_PATH, memory)
+            save_memory(memory_path, memory)
             st.success("Memory saved.")
             st.rerun()
 
@@ -233,6 +270,63 @@ def render_queue(payload: dict) -> None:
             )
 
 
+def render_trends(history_path: Path, history_result: dict, using_sample_data: bool) -> None:
+    st.subheader("SQLite Trend History")
+    snapshot = build_history_snapshot(history_path)
+    weekly_summary = build_weekly_summary(history_path)
+    relative_path = _relative_path(history_path)
+    st.caption(f"SQLite store: `{relative_path}` | run `{history_result.get('run_id', 'unknown')}`")
+    if using_sample_data:
+        st.info(
+            "Sample mode writes a generated local history database to `data/sample_signal_history.sqlite`. "
+            "The database is ignored by git; CSV exports can be regenerated anytime."
+        )
+
+    latest_run = snapshot.get("latest_run") or {}
+    metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
+    metric_col1.metric("Runs", snapshot.get("run_count", 0))
+    metric_col2.metric("Signals Stored", snapshot.get("signal_count", 0))
+    metric_col3.metric("Latest Avg Score", latest_run.get("avg_score", 0))
+    metric_col4.metric("Open Actions", len(snapshot.get("open_actions", [])))
+
+    st.markdown("### Weekly Summary")
+    _dataframe_or_caption(weekly_summary, "No weekly summary rows have been recorded yet.")
+
+    st.markdown("### Run Trend")
+    _dataframe_or_caption(snapshot.get("trend_rows", []), "No history rows have been recorded yet.")
+
+    decision_col, source_col, theme_col = st.columns(3, gap="large")
+    with decision_col:
+        st.markdown("### Decisions")
+        _dataframe_or_caption(snapshot.get("decision_counts", []), "No decision counts yet.")
+    with source_col:
+        st.markdown("### Sources")
+        _dataframe_or_caption(snapshot.get("source_counts", []), "No source counts yet.")
+    with theme_col:
+        st.markdown("### Themes")
+        _dataframe_or_caption(snapshot.get("theme_counts", []), "No theme counts yet.")
+
+    st.markdown("### Open Actions")
+    _dataframe_or_caption(snapshot.get("open_actions", []), "No open actions in the latest run.")
+
+    st.markdown("### Stale Actions")
+    stale_actions = snapshot.get("stale_actions", [])
+    if stale_actions:
+        st.dataframe(stale_actions, use_container_width=True, hide_index=True)
+    else:
+        st.caption(
+            f"No open actions older than {snapshot.get('stale_after_days', 14)} days in the latest run."
+        )
+
+    if st.button("Export history CSVs", use_container_width=False):
+        paths = export_history_tables(history_path, HISTORY_EXPORT_DIR)
+        if paths:
+            exported = ", ".join(_relative_path(path) for path in paths.values())
+            st.success(f"Exported {len(paths)} files: {exported}")
+        else:
+            st.warning("No history database exists yet.")
+
+
 def render_projects(payload: dict) -> None:
     st.subheader("Mini Projects")
     for project in payload.get("mini_projects", []):
@@ -245,26 +339,23 @@ def render_projects(payload: dict) -> None:
             st.code(project["prompt_seed"])
 
 
-def render_digests(payload: dict, email_digest: str, slack_digest: str, sms_digest: str) -> None:
+def render_digests(payload: dict, email_digest: str, slack_digest: str) -> None:
     st.subheader("Delivery Layer")
     st.caption("These exports turn your current queue into something you can send or archive.")
     if st.button("Write latest digest files", use_container_width=False):
-        email_path, slack_path, sms_path = write_digests(email_digest, slack_digest, sms_digest, ROOT / "reports")
-        st.success(f"Wrote {email_path.name}, {slack_path.name}, and {sms_path.name}.")
+        email_path, slack_path = write_digests(email_digest, slack_digest, ROOT / "reports")
+        st.success(f"Wrote {email_path.name} and {slack_path.name}.")
 
-    col1, col2, col3 = st.columns(3, gap="large")
+    col1, col2 = st.columns(2, gap="large")
     with col1:
         st.markdown("### Email Digest")
         st.text_area("Email preview", value=email_digest, height=420)
     with col2:
         st.markdown("### Slack Digest")
         st.text_area("Slack preview", value=slack_digest, height=420)
-    with col3:
-        st.markdown("### iMessage Digest")
-        st.text_area("iMessage preview", value=sms_digest, height=420)
 
     st.caption(
-        "Optional sending is available from the CLI if you set Slack, SMTP, or the local iMessage script environment variables."
+        "Optional sending is available from the CLI if you set `SLACK_WEBHOOK_URL` or SMTP environment variables."
     )
 
 
@@ -301,6 +392,20 @@ def _matches_search(item: dict, search: str) -> bool:
         ]
     ).lower()
     return search.lower() in haystack
+
+
+def _relative_path(path: Path) -> str:
+    try:
+        return str(path.relative_to(ROOT))
+    except ValueError:
+        return str(path)
+
+
+def _dataframe_or_caption(rows: list[dict], empty_message: str) -> None:
+    if rows:
+        st.dataframe(rows, use_container_width=True, hide_index=True)
+    else:
+        st.caption(empty_message)
 
 
 if __name__ == "__main__":

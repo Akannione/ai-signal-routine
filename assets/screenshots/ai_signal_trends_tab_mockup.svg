@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="920" viewBox="0 0 1400 920" role="img" aria-labelledby="title desc">
+  <title id="title">AI Signal Routine Trends tab proof mockup</title>
+  <desc id="desc">Static mockup of the Streamlit Trends tab showing SQLite run history, weekly summary, trend deltas, decision counts, source counts, themes, open actions, and export status.</desc>
+  <defs>
+    <style>
+      .bg { fill: #0d1117; }
+      .surface { fill: #151b23; stroke: #30363d; stroke-width: 1.2; }
+      .surface-2 { fill: #111820; stroke: #26323d; stroke-width: 1; }
+      .panel { fill: #10161d; stroke: #2b3945; stroke-width: 1; }
+      .muted { fill: #8b949e; font-family: Inter, Segoe UI, Arial, sans-serif; font-size: 18px; }
+      .tiny { fill: #8b949e; font-family: Inter, Segoe UI, Arial, sans-serif; font-size: 14px; }
+      .label { fill: #c9d1d9; font-family: Inter, Segoe UI, Arial, sans-serif; font-size: 18px; }
+      .text { fill: #f0f6fc; font-family: Inter, Segoe UI, Arial, sans-serif; font-size: 22px; }
+      .title { fill: #f0f6fc; font-family: Inter, Segoe UI, Arial, sans-serif; font-size: 42px; font-weight: 760; }
+      .section { fill: #f0f6fc; font-family: Inter, Segoe UI, Arial, sans-serif; font-size: 24px; font-weight: 720; }
+      .metric { fill: #ffffff; font-family: Inter, Segoe UI, Arial, sans-serif; font-size: 42px; font-weight: 760; }
+      .good { fill: #7ee787; }
+      .teal { fill: #56d4dd; }
+      .blue { fill: #79c0ff; }
+      .amber { fill: #f2cc60; }
+      .rose { fill: #ff7b72; }
+      .line { stroke: #30363d; stroke-width: 1; }
+      .accent-line { stroke: #56d4dd; stroke-width: 4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .amber-line { stroke: #f2cc60; stroke-width: 4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .pill { fill: #12323a; stroke: #2c6b75; stroke-width: 1; }
+      .pill-text { fill: #d7fbff; font-family: Inter, Segoe UI, Arial, sans-serif; font-size: 16px; font-weight: 700; }
+      .table-head { fill: #111f2a; }
+      .bar-teal { fill: #56d4dd; }
+      .bar-blue { fill: #79c0ff; }
+      .bar-amber { fill: #f2cc60; }
+      .bar-rose { fill: #ff7b72; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1400" height="920"/>
+
+  <rect x="38" y="28" width="1324" height="864" rx="12" class="surface"/>
+  <rect x="38" y="28" width="1324" height="88" rx="12" fill="#111820" stroke="#30363d" stroke-width="1"/>
+  <text x="70" y="82" class="title">AI Signal Routine</text>
+  <text x="416" y="82" class="muted">Trends tab - SQLite history and CSV export layer</text>
+  <rect x="1072" y="52" width="246" height="34" rx="17" class="pill"/>
+  <text x="1092" y="75" class="pill-text">static proof mockup</text>
+
+  <text x="70" y="152" class="section">SQLite Trend History</text>
+  <text x="70" y="181" class="muted">SQLite store: data/sample_signal_history.sqlite | run 7b13c6a9424f</text>
+  <rect x="1032" y="139" width="286" height="48" rx="8" fill="#14251d" stroke="#2f6f46"/>
+  <text x="1054" y="169" class="label">Public-safe sample mode</text>
+
+  <g transform="translate(70 216)">
+    <rect class="surface-2" width="288" height="116" rx="8"/>
+    <text x="22" y="36" class="muted">Runs</text>
+    <text x="22" y="84" class="metric teal">3</text>
+    <text x="96" y="84" class="tiny">recorded briefings</text>
+  </g>
+  <g transform="translate(384 216)">
+    <rect class="surface-2" width="288" height="116" rx="8"/>
+    <text x="22" y="36" class="muted">Signals Stored</text>
+    <text x="22" y="84" class="metric blue">15</text>
+    <text x="112" y="84" class="tiny">ranked signals</text>
+  </g>
+  <g transform="translate(698 216)">
+    <rect class="surface-2" width="288" height="116" rx="8"/>
+    <text x="22" y="36" class="muted">Latest Avg Score</text>
+    <text x="22" y="84" class="metric amber">81.0</text>
+    <text x="146" y="84" class="tiny">+2.3 vs prior</text>
+  </g>
+  <g transform="translate(1012 216)">
+    <rect class="surface-2" width="306" height="116" rx="8"/>
+    <text x="22" y="36" class="muted">Open Actions</text>
+    <text x="22" y="84" class="metric good">4</text>
+    <text x="98" y="84" class="tiny">-1 vs prior run</text>
+  </g>
+
+  <g transform="translate(70 365)">
+    <text x="0" y="0" class="section">Weekly Summary</text>
+    <rect y="20" width="1248" height="122" rx="8" class="panel"/>
+    <rect y="20" width="1248" height="38" rx="8" class="table-head"/>
+    <text x="20" y="46" class="tiny">generated_at</text>
+    <text x="174" y="46" class="tiny">signals</text>
+    <text x="268" y="46" class="tiny">review_rate</text>
+    <text x="402" y="46" class="tiny">open_actions</text>
+    <text x="558" y="46" class="tiny">top_theme</text>
+    <text x="782" y="46" class="tiny">top_source</text>
+    <text x="1020" y="46" class="tiny">stakeholder_summary</text>
+    <line x1="0" y1="58" x2="1248" y2="58" class="line"/>
+    <text x="20" y="92" class="label">2026-05-23</text>
+    <text x="184" y="92" class="label">5</text>
+    <text x="286" y="92" class="label">100%</text>
+    <text x="444" y="92" class="label">4</text>
+    <text x="558" y="92" class="label">workflow-automation</text>
+    <text x="782" y="92" class="label">Synthetic AI Ops Radar</text>
+    <text x="1020" y="92" class="label">4 open actions led by workflow-automation.</text>
+  </g>
+
+  <g transform="translate(70 545)">
+    <text x="0" y="0" class="section">Run Trend</text>
+    <rect y="20" width="800" height="252" rx="8" class="panel"/>
+    <polyline points="62,198 220,150 378,170 536,104 694,82" class="accent-line"/>
+    <polyline points="62,128 220,136 378,110 536,90 694,70" class="amber-line"/>
+    <circle cx="62" cy="198" r="6" class="teal"/>
+    <circle cx="220" cy="150" r="6" class="teal"/>
+    <circle cx="378" cy="170" r="6" class="teal"/>
+    <circle cx="536" cy="104" r="6" class="teal"/>
+    <circle cx="694" cy="82" r="6" class="teal"/>
+    <circle cx="62" cy="128" r="6" class="amber"/>
+    <circle cx="220" cy="136" r="6" class="amber"/>
+    <circle cx="378" cy="110" r="6" class="amber"/>
+    <circle cx="536" cy="90" r="6" class="amber"/>
+    <circle cx="694" cy="70" r="6" class="amber"/>
+    <line x1="48" y1="220" x2="734" y2="220" class="line"/>
+    <line x1="48" y1="54" x2="48" y2="220" class="line"/>
+    <text x="54" y="244" class="tiny">Apr 25</text>
+    <text x="202" y="244" class="tiny">May 02</text>
+    <text x="360" y="244" class="tiny">May 09</text>
+    <text x="518" y="244" class="tiny">May 16</text>
+    <text x="676" y="244" class="tiny">May 23</text>
+    <rect x="532" y="34" width="218" height="56" rx="8" fill="#111f2a" stroke="#2b3945"/>
+    <circle cx="552" cy="55" r="5" class="teal"/><text x="566" y="60" class="tiny">Open actions</text>
+    <circle cx="552" cy="76" r="5" class="amber"/><text x="566" y="81" class="tiny">Average score</text>
+  </g>
+
+  <g transform="translate(904 545)">
+    <text x="0" y="0" class="section">Trend Deltas</text>
+    <rect y="20" width="414" height="252" rx="8" class="panel"/>
+    <text x="26" y="61" class="muted">Compared with previous run</text>
+    <line x1="26" y1="84" x2="388" y2="84" class="line"/>
+    <text x="26" y="122" class="label">Open actions</text>
+    <text x="314" y="122" class="text good">-1</text>
+    <text x="26" y="162" class="label">Average score</text>
+    <text x="298" y="162" class="text amber">+2.3</text>
+    <text x="26" y="202" class="label">Review rate</text>
+    <text x="302" y="202" class="text blue">+20%</text>
+    <text x="26" y="235" class="tiny">Export: reports/history_exports/ai_signal_trend_deltas.csv</text>
+  </g>
+
+  <g transform="translate(70 832)">
+    <text x="0" y="0" class="section">Decision Mix</text>
+    <rect x="0" y="18" width="376" height="34" rx="6" fill="#10161d" stroke="#2b3945"/>
+    <rect x="10" y="28" width="112" height="14" rx="4" class="bar-teal"/>
+    <rect x="126" y="28" width="112" height="14" rx="4" class="bar-blue"/>
+    <rect x="242" y="28" width="56" height="14" rx="4" class="bar-amber"/>
+    <rect x="302" y="28" width="56" height="14" rx="4" class="bar-rose"/>
+    <text x="0" y="76" class="tiny">implement 1 | test 2 | watch 1 | archive 1</text>
+  </g>
+
+  <g transform="translate(514 832)">
+    <text x="0" y="0" class="section">Top Sources</text>
+    <rect x="0" y="18" width="336" height="34" rx="6" fill="#10161d" stroke="#2b3945"/>
+    <rect x="10" y="28" width="70" height="14" rx="4" class="bar-teal"/>
+    <rect x="88" y="28" width="70" height="14" rx="4" class="bar-blue"/>
+    <rect x="166" y="28" width="70" height="14" rx="4" class="bar-amber"/>
+    <rect x="244" y="28" width="70" height="14" rx="4" class="bar-rose"/>
+    <text x="0" y="76" class="tiny">AI Ops | Analytics | Automation | Benchmark</text>
+  </g>
+
+  <g transform="translate(918 832)">
+    <text x="0" y="0" class="section">Open Action Queue</text>
+    <rect x="0" y="18" width="400" height="34" rx="6" fill="#10161d" stroke="#2b3945"/>
+    <text x="14" y="42" class="tiny">Implement command center | Test SQL quality checks | Watch CRM enrichment</text>
+    <text x="0" y="76" class="tiny">Generated from sanitized sample data; no private paths or tokens.</text>
+  </g>
+</svg>

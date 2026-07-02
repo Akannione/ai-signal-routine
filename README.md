@@ -1,286 +1,280 @@
 # AI Signal Routine
 
-This project is now tuned as an AI Operator Intelligence routine, not a generic AI news feed. It is built to surface high-signal tools, builders, workflows, infrastructure shifts, and monetizable opportunities that create leverage for data analytics, data science, AI engineering, automation systems, freelancing, and technical product building.
+AI Signal Routine is a Python and Streamlit workflow for turning noisy AI, analytics, and automation updates into a ranked action queue.
 
-It gives you a practical monitoring loop for:
+The goal is not to read more AI news. The goal is to decide what is worth learning, testing, building with, monetizing, or ignoring.
 
-- generative AI news and tooling
-- data analytics and data science ideas
-- open-source repo adoption signals
-- Claude and Codex workflow opportunities
-- builder-grade workflows and technical playbooks
-- freelance, consulting, and startup opportunity signals
-- noise/hype filtering for low-depth AI content
-- mini-project generation for ongoing skill growth
-- a memory layer for decisions and notes
-- delivery digests for email and Slack
-- delivery digests for iMessage text delivery
-- local bash scripts for daily runs and Messages delivery
-- a benchmark harness for Claude vs Codex on recurring work
+## 30-Second Summary
 
-It is intentionally built as a `signal system`, not a generic scraper. The goal is to help you decide what is worth learning, monitoring, building with, monetizing, or ignoring.
+This project monitors technical sources, scores each signal for career and business relevance, writes decision-ready briefings, records signal history in SQLite, and creates mini-project ideas from the strongest themes. It is built for an analytics and AI operations workflow: discover signals, filter hype, choose the next experiment, and keep a record of what deserves action.
 
-## What It Does
+## Proof Of Functionality
 
-The pipeline pulls from multiple sources:
+The Streamlit dashboard runs in public-safe sample mode with sanitized data. In sample mode, the app shows ranked AI/analytics/automation signals, source and category filters, a decision workspace, operator recommendations, trend history, and export-ready analytics tables without requiring API keys or private local config.
 
-- official blogs and release feeds
-- GitHub repository search
-- GitHub release tracking for key workflow repos
-- Hacker News discussion
-- Reddit discussion across AI and analytics communities
-- arXiv research feeds
-
-Then it:
-
-- scores items across technical depth, real-world utility, leverage potential, monetization potential, future relevance, learning value, adoption speed, difficulty to replicate, career value, and strategic edge
-- ranks the strongest signals
-- classifies signals into categories like Immediate Edge, Emerging Infrastructure, AI Engineering, Automation Systems, Analytics/Data Engineering, Freelance Leverage, Startup Opportunities, High-Signal Builders, Tooling Stack, Underrated Opportunities, and Noise/Hype To Ignore
-- adds a structured operator intelligence layer for each major insight: why it matters to your path, who is using it, leverage created, skill gain, monetization angle, difficulty, market saturation, next step, and recommendation
-- writes a Markdown briefing and JSON payload
-- stores your `watch`, `test`, and `implement` decisions
-- writes email and Slack digest files
-- writes a short phone digest sized for iMessage delivery
-- routes local phone delivery through a bash script you can automate
-- creates a benchmark pack for Claude and Codex
-- generates more varied mini-project ideas from both the strongest themes and the top live signals
-
-## Quick Start
-
-Use the WSL project path for local development:
-
-```bash
-cd "/home/tobio/Documents/New project"
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-cp config/local.env.example config/local.env
-chmod +x scripts/imessage.sh scripts/run_daily.sh
-chmod +x scripts/install_launch_agent.sh
-python3 main.py
-```
-
-Do not commit or paste values from `config/local.env`; keep real tokens, webhook URLs, phone numbers, and SMTP credentials local only.
-
-Optional:
-
-- Set `GITHUB_TOKEN` for higher GitHub API limits.
-- Set `SLACK_WEBHOOK_URL` to send the Slack digest automatically.
-- Set `SMTP_HOST`, `SMTP_FROM`, and `SMTP_TO` to send the email digest automatically.
-- Set `IMESSAGE_RECIPIENT` to send the short digest through the Mac Messages app automatically.
-- Use `config/local.env` for local automation settings like recipient and schedule time.
-
-## Project Files
-
-The AI Signal Routine project lives in these root-level files and folders:
-
-- `main.py` - CLI entry point for building the briefing, digests, and benchmark pack.
-- `dashboard.py` - Streamlit dashboard for signal review, memory updates, digests, mini-projects, and benchmarks.
-- `src/ai_signal_routine/` - core collectors, scoring, reporting, digests, memory, benchmark, and mini-project logic.
-- `config/sources.json` - tracked source and scoring configuration.
-- `config/local.env.example` - safe template for local environment settings.
-- `config/local.env` - untracked local settings file; do not expose or edit it unless you are configuring your own machine.
-- `reports/` - latest generated briefing and digest outputs.
-- `data/operator_memory.json` - local decision memory used by the dashboard.
-- `benchmarks/` - Claude vs Codex benchmark tasks, scorecard, and result template.
-- `scripts/` - local daily run, iMessage, launch agent, and publish helpers.
-- `docs/operator_playbook.md` - operating guide for the daily and weekly routine.
-- `tests/` - scoring and delivery behavior tests.
-
-## Dashboard
-
-Run the dashboard with:
+Run the portfolio-safe dashboard locally:
 
 ```bash
 AI_SIGNAL_SAMPLE_MODE=1 streamlit run dashboard.py
 ```
 
-Then open the local URL Streamlit prints, usually `http://localhost:8501`.
+Then open the local Streamlit URL, usually:
 
-The dashboard lets you:
-
-- review signals visually
-- inspect category, recommendation, scorecard dimensions, `why this matters`, `how it works`, and `should I implement it` guidance per signal
-- review the Opportunity Radar, High-Signal Builders tracker, and Noise/Hype To Ignore list
-- label items as `watch`, `test`, `implement`, or `archive`
-- capture notes and next actions
-- regenerate digest files from your current queue
-- review the benchmark pack in one place
+```text
+http://localhost:8501
+```
 
 ## Screenshots
 
-Screenshots are not required to run the project, but they are useful for README previews, portfolio writeups, and visual QA.
+### Sample Streamlit Dashboard
 
-Recommended local flow:
+![AI Signal Routine sample dashboard](assets/screenshots/ai_signal_streamlit_sample.png)
+
+The sample dashboard demonstrates the core review workflow: ranked signals, source filters, decision state, next actions, and operator memory.
+
+### Trends Tab Proof
+
+![AI Signal Routine Trends tab proof mockup](assets/screenshots/ai_signal_trends_tab_mockup.svg)
+
+The Trends view shows how each briefing is recorded into SQLite for weekly summary reporting, run-over-run deltas, open-action review, decision counts, source counts, and CSV exports.
+
+### BI Export View
+
+![AI Signal Routine BI export mockup](assets/screenshots/ai_signal_bi_export_mockup.svg)
+
+The BI export mockup shows how the SQLite/CSV layer can feed an executive analytics view for operating reviews.
+
+Open the generated proof artifacts:
+
+- [Latest briefing](reports/latest_briefing.md)
+- [Sample briefing JSON](sample_data/sample_briefing.json)
+- [Sample operator memory](sample_data/sample_operator_memory.json)
+- [Analytics export guide](docs/analytics_export_guide.md)
+- [Trends tab proof mockup](assets/screenshots/ai_signal_trends_tab_mockup.svg)
+- [BI export mockup](assets/screenshots/ai_signal_bi_export_mockup.svg)
+- [Static briefing preview](assets/screenshots/ai_signal_briefing_preview.svg)
+- [Benchmark tasks](benchmarks/benchmark_tasks.json)
+- [Benchmark scorecard](benchmarks/benchmark_scorecard.md)
+- [Results template](benchmarks/results_template.csv)
+- [Operator playbook](docs/operator_playbook.md)
+- [Roadmap: AI Ops Command Center](ROADMAP.md)
+
+## What It Demonstrates
+
+- Python automation for recurring research and reporting
+- Signal scoring logic for AI, analytics, and workflow tooling
+- SQLite history modeling for trend reporting and stale-action review
+- Streamlit dashboarding for review, action tracking, and trend analysis
+- Markdown/JSON/CSV report generation for decision briefs and analytics exports
+- Stakeholder-ready weekly summary exports for Excel, Power BI, or operating reviews
+- Run-over-run trend deltas for open actions, average score, and review rate
+- Memory layer for `watch`, `test`, `implement`, and `archive` decisions
+- Benchmark workflow for comparing Claude and Codex on recurring tasks
+- Business judgment around which AI tools create real leverage
+
+## What It Does
+
+The routine pulls from sources such as:
+
+- official product and engineering blogs
+- GitHub repository search and watchlists
+- Hacker News discussions
+- arXiv research feeds
+- AI, analytics, and automation-focused sources configured in `config/sources.json`
+
+Then it:
+
+1. Scores each item by relevance, freshness, business value, learning value, and adoption signals.
+2. Groups signals into themes such as coding agents, workflow automation, analytics AI, data science systems, and research radar.
+3. Produces a ranked briefing in Markdown and JSON.
+4. Writes signal history to SQLite for trend analysis.
+5. Exports history tables to CSV for Excel, Power BI, or stakeholder reporting.
+6. Generates a weekly summary CSV with review rate, action load, top source, top theme, and a plain-English summary.
+7. Generates a trend delta CSV that compares each run against the previous run.
+8. Generates email and Slack-style digest files.
+9. Maintains a lightweight memory file for decisions and next actions.
+10. Creates mini-project prompts from the strongest signals.
+11. Provides a Streamlit dashboard for reviewing the queue and trend history.
+
+## System Flow
+
+```text
+Sources -> scoring -> ranked briefing -> dashboard review -> memory update -> next experiment
+                         |                    |
+                         |                    -> SQLite history -> trends / CSV exports
+                         |                    -> weekly summary export
+                         |                    -> benchmark tasks
+                         -> email / Slack digest outputs
+```
+
+## Tech Stack
+
+- Python
+- Streamlit
+- SQLite
+- requests
+- Markdown, JSON, and CSV report outputs
+- GitHub/API-oriented source collection
+- Local file-based memory and benchmark artifacts
+
+## Quick Start
 
 ```bash
-mkdir -p docs/screenshots
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python3 main.py
+```
+
+A normal run writes the latest briefing, digest files, benchmark files, SQLite history database, and CSV history exports.
+
+Run the dashboard with a generated briefing:
+
+```bash
+streamlit run dashboard.py
+```
+
+Run the public-safe demo without API keys or private local files:
+
+```bash
 AI_SIGNAL_SAMPLE_MODE=1 streamlit run dashboard.py
 ```
 
-Capture the main dashboard views from Streamlit and save them under `docs/screenshots/`:
+If `reports/latest_briefing.json` does not exist, the dashboard automatically falls back to the sanitized files in `sample_data/`.
 
-- `docs/screenshots/radar.png` - main signal review view with top ranked signals and operator score details visible.
-- `docs/screenshots/opportunities.png` - Opportunity Radar section showing monetizable or buildable ideas.
-- `docs/screenshots/digests.png` - digest preview area showing email, Slack, and phone digest outputs without real credentials.
-- `docs/screenshots/benchmark.png` - benchmark pack view showing Claude versus Codex tasks and scorecard context.
+Optional CLI controls:
 
-Optional:
+- `python3 main.py --skip-history` skips SQLite and CSV history outputs.
+- `python3 main.py --history-db data/custom_history.sqlite` writes history to a custom database path.
+- `python3 main.py --history-export-dir reports/custom_history_exports` writes CSV exports to a custom folder.
 
-- `docs/screenshots/memory.png` - decision queue or memory notes with safe sample data.
-- `docs/screenshots/mini-projects.png` - mini-project ideas generated from current signal themes.
+Optional environment variables:
 
-Before committing screenshots, confirm no real tokens, webhook URLs, phone numbers, email addresses, or private notes are visible.
+- `GITHUB_TOKEN` for higher GitHub API limits
+- `SLACK_WEBHOOK_URL` if you want to wire digest delivery later
+- `SMTP_HOST`, `SMTP_FROM`, and `SMTP_TO` if you want email delivery later
 
-Add images to this section with relative Markdown links after the files exist:
+Do not commit local env files or API keys. Keep private settings in ignored local config files.
 
-```md
-![Radar tab](docs/screenshots/radar.png)
-![Opportunity radar](docs/screenshots/opportunities.png)
-![Digest previews](docs/screenshots/digests.png)
-![Benchmark pack](docs/screenshots/benchmark.png)
-```
+## Outputs
 
-## Output
-
-The main run writes:
+A normal run writes:
 
 - `reports/latest_briefing.md`
 - `reports/latest_briefing.json`
 - `reports/latest_email_digest.md`
 - `reports/latest_slack_digest.txt`
-- `reports/latest_sms_digest.txt`
 - `data/operator_memory.json`
-- `scripts/imessage.sh`
-- `scripts/run_daily.sh`
-- `scripts/install_launch_agent.sh`
+- `data/signal_history.sqlite`
+- `reports/history_exports/ai_signal_weekly_summary.csv`
+- `reports/history_exports/ai_signal_trend_deltas.csv`
+- `reports/history_exports/signal_history_runs.csv`
+- `reports/history_exports/signal_history_signals.csv`
+- `reports/history_exports/signal_history_decision_counts.csv`
+- `reports/history_exports/signal_history_source_counts.csv`
+- `reports/history_exports/signal_history_themes.csv`
 - `benchmarks/benchmark_tasks.json`
 - `benchmarks/benchmark_scorecard.md`
 - `benchmarks/results_template.csv`
 
-It also archives timestamped copies in `reports/archive/`.
+The public-safe demo reads:
 
-## Customize It
+- `sample_data/sample_briefing.json`
+- `sample_data/sample_operator_memory.json`
 
-Edit `config/sources.json` to:
+The public-safe demo writes generated local history to:
 
-- add or remove sources
-- change keyword priorities
-- tune scoring weights
-- narrow the routine toward business use cases, analytics, or pure engineering
+- `data/sample_signal_history.sqlite`
 
-## How To Use The System
+Generated SQLite databases and CSV export folders are ignored by git.
 
-Each day:
+## Dashboard Workflow
 
-1. Read the top 5 items.
-2. Check the recommendation: `Learn`, `Monitor`, `Build With`, `Monetize`, or `Ignore`.
-3. In the dashboard, label each one as `watch`, `test`, `implement`, or `archive`.
-4. Add one next action to the top item you care about.
-5. Send or archive the digest, including iMessage if you want the top intel on your phone.
+The Streamlit dashboard helps you:
 
-If you want the project to behave like a true daily agent, set `DAILY_RUN_HOUR` and `DAILY_RUN_MINUTE` in `config/local.env`, then install the LaunchAgent once with `scripts/install_launch_agent.sh`.
+- review the highest-scoring signals
+- inspect source, score, theme, and rationale
+- filter by source and decision state
+- label items as `watch`, `test`, `implement`, or `archive`
+- capture notes and next actions
+- review operator recommendations and linked portfolio projects
+- review historical run trends from SQLite
+- inspect run-over-run deltas for open actions, average score, and review rate
+- inspect a weekly summary table for stakeholder reporting
+- inspect decision, source, theme, open-action, and stale-action tables
+- export history tables, weekly summaries, and trend deltas to CSV
+- review generated mini-project ideas
+- keep a repeatable loop for weekly experimentation
 
-Each week:
+## SQLite Trend Layer
 
-1. Build one small project from the report, preferably from `Build With` or `Monetize`.
-2. Use the benchmark pack to compare Claude and Codex on one recurring task.
-3. Use Claude to pressure-test the idea and Codex to implement it.
-4. Keep notes on which tools saved time, improved quality, created a sellable workflow, or were mostly hype.
+The history layer turns each briefing into analytics-ready tables:
 
-The playbook for that loop is in `docs/operator_playbook.md`.
+- `briefing_runs` stores run-level metrics such as item count, review count, decision counts, top theme, and average score.
+- `signals` stores each ranked signal with source, score, decision, priority, next action, linked project, tags, and theme hint.
+- `theme_counts` stores theme distribution by run.
+- `ai_signal_weekly_summary.csv` packages the history into a compact operating-review table with review rate, open actions, top theme, top source, and stakeholder summary.
+- `ai_signal_trend_deltas.csv` compares each run with the previous run for open actions, average score, and review rate.
 
-## iMessage Setup
+The [analytics export guide](docs/analytics_export_guide.md) explains how to use these outputs in Excel, Power BI, Looker Studio, or an operating review.
 
-The built-in phone-text path uses the macOS Messages app through `scripts/imessage.sh`.
+This makes the project stronger for analytics and BI roles because the workflow now has durable data modeling, trend views, CSV exports, stale-action reporting, weekly summary output, and trend delta reporting that can feed Excel, Power BI, or an executive operating review.
 
-1. Make sure Messages is signed in to iMessage on this Mac.
-2. Confirm your recipient number in `config/local.env`.
-3. Make both scripts executable once:
+## Public-Safe Sample Workflow
 
-```bash
-chmod +x scripts/imessage.sh scripts/run_daily.sh scripts/install_launch_agent.sh scripts/install_daily_agent.command
-```
+The sample data shows the workflow shape without exposing live research sources, tokens, local paths, or private notes:
 
-4. Run the local daily pipeline:
+1. A synthetic signal enters the briefing with score, source, tags, and rationale.
+2. The operator memory layer labels it as `watch`, `test`, `implement`, or `archive`.
+3. The dashboard turns those labels into an action queue.
+4. The SQLite trend layer records the briefing for run history and exportable analytics.
+5. The weekly summary and trend delta exports turn run history into stakeholder-ready tables.
+6. Mini-project prompts connect the highest-value signals to portfolio builds.
+7. Email and Slack-style digests convert the queue into stakeholder-ready summaries.
 
-```bash
-./scripts/run_daily.sh
-```
+## Roadmap
 
-5. For a direct one-off iMessage send from the latest digest:
+The next version is the [AI Ops Command Center](ROADMAP.md): a public-safe dashboard that combines signal queue review, benchmark results, project backlog, automation opportunities, trend history, and a weekly executive brief.
 
-```bash
-./scripts/imessage.sh --recipient +15555550123 --file reports/latest_sms_digest.txt
-```
+Version 1 progress:
 
-The first time you send, macOS may ask you to allow Terminal, Python, or System Events to control Messages. Approve those prompts, then the script can send the short digest for you.
+- Added sanitized sample briefing data.
+- Added sanitized sample operator memory data.
+- Added a demo path that works without private API keys.
+- Added a real Streamlit dashboard screenshot from the sample workflow.
+- Verified the sample-mode app running locally with ranked signals, filters, a decision workspace, and operator recommendations.
 
-The script tries direct Messages sending first and then falls back to a UI-driven compose flow if needed. The UI fallback may require Accessibility permissions for Terminal or the app that launches the script.
+Version 3 progress:
 
-The phone digest now also uses a short history window so it does not default to repeating the exact same top links or project title every morning when fresher candidates are available.
+- Added SQLite signal history storage.
+- Added dashboard trend tables.
+- Added CSV history exports.
+- Added stale-action reporting foundation.
+- Added stakeholder-ready weekly summary export.
+- Added run-over-run trend delta export.
+- Added a static Trends tab proof mockup for the analytics layer.
+- Added analytics export documentation for BI tools and operating reviews.
+- Added a BI-style export mockup for analyst-facing portfolio polish.
 
-## Daily Schedule
+## Portfolio Relevance
 
-To send the update at a designated local time every day on macOS:
+This project is aimed at AI operations and analytics automation roles. It shows that I can build a system that does more than summarize content: it creates a decision process around emerging tools, business value, implementation risk, next experiments, and historical reporting.
 
-1. Copy the example env file once if you have not already:
+That makes it relevant to:
 
-```bash
-cp config/local.env.example config/local.env
-```
+- AI Operations / AI Workflow Specialist roles
+- Automation Analyst roles
+- Data Analyst and BI Analyst roles with AI tooling exposure
+- Solutions Engineering roles where technical research must become a clear recommendation
 
-2. Edit `config/local.env` and set:
+## Next Improvements
 
-```bash
-IMESSAGE_RECIPIENT=+15555550123
-DAILY_RUN_HOUR=8
-DAILY_RUN_MINUTE=0
-```
+- Replace the static Trends tab proof mockup with a live Streamlit Trends screenshot if a fresh screenshot is added later.
+- Add source, category, recommendation, and stale-action delta breakdowns after the run-level trend delta export is exercised in the dashboard.
+- Promote stronger local automation extensions after private paths and machine-specific scripts are cleaned.
 
-3. Install the LaunchAgent:
+## Related Portfolio Projects
 
-```bash
-./scripts/install_launch_agent.sh
-```
-
-Or double-click `scripts/install_daily_agent.command` in Finder to install the daily schedule and trigger the first run without typing commands.
-
-4. If you want to test it immediately after install:
-
-```bash
-./scripts/install_launch_agent.sh --start-now
-```
-
-5. If you ever want to remove the schedule:
-
-```bash
-./scripts/install_launch_agent.sh --uninstall
-```
-
-If the project lives in a protected macOS folder like `Documents`, the installer automatically stages a runnable copy under `~/.ai-signal-routine-runtime` and schedules that copy instead.
-
-The installer writes a plist into `~/Library/LaunchAgents`, schedules `scripts/run_daily.sh`, and writes logs to either `logs/launchd.out.log` and `logs/launchd.err.log` in the project root, or the same paths under `~/.ai-signal-routine-runtime` when staging is needed.
-
-If you change the local code after the scheduler is already installed, run `./scripts/install_launch_agent.sh --start-now` again so the staged runtime copy picks up the latest logic.
-
-## GitHub Sync
-
-If you want to publish the current local upgrade set back to GitHub from your own Mac session, double-click `scripts/publish_to_github.command` in Finder.
-
-That helper will:
-
-- add `origin` if it is missing
-- set a local git name and email if they are blank
-- stage only the agent-related upgrade files
-- commit them on your current branch
-- push the branch to GitHub
-- open the compare page so you can review or create a pull request
-
-## Daily Automation Target
-
-If you want a single target for `launchd`, Shortcuts, or Calendar automation, point it at:
-
-```bash
-/home/tobio/Documents/New\ project/scripts/run_daily.sh
-```
+- [Business Operations Reporting System](https://github.com/Akannione/business-operations-reporting-system)
+- [CRM Sales Pipeline Automation System](https://github.com/Akannione/crm-sales-pipeline-automation-system)
+- [AlignDeskApp Demo](https://github.com/Akannione/aligndeskapp-demo)

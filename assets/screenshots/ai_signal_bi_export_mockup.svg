@@ -1,0 +1,111 @@
+<svg width="1400" height="900" viewBox="0 0 1400 900" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">AI Signal Routine BI Export Mockup</title>
+  <desc id="desc">A BI style dashboard mockup showing weekly signal review metrics, decision mix, source quality, theme radar, and open actions from exported CSV files.</desc>
+  <rect width="1400" height="900" fill="#f7f8f4"/>
+  <rect x="42" y="36" width="1316" height="828" rx="10" fill="#ffffff" stroke="#d8ded4"/>
+
+  <text x="78" y="91" fill="#1f2a2e" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="32" font-weight="700">AI Signal Ops BI Dashboard</text>
+  <text x="78" y="124" fill="#5d6b67" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16">SQLite history and CSV exports translated into an operating review for analytics, automation, and AI operations roles.</text>
+  <rect x="1098" y="67" width="220" height="40" rx="20" fill="#eff5ec" stroke="#cfd9cb"/>
+  <text x="1130" y="92" fill="#355642" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="700">Public-safe sample data</text>
+
+  <g font-family="Inter, Segoe UI, Arial, sans-serif">
+    <rect x="78" y="160" width="230" height="112" rx="8" fill="#102625"/>
+    <text x="100" y="196" fill="#a6c9bf" font-size="14">Signals reviewed</text>
+    <text x="100" y="243" fill="#ffffff" font-size="44" font-weight="700">5</text>
+    <text x="168" y="243" fill="#8fb8a9" font-size="16">latest run</text>
+
+    <rect x="328" y="160" width="230" height="112" rx="8" fill="#fff7e5" stroke="#ead9ae"/>
+    <text x="350" y="196" fill="#7b6230" font-size="14">Review rate</text>
+    <text x="350" y="243" fill="#2d2920" font-size="44" font-weight="700">100%</text>
+
+    <rect x="578" y="160" width="230" height="112" rx="8" fill="#edf6f9" stroke="#cce2e8"/>
+    <text x="600" y="196" fill="#42616b" font-size="14">Open actions</text>
+    <text x="600" y="243" fill="#1e3841" font-size="44" font-weight="700">4</text>
+
+    <rect x="828" y="160" width="230" height="112" rx="8" fill="#f5eef9" stroke="#dfd0e8"/>
+    <text x="850" y="196" fill="#61466d" font-size="14">Average score</text>
+    <text x="850" y="243" fill="#33213d" font-size="44" font-weight="700">81.0</text>
+
+    <rect x="1078" y="160" width="240" height="112" rx="8" fill="#f0f5ee" stroke="#d0dec8"/>
+    <text x="1100" y="196" fill="#4a6342" font-size="14">Top theme</text>
+    <text x="1100" y="229" fill="#263725" font-size="24" font-weight="700">workflow</text>
+    <text x="1100" y="255" fill="#263725" font-size="24" font-weight="700">automation</text>
+  </g>
+
+  <g font-family="Inter, Segoe UI, Arial, sans-serif">
+    <rect x="78" y="306" width="390" height="232" rx="8" fill="#ffffff" stroke="#d8ded4"/>
+    <text x="102" y="346" fill="#1f2a2e" font-size="20" font-weight="700">Decision Mix</text>
+    <text x="102" y="372" fill="#64716f" font-size="13">From signal_history_decision_counts.csv</text>
+    <text x="102" y="414" fill="#495452" font-size="14">implement</text>
+    <rect x="198" y="398" width="190" height="24" rx="4" fill="#174c43"/>
+    <text x="402" y="416" fill="#495452" font-size="14">1</text>
+    <text x="102" y="456" fill="#495452" font-size="14">test</text>
+    <rect x="198" y="440" width="250" height="24" rx="4" fill="#2e7d76"/>
+    <text x="402" y="458" fill="#ffffff" font-size="14" font-weight="700">2</text>
+    <text x="102" y="498" fill="#495452" font-size="14">watch</text>
+    <rect x="198" y="482" width="190" height="24" rx="4" fill="#e0a340"/>
+    <text x="402" y="500" fill="#495452" font-size="14">1</text>
+  </g>
+
+  <g font-family="Inter, Segoe UI, Arial, sans-serif">
+    <rect x="498" y="306" width="390" height="232" rx="8" fill="#ffffff" stroke="#d8ded4"/>
+    <text x="522" y="346" fill="#1f2a2e" font-size="20" font-weight="700">Source Quality</text>
+    <text x="522" y="372" fill="#64716f" font-size="13">Average score and count by source</text>
+    <line x1="544" y1="494" x2="846" y2="494" stroke="#d4dad6"/>
+    <line x1="544" y1="420" x2="544" y2="494" stroke="#d4dad6"/>
+    <rect x="574" y="424" width="34" height="70" rx="4" fill="#174c43"/>
+    <rect x="638" y="432" width="34" height="62" rx="4" fill="#2e7d76"/>
+    <rect x="702" y="448" width="34" height="46" rx="4" fill="#e0a340"/>
+    <rect x="766" y="455" width="34" height="39" rx="4" fill="#6a75a8"/>
+    <text x="558" y="522" fill="#66716f" font-size="12">AI Ops</text>
+    <text x="620" y="522" fill="#66716f" font-size="12">Analytics</text>
+    <text x="695" y="522" fill="#66716f" font-size="12">Auto</text>
+    <text x="754" y="522" fill="#66716f" font-size="12">Bench</text>
+  </g>
+
+  <g font-family="Inter, Segoe UI, Arial, sans-serif">
+    <rect x="918" y="306" width="400" height="232" rx="8" fill="#ffffff" stroke="#d8ded4"/>
+    <text x="942" y="346" fill="#1f2a2e" font-size="20" font-weight="700">Weekly Summary</text>
+    <text x="942" y="372" fill="#64716f" font-size="13">From ai_signal_weekly_summary.csv</text>
+    <rect x="942" y="398" width="352" height="106" rx="8" fill="#f7f8f4" stroke="#e2e5de"/>
+    <text x="966" y="430" fill="#26312f" font-size="15" font-weight="700">4 open actions led by workflow automation.</text>
+    <text x="966" y="464" fill="#5c6865" font-size="14">Top source: Synthetic AI Ops Radar</text>
+    <text x="966" y="490" fill="#5c6865" font-size="14">Top decision: test | review rate: 100%</text>
+  </g>
+
+  <g font-family="Inter, Segoe UI, Arial, sans-serif">
+    <rect x="78" y="570" width="610" height="244" rx="8" fill="#ffffff" stroke="#d8ded4"/>
+    <text x="102" y="610" fill="#1f2a2e" font-size="20" font-weight="700">Open Action Queue</text>
+    <text x="102" y="636" fill="#64716f" font-size="13">Human-in-the-loop decisions from signal_history_signals.csv</text>
+    <rect x="102" y="662" width="562" height="34" rx="4" fill="#edf1ec"/>
+    <text x="118" y="684" fill="#3d4946" font-size="13" font-weight="700">Decision</text>
+    <text x="220" y="684" fill="#3d4946" font-size="13" font-weight="700">Signal</text>
+    <text x="492" y="684" fill="#3d4946" font-size="13" font-weight="700">Linked project</text>
+    <text x="118" y="724" fill="#174c43" font-size="13" font-weight="700">implement</text>
+    <text x="220" y="724" fill="#26312f" font-size="13">AI workflow orchestration</text>
+    <text x="492" y="724" fill="#26312f" font-size="13">AI Ops Command Center</text>
+    <line x1="102" y1="742" x2="664" y2="742" stroke="#edf1ec"/>
+    <text x="118" y="770" fill="#2e7d76" font-size="13" font-weight="700">test</text>
+    <text x="220" y="770" fill="#26312f" font-size="13">SQL quality checks</text>
+    <text x="492" y="770" fill="#26312f" font-size="13">Business Ops Reporting</text>
+  </g>
+
+  <g font-family="Inter, Segoe UI, Arial, sans-serif">
+    <rect x="718" y="570" width="600" height="244" rx="8" fill="#ffffff" stroke="#d8ded4"/>
+    <text x="742" y="610" fill="#1f2a2e" font-size="20" font-weight="700">Run Trend</text>
+    <text x="742" y="636" fill="#64716f" font-size="13">Weekly operating view for stakeholder reporting</text>
+    <line x1="762" y1="760" x2="1278" y2="760" stroke="#d4dad6"/>
+    <line x1="762" y1="680" x2="762" y2="760" stroke="#d4dad6"/>
+    <polyline points="780,742 890,724 1000,714 1110,694 1220,674" fill="none" stroke="#174c43" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="780" cy="742" r="5" fill="#174c43"/>
+    <circle cx="890" cy="724" r="5" fill="#174c43"/>
+    <circle cx="1000" cy="714" r="5" fill="#174c43"/>
+    <circle cx="1110" cy="694" r="5" fill="#174c43"/>
+    <circle cx="1220" cy="674" r="5" fill="#174c43"/>
+    <text x="762" y="792" fill="#66716f" font-size="12">Run 1</text>
+    <text x="1200" y="792" fill="#66716f" font-size="12">Latest</text>
+    <rect x="1026" y="676" width="210" height="42" rx="6" fill="#eff5ec" stroke="#cfd9cb"/>
+    <text x="1044" y="702" fill="#355642" font-size="13" font-weight="700">Open actions trending up</text>
+  </g>
+</svg>

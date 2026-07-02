@@ -104,8 +104,7 @@ The project now includes:
 
 - `data/operator_memory.json` for your running decisions, notes, and next actions
 - `dashboard.py` for visual review and queue management in Streamlit
-- `reports/latest_email_digest.md`, `reports/latest_slack_digest.txt`, and `reports/latest_sms_digest.txt` for delivery, including iMessage
-- `scripts/imessage.sh` and `scripts/run_daily.sh` for local delivery and scheduling
+- `reports/latest_email_digest.md` and `reports/latest_slack_digest.txt` for delivery
 - `benchmarks/` for Claude versus Codex comparisons on recurring work
 
 This turns the project from a reading system into an operating system.
@@ -117,9 +116,6 @@ This turns the project from a reading system into an operating system.
 3. Move at least one item into `test` or `implement`.
 4. Write one next action.
 5. Send or save the digest.
-6. If you want push-style awareness, send the short digest to yourself through iMessage.
-
-The simplest local automation target is `scripts/run_daily.sh`, which loads `config/local.env`, rebuilds the briefing, writes fresh digests, and hands the phone digest to `scripts/imessage.sh`.
 
 ## Recommended Weekly Workflow
 

@@ -1,12 +1,10 @@
 from __future__ import annotations
 
-import os
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import tempfile
 import unittest
-from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
@@ -14,13 +12,7 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 from ai_signal_routine.benchmark import write_benchmark_pack
-from ai_signal_routine.digests import (
-    _resolve_imessage_script_path,
-    build_email_digest,
-    build_slack_digest,
-    build_sms_digest,
-    send_imessage_digest,
-)
+from ai_signal_routine.digests import build_email_digest, build_slack_digest
 from ai_signal_routine.memory import (
     attach_memory_to_items,
     default_memory,
@@ -144,12 +136,9 @@ class ScoringTests(unittest.TestCase):
         }
         email = build_email_digest(payload)
         slack = build_slack_digest(payload)
-        sms = build_sms_digest(payload)
         self.assertIn("browser-use/browser-use", email)
         self.assertIn("Implement now", email)
         self.assertIn("*Queue:*", slack)
-        self.assertIn("AI intel", sms)
-        self.assertIn("browser-use/browser-use", sms)
 
     def test_benchmark_pack_writer_creates_expected_files(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -157,35 +146,6 @@ class ScoringTests(unittest.TestCase):
             self.assertTrue(paths["tasks"].exists())
             self.assertTrue(paths["scorecard"].exists())
             self.assertTrue(paths["results"].exists())
-
-    def test_imessage_script_path_uses_env_override(self) -> None:
-        with patch.dict(os.environ, {"IMESSAGE_SCRIPT_PATH": "/tmp/custom-imessage.sh"}, clear=False):
-            path = _resolve_imessage_script_path()
-        self.assertEqual(path, Path("/tmp/custom-imessage.sh").resolve())
-
-    def test_send_imessage_digest_calls_local_script(self) -> None:
-        with tempfile.TemporaryDirectory() as tmpdir:
-            script_path = Path(tmpdir) / "imessage.sh"
-            script_path.write_text("#!/bin/bash\nexit 0\n", encoding="utf-8")
-            script_path.chmod(0o755)
-
-            with patch.dict(
-                os.environ,
-                {
-                    "IMESSAGE_SCRIPT_PATH": str(script_path),
-                    "IMESSAGE_RECIPIENT": "+15557654321",
-                },
-                clear=False,
-            ):
-                with patch("ai_signal_routine.digests.subprocess.run") as mock_run:
-                    mock_run.return_value.returncode = 0
-                    mock_run.return_value.stderr = ""
-                    mock_run.return_value.stdout = ""
-                    send_imessage_digest("hello world")
-                    args, kwargs = mock_run.call_args
-                    self.assertEqual(Path(args[0][0]), script_path.resolve())
-                    self.assertIn("--recipient", args[0])
-                    self.assertEqual(kwargs["input"], "hello world")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,62 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">AI Signal Routine briefing preview</title>
+  <desc id="desc">A portfolio preview showing ranked AI operations signals, category mix, recommendations, and mini-project ideas.</desc>
+  <rect width="1200" height="760" rx="22" fill="#0f172a"/>
+  <rect x="32" y="32" width="1136" height="696" rx="18" fill="#f8fafc"/>
+  <rect x="32" y="32" width="1136" height="108" rx="18" fill="#111827"/>
+  <text x="64" y="82" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="30" font-weight="700" fill="#ffffff">AI Operator Intelligence Briefing</text>
+  <text x="64" y="116" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" fill="#cbd5e1">Rank noisy AI, analytics, and automation signals into an action queue</text>
+  <rect x="894" y="56" width="226" height="42" rx="21" fill="#22c55e"/>
+  <text x="926" y="83" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#052e16">Build / Test / Ignore</text>
+
+  <g transform="translate(64 174)">
+    <rect width="236" height="106" rx="14" fill="#e0f2fe" stroke="#7dd3fc"/>
+    <text x="20" y="34" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#075985">Signals Reviewed</text>
+    <text x="20" y="78" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="38" font-weight="800" fill="#0c4a6e">18</text>
+  </g>
+  <g transform="translate(324 174)">
+    <rect width="236" height="106" rx="14" fill="#ecfdf5" stroke="#86efac"/>
+    <text x="20" y="34" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#166534">Top Category</text>
+    <text x="20" y="72" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="26" font-weight="800" fill="#14532d">Automation</text>
+  </g>
+  <g transform="translate(584 174)">
+    <rect width="236" height="106" rx="14" fill="#fef9c3" stroke="#fde047"/>
+    <text x="20" y="34" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#854d0e">Highest Score</text>
+    <text x="20" y="78" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="38" font-weight="800" fill="#713f12">95.9</text>
+  </g>
+  <g transform="translate(844 174)">
+    <rect width="276" height="106" rx="14" fill="#fae8ff" stroke="#e879f9"/>
+    <text x="20" y="34" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#86198f">Decision Queue</text>
+    <text x="20" y="72" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="25" font-weight="800" fill="#701a75">Watch / Test / Implement</text>
+  </g>
+
+  <g transform="translate(64 320)">
+    <text x="0" y="0" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">Immediate Radar</text>
+    <rect x="0" y="24" width="1056" height="254" rx="14" fill="#ffffff" stroke="#dbe3ef"/>
+    <rect x="0" y="24" width="1056" height="44" rx="14" fill="#e5e7eb"/>
+    <text x="20" y="52" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#374151">Score</text>
+    <text x="104" y="52" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#374151">Category</text>
+    <text x="332" y="52" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#374151">Recommendation</text>
+    <text x="520" y="52" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#374151">Signal</text>
+
+    <g font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" fill="#111827">
+      <text x="20" y="94" font-weight="800">95.9</text><text x="104" y="94">Automation Systems</text><text x="332" y="94" font-weight="700" fill="#15803d">Build With</text><text x="520" y="94">Worktrunk tool trial for parallel AI workflows</text>
+      <line x1="0" y1="116" x2="1056" y2="116" stroke="#e5e7eb"/>
+      <text x="20" y="144" font-weight="800">92.2</text><text x="104" y="144">Tooling Stack</text><text x="332" y="144" font-weight="700" fill="#b45309">Monetize</text><text x="520" y="144">Airbyte agents: context across business data sources</text>
+      <line x1="0" y1="166" x2="1056" y2="166" stroke="#e5e7eb"/>
+      <text x="20" y="194" font-weight="800">91.3</text><text x="104" y="194">Infrastructure</text><text x="332" y="194" font-weight="700" fill="#15803d">Build With</text><text x="520" y="194">n8n workflow automation platform adoption signal</text>
+      <line x1="0" y1="216" x2="1056" y2="216" stroke="#e5e7eb"/>
+      <text x="20" y="244" font-weight="800">88.9</text><text x="104" y="244">AI Engineering</text><text x="332" y="244" font-weight="700" fill="#1d4ed8">Learn</text><text x="520" y="244">Data analyst augmentation framework for responsible AI analysis</text>
+    </g>
+  </g>
+
+  <g transform="translate(64 642)">
+    <text x="0" y="0" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22" font-weight="800" fill="#0f172a">Mini Project Ideas</text>
+    <rect x="0" y="24" width="330" height="58" rx="12" fill="#eff6ff" stroke="#bfdbfe"/>
+    <text x="18" y="60" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#1e3a8a">AI Tool Radar Dashboard</text>
+    <rect x="360" y="24" width="330" height="58" rx="12" fill="#f0fdf4" stroke="#bbf7d0"/>
+    <text x="378" y="60" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#14532d">Warehouse Copilot Guardrails</text>
+    <rect x="720" y="24" width="336" height="58" rx="12" fill="#fff7ed" stroke="#fed7aa"/>
+    <text x="738" y="60" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#7c2d12">Operator Intelligence Scoreboard</text>
+  </g>
+</svg>

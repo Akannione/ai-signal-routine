@@ -1,6 +1,15 @@
+.DS_Store
+.env
+.env.*
+*.log
+*.py[cod]
 __pycache__/
 .pytest_cache/
 .venv/
 .idea/
+.runtime-test/
+logs/
 config/local.env
+data/*.sqlite
 reports/archive/
+reports/history_exports/
