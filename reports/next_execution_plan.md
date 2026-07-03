@@ -1,6 +1,6 @@
 # Operator Next Execution Plan
 
-Updated for the July 3, 2026 draft pull-request state.
+Updated for the July 3, 2026 merged and installed runtime state.
 
 ## Current System State
 
@@ -9,34 +9,25 @@ Updated for the July 3, 2026 draft pull-request state.
 - iMessage delivery is working.
 - GitHub token handling falls back cleanly if a token is rejected.
 - `GITHUB_TOKEN` validation passes with the authenticated 5,000-request core limit and 30-request search limit.
-- The feature branch is pushed and draft pull request [#1](https://github.com/Akannione/ai-signal-routine/pull/1) is open with the complete feature history and 0 commits behind `main`.
+- Pull requests [#1](https://github.com/Akannione/ai-signal-routine/pull/1), [#2](https://github.com/Akannione/ai-signal-routine/pull/2), [#3](https://github.com/Akannione/ai-signal-routine/pull/3), and [#4](https://github.com/Akannione/ai-signal-routine/pull/4) are merged into `main`.
 - The publish helper targets `Akannione/ai-signal-routine` and refuses to force-push over a divergent remote branch.
+- The stale Vercel project is removed; it had no successful deployment or custom domain.
+- The 8:00 AM LaunchAgent is installed from a scoped 344 MB runtime that excludes unrelated workspace projects and preserves live reports and data.
 
-## Step 1: Review And Merge The Draft Pull Request
+## Step 1: Verify The Next Scheduled Run
 
 What you do:
 
-1. Review the pull request and checks:
+After the next 8:00 AM run, verify the job result and fresh output:
 
 ```bash
-gh pr view 1 --repo Akannione/ai-signal-routine --web
-gh pr checks 1 --repo Akannione/ai-signal-routine
+launchctl print "gui/$(id -u)/com.akannione.ai-signal-routine.daily" | rg 'last exit code|runs =|state ='
+tail -80 ~/.ai-signal-routine-runtime/logs/launchd.out.log
+tail -80 ~/.ai-signal-routine-runtime/logs/launchd.err.log
+stat -f '%Sm %N' ~/.ai-signal-routine-runtime/reports/latest_briefing.md
 ```
 
-The Python verification is green locally. The stale Vercel project was removed on July 3 after confirming that all six historical deployments had failed, no custom domain existed, and the repository's documented runtime is Streamlit/local automation rather than Vercel Functions.
-
-2. When the diff is approved, mark the PR ready and merge it:
-
-```bash
-gh pr ready 1 --repo Akannione/ai-signal-routine
-gh pr merge 1 --repo Akannione/ai-signal-routine --merge --delete-branch
-```
-
-3. Sync the 8 AM runtime after the pull request is merged:
-
-```bash
-./scripts/install_launch_agent.sh
-```
+Expected: a zero exit code, a new report timestamp, and no copied `TOBI_OS`, `career_system`, `business_os_mvp`, or `outputs` directory under the staged runtime.
 
 No token refresh is currently required. Replace `GITHUB_TOKEN` only if the validator later reports `github_token_status=invalid`.
 
