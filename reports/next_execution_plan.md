@@ -9,7 +9,7 @@ Updated for the July 3, 2026 draft pull-request state.
 - iMessage delivery is working.
 - GitHub token handling falls back cleanly if a token is rejected.
 - `GITHUB_TOKEN` validation passes with the authenticated 5,000-request core limit and 30-request search limit.
-- The feature branch is pushed and draft pull request [#1](https://github.com/Akannione/ai-signal-routine/pull/1) is open, mergeable, 4 commits ahead, and 0 behind `main`.
+- The feature branch is pushed and draft pull request [#1](https://github.com/Akannione/ai-signal-routine/pull/1) is open with the complete feature history and 0 commits behind `main`.
 - The publish helper targets `Akannione/ai-signal-routine` and refuses to force-push over a divergent remote branch.
 
 ## Step 1: Review And Merge The Draft Pull Request
