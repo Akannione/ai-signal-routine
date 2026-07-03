@@ -48,6 +48,14 @@ class InstallLaunchAgentTests(unittest.TestCase):
                 self.assertEqual(
                     runtime_report.read_text(encoding="utf-8"), "preserve runtime state"
                 )
+                self.assertEqual(
+                    (runtime_dir / "reports" / "next_execution_plan.md").read_text(
+                        encoding="utf-8"
+                    ),
+                    (ROOT / "reports" / "next_execution_plan.md").read_text(
+                        encoding="utf-8"
+                    ),
+                )
                 self.assertIn(str(runtime_dir / "scripts" / "run_daily.sh"), completed.stdout)
 
 
