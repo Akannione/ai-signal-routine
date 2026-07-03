@@ -1,6 +1,6 @@
 # AI Operator Playbook
 
-This project is built around a simple idea: you do not become hard to replace by reading the most news. You become hard to replace by building a repeatable loop that turns new information into judgment, experiments, and portfolio evidence.
+This project is built around a simple idea: you do not become hard to replace by reading the most AI news. You become hard to replace by building a repeatable intelligence loop that turns new information into judgment, experiments, portfolio evidence, and eventually monetizable systems.
 
 ## Your Edge
 
@@ -15,7 +15,7 @@ That is the lane this routine is designed for.
 
 ## What To Watch
 
-Use the automation to cover four lanes:
+Use the automation to cover seven lanes:
 
 1. Official product and engineering updates.
    Track OpenAI, Anthropic, Hugging Face, AWS, GitHub, and similar builder ecosystems first. This is where high-quality release notes, APIs, and platform shifts show up.
@@ -28,6 +28,15 @@ Use the automation to cover four lanes:
 
 4. Research with implementation potential.
    Papers matter most when they produce a method you can test in a notebook, dashboard, evaluation harness, or workflow.
+
+5. High-signal builders.
+   Track engineers, maintainers, indie hackers, and operators who show systems, code, benchmarks, teardown notes, or real workflow evidence.
+
+6. Opportunity radar.
+   Watch for underserved business problems: manual reporting, spreadsheet cleanup, back-office workflows, lead research, client reporting, analytics bottlenecks, and AI adoption gaps that a solo operator can realistically prototype.
+
+7. Noise and hype.
+   Explicitly filter shallow "top tools", passive-income, viral prompt, and motivational AI content. The time saved by ignoring noise is part of the leverage.
 
 ## Current Signals
 
@@ -88,6 +97,27 @@ Run the script daily in the morning or early evening. Let it give you a ranked b
 4. Capture 1 sentence on whether it is `watch`, `test`, or `implement`.
 5. Add one next action in the memory file or dashboard.
 
+The upgraded routine scores every major signal across ten operator dimensions:
+
+- technical depth
+- real-world utility
+- leverage potential
+- monetization potential
+- future relevance
+- learning value
+- speed of adoption
+- difficulty to replicate
+- career value
+- strategic edge
+
+Use the final recommendation as a decision shortcut:
+
+- `Learn`: convert it into a notebook, memo, or mini benchmark.
+- `Monitor`: watch for repeated builder usage before spending serious time.
+- `Build With`: run a bounded proof of value against a real workflow.
+- `Monetize`: package it into a small offer, audit, dashboard, or internal-tool prototype.
+- `Ignore`: archive it unless stronger implementation evidence appears.
+
 Once a week:
 
 1. Pick the highest-scoring mini project.
@@ -104,8 +134,12 @@ The project now includes:
 
 - `data/operator_memory.json` for your running decisions, notes, and next actions
 - `dashboard.py` for visual review and queue management in Streamlit
-- `reports/latest_email_digest.md` and `reports/latest_slack_digest.txt` for delivery
+- `reports/latest_email_digest.md`, `reports/latest_slack_digest.txt`, and `reports/latest_sms_digest.txt` for delivery, including iMessage
+- `scripts/imessage.sh`, `scripts/run_daily.sh`, and `scripts/install_launch_agent.sh` for local delivery and scheduling
 - `benchmarks/` for Claude versus Codex comparisons on recurring work
+- a richer operator intelligence layer that explains category, scorecard, why it matters, who is using it, leverage created, skill gain, monetization potential, difficulty, market saturation, next step, and whether to learn, monitor, build with, monetize, or ignore
+- an Opportunity Radar, High-Signal Builders tracker, and Noise/Hype To Ignore section
+- a broader intake mix that now includes GitHub release tracking and Reddit workflow discussions
 
 This turns the project from a reading system into an operating system.
 
@@ -117,6 +151,8 @@ This turns the project from a reading system into an operating system.
 4. Write one next action.
 5. Send or save the digest.
 
+If you want the routine to feel like a real daily agent, set `DAILY_RUN_HOUR` and `DAILY_RUN_MINUTE` in `config/local.env`, then install the macOS LaunchAgent with `./scripts/install_launch_agent.sh` or by double-clicking `scripts/install_daily_agent.command`. If the project is stored in `Documents`, the installer now stages a background-safe runtime copy under `~/.ai-signal-routine-runtime`.
+
 ## Recommended Weekly Workflow
 
 1. Review what is still in `watch`.
@@ -124,6 +160,8 @@ This turns the project from a reading system into an operating system.
 3. Run the same task with Claude and Codex.
 4. Score both tools in `benchmarks/benchmark_scorecard.md` or `benchmarks/results_template.csv`.
 5. Update your notes with where each tool is strongest.
+
+The mini-project layer is now more varied too. It mixes recurring theme projects with signal-specific labs so you do not keep getting the same exercise every week.
 
 ## Best Roles For Claude And Codex
 

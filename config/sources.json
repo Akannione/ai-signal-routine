@@ -1,7 +1,7 @@
 {
   "profile": {
     "name": "ai-analytics-operator",
-    "description": "A high-signal feed for generative AI, data analytics, data science, and business workflow leverage.",
+    "description": "An AI Operator Intelligence routine for finding builder-grade leverage, automation systems, analytics/data workflows, monetizable technical opportunities, and emerging infrastructure before they become mainstream.",
     "topic_keywords": [
       "agent",
       "agents",
@@ -38,7 +38,41 @@
       "streamlit",
       "notebook",
       "mlops",
-      "copilot"
+      "copilot",
+      "semantic layer",
+      "feature store",
+      "experimentation",
+      "governance",
+      "lineage",
+      "orchestration"
+    ],
+    "operator_keywords": [
+      "operator",
+      "builder",
+      "founder",
+      "technical founder",
+      "solo dev",
+      "indie hacker",
+      "automation agency",
+      "consultant",
+      "systems",
+      "production",
+      "workflow",
+      "case study",
+      "internal tool",
+      "playbook",
+      "template",
+      "pipeline",
+      "eval",
+      "benchmark",
+      "observability",
+      "reliability",
+      "deployment",
+      "agentic",
+      "data app",
+      "etl",
+      "elt",
+      "reverse etl"
     ],
     "business_keywords": [
       "sales",
@@ -56,7 +90,21 @@
       "memo",
       "analysis",
       "book of business",
-      "spreadsheet"
+      "spreadsheet",
+      "manual process",
+      "back office",
+      "lead generation",
+      "client reporting",
+      "customer support",
+      "invoice",
+      "reconciliation",
+      "compliance",
+      "operations workflow",
+      "time saved",
+      "margin",
+      "service business",
+      "freelance",
+      "consulting"
     ],
     "learning_keywords": [
       "tutorial",
@@ -69,12 +117,69 @@
       "starter",
       "quickstart"
     ],
+    "monetization_keywords": [
+      "freelance",
+      "consulting",
+      "agency",
+      "b2b",
+      "saas",
+      "internal tool",
+      "dashboard",
+      "reporting",
+      "automation",
+      "lead gen",
+      "workflow",
+      "operations",
+      "finance",
+      "sales",
+      "support",
+      "compliance",
+      "invoice",
+      "reconciliation",
+      "roi",
+      "cost savings"
+    ],
+    "noise_keywords": [
+      "top 10",
+      "top ten",
+      "best ai tools",
+      "you won't believe",
+      "mind-blowing",
+      "game changer",
+      "make money with ai",
+      "passive income",
+      "prompt hack",
+      "viral",
+      "ultimate list",
+      "secret prompts",
+      "replace everyone",
+      "no code riches",
+      "productivity hacks",
+      "shocking",
+      "revolutionary"
+    ],
+    "category_keywords": {
+      "Immediate Edge": ["codex", "claude code", "release", "workflow", "automation", "benchmark", "playbook", "daily", "case study"],
+      "Emerging Infrastructure": ["mcp", "model context protocol", "observability", "gateway", "runtime", "orchestration", "agent framework", "vector", "eval", "evaluation"],
+      "AI Engineering": ["agent", "agents", "tool use", "rag", "retrieval", "coding", "developer", "openai", "anthropic", "llm"],
+      "Automation Systems": ["automation", "browser", "playwright", "n8n", "zapier", "workflow", "scraping", "etl", "pipeline"],
+      "Analytics/Data Engineering": ["analytics", "sql", "warehouse", "dbt", "duckdb", "dashboard", "semantic layer", "metrics", "lineage", "data engineering"],
+      "Freelance Leverage": ["freelance", "consulting", "agency", "client", "service business", "proposal", "b2b", "lead generation"],
+      "Startup Opportunities": ["startup", "indie hacker", "saas", "founder", "product hunt", "mvp", "paid", "pricing"],
+      "High-Signal Builders": ["builder", "founder", "maintainer", "open source", "case study", "technical blog", "github"],
+      "Experimental Workflows": ["experiment", "prototype", "demo", "notebook", "benchmark", "lab", "paper"],
+      "Tooling Stack": ["sdk", "cli", "framework", "library", "tool", "server", "connector", "api"],
+      "Underrated Opportunities": ["boring", "back office", "manual process", "spreadsheet", "reconciliation", "internal tool", "operator"],
+      "Noise/Hype To Ignore": ["top 10", "viral", "mind-blowing", "passive income", "prompt hack", "ultimate list"]
+    },
     "source_group_weights": {
       "official": 16,
       "repo": 15,
       "research": 12,
       "community": 10,
-      "discussion": 8
+      "discussion": 8,
+      "builder": 14,
+      "startup": 9
     }
   },
   "limits": {
@@ -113,10 +218,17 @@
     },
     {
       "type": "rss",
-      "name": "VentureBeat AI",
-      "group": "community",
-      "url": "https://venturebeat.com/category/ai/feed/",
-      "tags": ["industry", "ai"]
+      "name": "Simon Willison",
+      "group": "builder",
+      "url": "https://simonwillison.net/atom/everything/",
+      "tags": ["builder", "llm", "technical-blog"]
+    },
+    {
+      "type": "rss",
+      "name": "Product Hunt",
+      "group": "startup",
+      "url": "https://www.producthunt.com/feed",
+      "tags": ["startup", "product-hunt", "tools"]
     },
     {
       "type": "rss",
@@ -132,13 +244,52 @@
       "queries": [
         "Claude Code",
         "Codex",
+        "Codex workflow",
+        "Claude Code automation",
         "MCP",
+        "MCP server",
         "browser-use",
         "AI agents",
-        "data analytics AI"
+        "AI engineering",
+        "agent evaluation",
+        "LLM observability",
+        "data analytics AI",
+        "semantic layer ai",
+        "text to SQL",
+        "analytics engineering",
+        "mlops agent"
       ],
       "hits_per_query": 5,
       "tags": ["discussion", "hacker-news"]
+    },
+    {
+      "type": "reddit_search",
+      "name": "Reddit Operator Radar",
+      "group": "discussion",
+      "subreddits": [
+        "LocalLLaMA",
+        "MachineLearning",
+        "dataengineering",
+        "datascience",
+        "BusinessIntelligence",
+        "SaaS"
+      ],
+      "queries": [
+        "Claude Code",
+        "Codex",
+        "MCP",
+        "AI agents",
+        "automation workflow",
+        "freelance automation",
+        "data analytics",
+        "analytics engineering",
+        "mlops",
+        "text to SQL"
+      ],
+      "hits_per_query": 2,
+      "sort": "new",
+      "time": "week",
+      "tags": ["reddit", "discussion"]
     },
     {
       "type": "github_search",
@@ -160,6 +311,26 @@
         {
           "query": "\"data science\" llm in:name,description,readme stars:>200 archived:false",
           "sort": "stars"
+        },
+        {
+          "query": "\"semantic layer\" OR metrics in:name,description,readme stars:>100 archived:false",
+          "sort": "updated"
+        },
+        {
+          "query": "\"mlops\" OR evaluation OR observability in:name,description,readme stars:>150 archived:false",
+          "sort": "updated"
+        },
+        {
+          "query": "\"ai operator\" OR \"automation agency\" OR \"workflow automation\" in:name,description,readme stars:>100 archived:false",
+          "sort": "updated"
+        },
+        {
+          "query": "\"claude code\" OR \"codex\" in:name,description,readme stars:>100 archived:false",
+          "sort": "updated"
+        },
+        {
+          "query": "\"text to sql\" OR \"analytics agent\" OR \"data agent\" in:name,description,readme stars:>100 archived:false",
+          "sort": "updated"
         }
       ],
       "per_query": 5,
@@ -175,13 +346,56 @@
         "All-Hands-AI/OpenHands",
         "Aider-AI/aider",
         "openai/openai-agents-python",
+        "anthropics/anthropic-cookbook",
         "microsoft/playwright-mcp",
+        "microsoft/autogen",
+        "langchain-ai/langgraph",
+        "CrewAIInc/crewAI",
+        "BerriAI/litellm",
         "simonw/llm",
         "evidentlyai/evidently",
         "dagster-io/dagster",
-        "dbt-labs/dbt-core"
+        "dbt-labs/dbt-core",
+        "duckdb/duckdb",
+        "unclecode/crawl4ai",
+        "n8n-io/n8n",
+        "microsoft/markitdown",
+        "jlowin/fastmcp",
+        "stanfordnlp/dspy",
+        "run-llama/llama_index",
+        "dlt-hub/dlt",
+        "mindsdb/mindsdb",
+        "AgentOps-AI/agentops"
       ],
       "tags": ["github", "watchlist"]
+    },
+    {
+      "type": "github_releases_watchlist",
+      "name": "GitHub Release Radar",
+      "group": "official",
+      "repos": [
+        "openai/openai-agents-python",
+        "browser-use/browser-use",
+        "microsoft/playwright-mcp",
+        "microsoft/autogen",
+        "langchain-ai/langgraph",
+        "Aider-AI/aider",
+        "BerriAI/litellm",
+        "dagster-io/dagster",
+        "dbt-labs/dbt-core",
+        "evidentlyai/evidently",
+        "unclecode/crawl4ai",
+        "n8n-io/n8n",
+        "microsoft/markitdown",
+        "jlowin/fastmcp",
+        "stanfordnlp/dspy",
+        "run-llama/llama_index",
+        "dlt-hub/dlt",
+        "mindsdb/mindsdb",
+        "AgentOps-AI/agentops"
+      ],
+      "per_repo": 1,
+      "tags": ["github", "releases"]
     },
     {
       "type": "arxiv",
@@ -189,7 +403,10 @@
       "group": "research",
       "queries": [
         "all:(llm OR \"language model\") AND all:(agent OR \"tool use\" OR evaluation)",
-        "all:(analytics OR sql OR \"data science\") AND all:(llm OR \"generative ai\")"
+        "all:(analytics OR sql OR \"data science\") AND all:(llm OR \"generative ai\")",
+        "all:(mlops OR observability OR evaluation) AND all:(llm OR agent)",
+        "all:(\"text-to-sql\" OR \"text to sql\" OR \"semantic layer\") AND all:(llm OR agent)",
+        "all:(automation OR workflow OR browser) AND all:(agent OR llm)"
       ],
       "per_query": 4,
       "tags": ["research", "papers"]

@@ -12,7 +12,73 @@ This project monitors technical sources, scores each signal for career and busin
 
 The Streamlit dashboard runs in public-safe sample mode with sanitized data. In sample mode, the app shows ranked AI/analytics/automation signals, source and category filters, a decision workspace, operator recommendations, trend history, and export-ready analytics tables without requiring API keys or private local config.
 
-Run the portfolio-safe dashboard locally:
+- official blogs and release feeds
+- GitHub repository search
+- GitHub release tracking for key workflow repos
+- Hacker News discussion
+- Reddit discussion across AI and analytics communities
+- arXiv research feeds
+
+Then it:
+
+- scores items across technical depth, real-world utility, leverage potential, monetization potential, future relevance, learning value, adoption speed, difficulty to replicate, career value, and strategic edge
+- ranks the strongest signals
+- classifies signals into categories like Immediate Edge, Emerging Infrastructure, AI Engineering, Automation Systems, Analytics/Data Engineering, Freelance Leverage, Startup Opportunities, High-Signal Builders, Tooling Stack, Underrated Opportunities, and Noise/Hype To Ignore
+- adds a structured operator intelligence layer for each major insight: why it matters to your path, who is using it, leverage created, skill gain, monetization angle, difficulty, market saturation, next step, and recommendation
+- writes a Markdown briefing and JSON payload
+- stores your `watch`, `test`, and `implement` decisions
+- writes email and Slack digest files
+- writes a short phone digest sized for iMessage delivery
+- routes local phone delivery through a bash script you can automate
+- creates a benchmark pack for Claude and Codex
+- generates more varied mini-project ideas from both the strongest themes and the top live signals
+
+## Quick Start
+
+Use the WSL project path for local development:
+
+```bash
+cd "/home/tobio/Documents/New project"
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp config/local.env.example config/local.env
+chmod +x scripts/imessage.sh scripts/run_daily.sh
+chmod +x scripts/install_launch_agent.sh
+python3 main.py
+```
+
+Do not commit or paste values from `config/local.env`; keep real tokens, webhook URLs, phone numbers, and SMTP credentials local only.
+
+Optional:
+
+- Set `GITHUB_TOKEN` for higher GitHub API limits.
+- Validate `GITHUB_TOKEN` without printing it by running `./scripts/check_github_token.sh`.
+- Set `SLACK_WEBHOOK_URL` to send the Slack digest automatically.
+- Set `SMTP_HOST`, `SMTP_FROM`, and `SMTP_TO` to send the email digest automatically.
+- Set `IMESSAGE_RECIPIENT` to send the short digest through the Mac Messages app automatically.
+- Use `config/local.env` for local automation settings like recipient and schedule time.
+
+## Project Files
+
+The AI Signal Routine project lives in these root-level files and folders:
+
+- `main.py` - CLI entry point for building the briefing, digests, and benchmark pack.
+- `dashboard.py` - Streamlit dashboard for signal review, memory updates, digests, mini-projects, and benchmarks.
+- `src/ai_signal_routine/` - core collectors, scoring, reporting, digests, memory, benchmark, and mini-project logic.
+- `config/sources.json` - tracked source and scoring configuration.
+- `config/local.env.example` - safe template for local environment settings.
+- `config/local.env` - untracked local settings file; do not expose or edit it unless you are configuring your own machine.
+- `reports/` - latest generated briefing and digest outputs.
+- `data/operator_memory.json` - local decision memory used by the dashboard.
+- `benchmarks/` - Claude vs Codex benchmark tasks, scorecard, and result template.
+- `scripts/` - local daily run, iMessage, launch agent, and publish helpers.
+- `docs/operator_playbook.md` - operating guide for the daily and weekly routine.
+- `tests/` - scoring and delivery behavior tests.
+
+## Dashboard
+
+Run the dashboard with:
 
 ```bash
 AI_SIGNAL_SAMPLE_MODE=1 streamlit run dashboard.py

@@ -7,9 +7,10 @@ __pycache__/
 .pytest_cache/
 .venv/
 .idea/
-.runtime-test/
+config/local.env*
+!config/local.env.example
 logs/
-config/local.env
+.runtime-test/
 data/*.sqlite
 reports/archive/
 reports/history_exports/
