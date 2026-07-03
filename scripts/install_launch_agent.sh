@@ -54,6 +54,7 @@ LOG_DIR="${LOG_DIR:-$ROOT_DIR/logs}"
 PRINT_ONLY=0
 START_NOW=0
 UNINSTALL=0
+FORCE_STAGE_RUNTIME="${FORCE_STAGE_RUNTIME:-0}"
 
 is_protected_root() {
   local path="$1"
@@ -265,7 +266,7 @@ ACTIVE_RUN_SCRIPT="$RUN_SCRIPT"
 ACTIVE_LOG_DIR="$LOG_DIR"
 STAGED_RUNTIME=0
 
-if is_protected_root "$ROOT_DIR"; then
+if is_protected_root "$ROOT_DIR" || [[ "$FORCE_STAGE_RUNTIME" == "1" ]]; then
   ACTIVE_ROOT="$RUNTIME_DIR"
   ACTIVE_ENV_FILE="$(remap_source_path "$ENV_FILE" "$ROOT_DIR" "$RUNTIME_DIR")"
   ACTIVE_PYTHON_BIN="$(remap_source_path "$PYTHON_BIN" "$ROOT_DIR" "$RUNTIME_DIR")"

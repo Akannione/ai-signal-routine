@@ -25,6 +25,7 @@ class InstallLaunchAgentTests(unittest.TestCase):
 
             env = {
                 **os.environ,
+                "FORCE_STAGE_RUNTIME": "1",
                 "RUNTIME_DIR": str(runtime_dir),
                 "LAUNCH_AGENTS_DIR": str(temp_root / "launch-agents"),
             }
