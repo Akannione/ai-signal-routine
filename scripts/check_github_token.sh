@@ -12,53 +12,56 @@ if [[ -f "$ENV_FILE" ]]; then
   set +a
 fi
 
-python3 - <<'PY'
+token="${GITHUB_TOKEN:-}"
+token="${token//\"/}"
+token="${token//\'/}"
+if [[ -z "$token" ]]; then
+  echo "github_token_status=missing"
+  echo "Set GITHUB_TOKEN in config/local.env, then rerun this script."
+  exit 2
+fi
+
+response_file="$(mktemp)"
+trap 'rm -f "$response_file"' EXIT
+
+if ! http_status="$(
+  curl --silent --show-error \
+    --connect-timeout 10 \
+    --max-time 20 \
+    --output "$response_file" \
+    --write-out '%{http_code}' \
+    --header 'Accept: application/vnd.github+json' \
+    --header "Authorization: Bearer $token" \
+    --header 'User-Agent: ai-signal-routine-token-check' \
+    https://api.github.com/rate_limit
+)"; then
+  echo "github_token_status=network_error"
+  exit 3
+fi
+
+if [[ "$http_status" == "401" ]]; then
+  echo "github_token_status=invalid"
+  echo "Replace GITHUB_TOKEN with a fresh token. Do not include quotes, spaces, or a Bearer prefix."
+  exit 1
+fi
+
+python3 - "$http_status" "$response_file" <<'PY'
 from __future__ import annotations
 
 import json
-import os
 import sys
-from urllib.error import HTTPError, URLError
-from urllib.request import Request, urlopen
+from pathlib import Path
 
 
-token = os.environ.get("GITHUB_TOKEN", "").strip().strip("\"").strip("'")
-if not token:
-    print("github_token_status=missing")
-    print("Set GITHUB_TOKEN in config/local.env, then rerun this script.")
-    sys.exit(2)
-
-request = Request(
-    "https://api.github.com/rate_limit",
-    headers={
-        "Accept": "application/vnd.github+json",
-        "Authorization": f"Bearer {token}",
-        "User-Agent": "ai-signal-routine-token-check",
-    },
-)
-
+status = int(sys.argv[1])
+body = Path(sys.argv[2]).read_text(encoding="utf-8", errors="replace")
 try:
-    with urlopen(request, timeout=20) as response:
-        status = response.status
-        body = response.read().decode("utf-8", errors="replace")
-except HTTPError as exc:
-    status = exc.code
-    body = exc.read().decode("utf-8", errors="replace")
-except URLError as exc:
-    print("github_token_status=network_error")
-    print(str(exc.reason))
-    sys.exit(3)
-except OSError as exc:
-    print("github_token_status=network_error")
-    print(str(exc))
-    sys.exit(3)
+    payload = json.loads(body)
+except json.JSONDecodeError:
+    print("github_token_status=invalid_response")
+    sys.exit(1)
 
 if status == 200:
-    try:
-        payload = json.loads(body)
-    except json.JSONDecodeError:
-        print("github_token_status=invalid_response")
-        sys.exit(1)
     core = payload.get("resources", {}).get("core", {})
     search = payload.get("resources", {}).get("search", {})
     print("github_token_status=valid")
@@ -66,16 +69,8 @@ if status == 200:
     print(f"search_limit={search.get('limit')} search_remaining={search.get('remaining')}")
     sys.exit(0)
 
-if status == 401:
-    print("github_token_status=invalid")
-    print("Replace GITHUB_TOKEN with a fresh token. Do not include quotes, spaces, or a Bearer prefix.")
-    sys.exit(1)
-
 print(f"github_token_status=unexpected_http_{status}")
-try:
-    message = json.loads(body).get("message", "")
-except json.JSONDecodeError:
-    message = ""
+message = str(payload.get("message", ""))
 if message:
     print(message[:500])
 sys.exit(1)
