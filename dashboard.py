@@ -15,7 +15,12 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 from ai_signal_routine.benchmark import BENCHMARK_PACK, write_benchmark_pack  # noqa: E402
-from ai_signal_routine.digests import build_email_digest, build_slack_digest, write_digests  # noqa: E402
+from ai_signal_routine.digests import (  # noqa: E402
+    build_email_digest,
+    build_slack_digest,
+    build_sms_digest,
+    write_digests,
+)
 from ai_signal_routine.history import (  # noqa: E402
     build_history_snapshot,
     build_weekly_summary,
@@ -78,6 +83,7 @@ def main() -> None:
     benchmark_paths = write_benchmark_pack(BENCHMARK_DIR)
     email_digest = build_email_digest(payload)
     slack_digest = build_slack_digest(payload)
+    sms_digest = build_sms_digest(payload)
     history_result = record_briefing(history_path, payload)
 
     if using_sample_data:
@@ -88,12 +94,23 @@ def main() -> None:
 
     render_header(payload)
 
-    tab_radar, tab_queue, tab_trends, tab_projects, tab_digests, tab_benchmark = st.tabs(
-        ["Radar", "Queue", "Trends", "Mini Projects", "Digests", "Benchmark"]
+    (
+        tab_radar,
+        tab_opportunities,
+        tab_queue,
+        tab_trends,
+        tab_projects,
+        tab_digests,
+        tab_benchmark,
+    ) = st.tabs(
+        ["Radar", "Opportunities", "Queue", "Trends", "Mini Projects", "Digests", "Benchmark"]
     )
 
     with tab_radar:
         render_radar(payload, memory, memory_path)
+
+    with tab_opportunities:
+        render_opportunities(payload)
 
     with tab_queue:
         render_queue(payload)
@@ -105,7 +122,7 @@ def main() -> None:
         render_projects(payload)
 
     with tab_digests:
-        render_digests(payload, email_digest, slack_digest)
+        render_digests(payload, email_digest, slack_digest, sms_digest)
 
     with tab_benchmark:
         render_benchmark(benchmark_paths)
@@ -130,13 +147,18 @@ def resolve_data_paths() -> tuple[Path, Path, bool]:
 def render_header(payload: dict) -> None:
     queue = payload.get("memory_summary", {})
     themes = payload.get("themes", [])
+    categories = payload.get("categories", [])
     theme_label = ", ".join(f"{item['theme']} ({item['count']})" for item in themes[:3]) or "No themes yet"
+    category_label = ", ".join(
+        f"{item['category']} ({item['count']})" for item in categories[:3]
+    ) or "No categories yet"
     st.markdown(
         f"""
 <div class="hero">
-    <div style="font-size: 1.15rem; font-weight: 700;">Your operating dashboard</div>
-    <div class="small-note">Use this to decide what to watch, what to test, and what to implement while the market moves.</div>
+    <div style="font-size: 1.15rem; font-weight: 700;">AI Operator Intelligence</div>
+    <div class="small-note">Use this to decide what to learn, monitor, build with, monetize, or ignore while the market moves.</div>
     <div style="margin-top: 0.7rem;">Strongest themes: {theme_label}</div>
+    <div style="margin-top: 0.25rem;">Strongest categories: {category_label}</div>
 </div>
 """,
         unsafe_allow_html=True,
@@ -163,19 +185,22 @@ def render_header(payload: dict) -> None:
 def render_radar(payload: dict, memory: dict, memory_path: Path) -> None:
     items = payload.get("items", [])
     all_sources = sorted({item["source"] for item in items})
+    all_categories = sorted({item.get("category", "Uncategorized") for item in items})
 
     st.subheader("Signal Review")
-    filter_col1, filter_col2, filter_col3 = st.columns([1.2, 1.2, 1.8])
+    filter_col1, filter_col2, filter_col3, filter_col4 = st.columns([1.1, 1.2, 1.2, 1.8])
     source_filter = filter_col1.multiselect("Sources", all_sources, default=all_sources)
-    decision_filter = filter_col2.multiselect(
+    category_filter = filter_col2.multiselect("Categories", all_categories, default=all_categories)
+    decision_filter = filter_col3.multiselect(
         "Decisions", VALID_DECISIONS, default=["unreviewed", "watch", "test", "implement"]
     )
-    search = filter_col3.text_input("Search", placeholder="agent, analytics, codex, sql...")
+    search = filter_col4.text_input("Search", placeholder="agent, analytics, codex, sql...")
 
     filtered = [
         item
         for item in items
         if item["source"] in source_filter
+        and item.get("category", "Uncategorized") in category_filter
         and item.get("operator", {}).get("decision", "unreviewed") in decision_filter
         and _matches_search(item, search)
     ]
@@ -185,7 +210,7 @@ def render_radar(payload: dict, memory: dict, memory_path: Path) -> None:
 
     list_col, editor_col = st.columns([1.45, 1.0], gap="large")
     labels = [
-        f"{item['score']:.1f} | {item['operator'].get('decision', 'unreviewed')} | {item['title']}"
+        f"{item['score']:.1f} | {item.get('category', 'Uncategorized')} | {item['operator'].get('decision', 'unreviewed')} | {item['title']}"
         for item in filtered
     ]
     selected_label = list_col.radio("Pick a signal", labels, index=0)
@@ -195,6 +220,7 @@ def render_radar(payload: dict, memory: dict, memory_path: Path) -> None:
     with list_col:
         for item in filtered[:12]:
             operator = item.get("operator", {})
+            intel = _operator_intel(item)
             st.markdown(
                 f"""
 <div class="item-card">
@@ -202,7 +228,7 @@ def render_radar(payload: dict, memory: dict, memory_path: Path) -> None:
         <div style="font-weight:700;">{item['title']}</div>
         <div class="status-pill">{operator.get('decision', 'unreviewed')}</div>
     </div>
-    <div class="small-note" style="margin-top:0.2rem;">{item['source']} | score {item['score']:.1f}</div>
+    <div class="small-note" style="margin-top:0.2rem;">{item.get('category', 'Uncategorized')} | {item['source']} | score {item['score']:.1f} | {intel.get('recommendation', 'Monitor')}</div>
     <div style="margin-top:0.45rem;">{'; '.join(item.get('rationale', [])[:2]) or 'Relevant signal.'}</div>
 </div>
 """,
@@ -213,6 +239,28 @@ def render_radar(payload: dict, memory: dict, memory_path: Path) -> None:
         st.subheader("Decision Workspace")
         st.markdown(f"[Open source link]({selected_item['url']})")
         st.write(selected_item.get("summary") or "No summary available.")
+        analysis = selected_item.get("analysis") or selected_item.get("metadata", {}).get("analysis", {})
+        intel = _operator_intel(selected_item)
+        if intel:
+            st.markdown("**Operator Intelligence**")
+            st.write(f"Category: {intel.get('category', selected_item.get('category', 'Uncategorized'))}")
+            st.write(f"Recommendation: {intel.get('recommendation', 'Monitor')}")
+            st.write(f"Who is using it: {intel.get('who_is_using_it', 'Builders and practitioners.')}")
+            st.write(f"Leverage created: {intel.get('leverage_created', 'Reusable workflow leverage.')}")
+            st.write(f"Skill gain: {intel.get('skill_gain', 'Technical judgment.')}")
+            st.write(f"Monetization: {intel.get('monetization_potential', 'Medium after validation.')}")
+            st.write(f"Next step: {intel.get('actionable_next_step', 'Run one small validation.')}")
+            scorecard = intel.get("scorecard", {})
+            if scorecard:
+                st.json(scorecard, expanded=False)
+        if analysis:
+            st.markdown("**Why this matters**")
+            st.write(analysis.get("why_this_matters", "Relevant to your focus."))
+            st.markdown("**How it works**")
+            st.write(analysis.get("how_it_works", "Review the source and run one small test."))
+            st.markdown("**Should you implement it?**")
+            st.write(analysis.get("should_i_implement", "Watch it first, then test it in your workflow."))
+            st.caption(f"Suggested move: {analysis.get('suggested_decision', 'watch')}")
         operator = selected_item.get("operator", {})
 
         with st.form("memory_form"):
@@ -327,6 +375,41 @@ def render_trends(history_path: Path, history_result: dict, using_sample_data: b
             st.warning("No history database exists yet.")
 
 
+def render_opportunities(payload: dict) -> None:
+    st.subheader("Opportunity Radar")
+    opportunities = payload.get("opportunity_radar", [])
+    builders = payload.get("builder_tracker", [])
+    noise_items = payload.get("noise_items", [])
+
+    if not opportunities:
+        st.info("No monetizable or build-with opportunities were detected in the latest briefing.")
+    else:
+        for opportunity in opportunities:
+            with st.container(border=True):
+                st.markdown(f"### [{opportunity['title']}]({opportunity['url']})")
+                st.write(f"{opportunity['category']} | {opportunity['recommendation']}")
+                st.write(opportunity["why"])
+                st.markdown(f"- Next step: {opportunity['next_step']}")
+                st.markdown(f"- Opportunity score: {opportunity['opportunity_score']}")
+
+    st.subheader("High-Signal Builders")
+    if not builders:
+        st.caption("No builder tracker entries yet.")
+    for builder in builders[:8]:
+        st.markdown(
+            f"- **{builder['builder']}** | score {builder['score']:.1f} | {builder['signal_count']} signal(s) | {builder['why']}"
+        )
+
+    st.subheader("Noise/Hype To Ignore")
+    if not noise_items:
+        st.caption("No obvious low-signal items were captured.")
+    for item in noise_items[:5]:
+        noise_hits = item.get("metadata", {}).get("noise_hits", [])
+        st.markdown(
+            f"- [{item['title']}]({item['url']}) | score {item['score']:.1f} | filter: {', '.join(noise_hits[:3]) or 'low operator fit'}"
+        )
+
+
 def render_projects(payload: dict) -> None:
     st.subheader("Mini Projects")
     for project in payload.get("mini_projects", []):
@@ -339,23 +422,30 @@ def render_projects(payload: dict) -> None:
             st.code(project["prompt_seed"])
 
 
-def render_digests(payload: dict, email_digest: str, slack_digest: str) -> None:
+def render_digests(
+    payload: dict, email_digest: str, slack_digest: str, sms_digest: str
+) -> None:
     st.subheader("Delivery Layer")
     st.caption("These exports turn your current queue into something you can send or archive.")
     if st.button("Write latest digest files", use_container_width=False):
-        email_path, slack_path = write_digests(email_digest, slack_digest, ROOT / "reports")
-        st.success(f"Wrote {email_path.name} and {slack_path.name}.")
+        email_path, slack_path, sms_path = write_digests(
+            email_digest, slack_digest, sms_digest, ROOT / "reports"
+        )
+        st.success(f"Wrote {email_path.name}, {slack_path.name}, and {sms_path.name}.")
 
-    col1, col2 = st.columns(2, gap="large")
+    col1, col2, col3 = st.columns(3, gap="large")
     with col1:
         st.markdown("### Email Digest")
         st.text_area("Email preview", value=email_digest, height=420)
     with col2:
         st.markdown("### Slack Digest")
         st.text_area("Slack preview", value=slack_digest, height=420)
+    with col3:
+        st.markdown("### iMessage Digest")
+        st.text_area("iMessage preview", value=sms_digest, height=420)
 
     st.caption(
-        "Optional sending is available from the CLI if you set `SLACK_WEBHOOK_URL` or SMTP environment variables."
+        "Optional sending is available from the CLI if you set Slack, SMTP, or local iMessage environment variables."
     )
 
 
@@ -406,6 +496,18 @@ def _dataframe_or_caption(rows: list[dict], empty_message: str) -> None:
         st.dataframe(rows, use_container_width=True, hide_index=True)
     else:
         st.caption(empty_message)
+
+
+def _operator_intel(item: dict) -> dict:
+    intel = item.get("operator_intelligence")
+    if isinstance(intel, dict):
+        return intel
+    metadata = item.get("metadata", {})
+    if isinstance(metadata, dict):
+        nested = metadata.get("operator_intelligence")
+        if isinstance(nested, dict):
+            return nested
+    return {}
 
 
 if __name__ == "__main__":
