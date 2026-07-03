@@ -89,33 +89,64 @@ remap_source_path() {
 stage_runtime_copy() {
   local source_root="$1"
   local runtime_root="$2"
+  local tracked_files
+  local tracked_top_levels
 
   mkdir -p "$runtime_root"
 
-  if command -v rsync >/dev/null 2>&1; then
-    rsync -a --delete \
-      --exclude '.git/' \
-      --exclude '.idea/' \
-      --exclude '.pytest_cache/' \
-      --exclude '__pycache__/' \
-      --exclude 'tests/__pycache__/' \
-      --exclude 'reports/archive/' \
-      --exclude 'logs/' \
-      "$source_root/" "$runtime_root/"
-    return
+  if git -C "$source_root" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    tracked_files="$(mktemp)"
+    git -C "$source_root" ls-files -z -- . \
+      ':(exclude)data/**' \
+      ':(exclude)reports/**' >"$tracked_files"
+
+    if command -v rsync >/dev/null 2>&1; then
+      rsync -a --from0 --files-from="$tracked_files" "$source_root/" "$runtime_root/"
+    else
+      git -C "$source_root" archive --format=tar HEAD | tar -xf - -C "$runtime_root"
+    fi
+
+    rm -f "$tracked_files"
+    tracked_top_levels="$(
+      {
+        git -C "$source_root" ls-files | awk -F/ '{print $1}'
+        printf '%s\n' data reports
+      } | sort -u
+    )"
+  else
+    tracked_top_levels=$'.gitignore\nREADME.md\nassets\nbenchmarks\nconfig\ndashboard.py\ndata\ndocs\nmain.py\nreports\nrequirements.txt\nsample_data\nscripts\nsrc\ntests'
+    for path in $tracked_top_levels; do
+      if [[ -e "$source_root/$path" ]]; then
+        ditto "$source_root/$path" "$runtime_root/$path"
+      fi
+    done
   fi
 
-  rm -rf "$runtime_root"
-  mkdir -p "$runtime_root"
-  ditto "$source_root" "$runtime_root"
-  rm -rf \
-    "$runtime_root/.git" \
-    "$runtime_root/.idea" \
-    "$runtime_root/.pytest_cache" \
-    "$runtime_root/__pycache__" \
-    "$runtime_root/tests/__pycache__" \
-    "$runtime_root/reports/archive" \
-    "$runtime_root/logs"
+  if [[ -f "$source_root/config/local.env" ]]; then
+    mkdir -p "$runtime_root/config"
+    install -m 600 "$source_root/config/local.env" "$runtime_root/config/local.env"
+  fi
+
+  if [[ ! -d "$runtime_root/data" && -d "$source_root/data" ]]; then
+    ditto "$source_root/data" "$runtime_root/data"
+  fi
+  if [[ ! -d "$runtime_root/reports" && -d "$source_root/reports" ]]; then
+    ditto "$source_root/reports" "$runtime_root/reports"
+  fi
+  if [[ ! -x "$runtime_root/.venv/bin/python" && -d "$source_root/.venv" ]]; then
+    ditto "$source_root/.venv" "$runtime_root/.venv"
+  fi
+
+  while IFS= read -r -d '' entry; do
+    name="$(basename "$entry")"
+    if [[ "$name" == ".venv" || "$name" == "logs" ]]; then
+      continue
+    fi
+    if [[ $'\n'"$tracked_top_levels"$'\n' == *$'\n'"$name"$'\n'* ]]; then
+      continue
+    fi
+    rm -rf "$entry"
+  done < <(find "$runtime_root" -mindepth 1 -maxdepth 1 -print0)
 }
 
 while [[ $# -gt 0 ]]; do
