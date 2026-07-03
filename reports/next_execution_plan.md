@@ -1,6 +1,6 @@
 # Operator Next Execution Plan
 
-Updated for the July 2, 2026 publish-readiness pass.
+Updated for the July 3, 2026 draft pull-request state.
 
 ## Current System State
 
@@ -9,32 +9,30 @@ Updated for the July 2, 2026 publish-readiness pass.
 - iMessage delivery is working.
 - GitHub token handling falls back cleanly if a token is rejected.
 - `GITHUB_TOKEN` validation passes with the authenticated 5,000-request core limit and 30-request search limit.
-- The local feature branch now contains both the public `main` history and the prior public feature-branch tip, so GitHub can generate a normal comparison without a force-push.
+- The feature branch is pushed and draft pull request [#1](https://github.com/Akannione/ai-signal-routine/pull/1) is open, mergeable, 4 commits ahead, and 0 behind `main`.
 - The publish helper targets `Akannione/ai-signal-routine` and refuses to force-push over a divergent remote branch.
 
-## Step 1: Publish The Verified GitHub Coverage Fix
+## Step 1: Review And Merge The Draft Pull Request
 
 What you do:
 
-1. Reconfirm the token without exposing it:
+1. Review the pull request and checks:
 
 ```bash
-./scripts/check_github_token.sh
+gh pr view 1 --repo Akannione/ai-signal-routine --web
+gh pr checks 1 --repo Akannione/ai-signal-routine
 ```
 
-Expected result:
+The Python verification is green locally. Vercel currently reports an external deployment failure even though this repository is a Streamlit/Python application; decide whether that legacy Vercel integration should be disconnected or intentionally configured before treating it as a required check.
 
-```text
-github_token_status=valid
-```
-
-2. Publish the prepared branch:
+2. When the diff is approved, mark the PR ready and merge it:
 
 ```bash
-./scripts/publish_to_github.command
+gh pr ready 1 --repo Akannione/ai-signal-routine
+gh pr merge 1 --repo Akannione/ai-signal-routine --merge --delete-branch
 ```
 
-3. Sync the 8 AM runtime after the branch is published:
+3. Sync the 8 AM runtime after the pull request is merged:
 
 ```bash
 ./scripts/install_launch_agent.sh
