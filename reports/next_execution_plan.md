@@ -9,7 +9,7 @@ Updated for the July 3, 2026 merged and installed runtime state.
 - iMessage delivery is working.
 - GitHub token handling falls back cleanly if a token is rejected.
 - `GITHUB_TOKEN` validation passes with the authenticated 5,000-request core limit and 30-request search limit.
-- Pull requests [#1](https://github.com/Akannione/ai-signal-routine/pull/1), [#2](https://github.com/Akannione/ai-signal-routine/pull/2), [#3](https://github.com/Akannione/ai-signal-routine/pull/3), and [#4](https://github.com/Akannione/ai-signal-routine/pull/4) are merged into `main`.
+- Coverage and runtime follow-up pull requests #1 through #6 are merged into `main`.
 - The publish helper targets `Akannione/ai-signal-routine` and refuses to force-push over a divergent remote branch.
 - The stale Vercel project is removed; it had no successful deployment or custom domain.
 - The 8:00 AM LaunchAgent is installed from a scoped 344 MB runtime that excludes unrelated workspace projects and preserves live reports and data.
