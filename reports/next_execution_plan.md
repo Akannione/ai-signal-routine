@@ -23,7 +23,7 @@ gh pr view 1 --repo Akannione/ai-signal-routine --web
 gh pr checks 1 --repo Akannione/ai-signal-routine
 ```
 
-The Python verification is green locally. Vercel currently reports an external deployment failure even though this repository is a Streamlit/Python application; decide whether that legacy Vercel integration should be disconnected or intentionally configured before treating it as a required check.
+The Python verification is green locally. The stale Vercel project was removed on July 3 after confirming that all six historical deployments had failed, no custom domain existed, and the repository's documented runtime is Streamlit/local automation rather than Vercel Functions.
 
 2. When the diff is approved, mark the PR ready and merge it:
 
