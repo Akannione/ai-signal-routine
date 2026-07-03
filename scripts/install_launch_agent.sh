@@ -55,6 +55,7 @@ PRINT_ONLY=0
 START_NOW=0
 UNINSTALL=0
 FORCE_STAGE_RUNTIME="${FORCE_STAGE_RUNTIME:-0}"
+FORCE_FALLBACK_RUNTIME_MANIFEST="${FORCE_FALLBACK_RUNTIME_MANIFEST:-0}"
 
 is_protected_root() {
   local path="$1"
@@ -95,7 +96,8 @@ stage_runtime_copy() {
 
   mkdir -p "$runtime_root"
 
-  if git -C "$source_root" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  if [[ "$FORCE_FALLBACK_RUNTIME_MANIFEST" != "1" ]] && \
+    git -C "$source_root" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
     tracked_files="$(mktemp)"
     git -C "$source_root" ls-files -z -- . \
       ':(exclude)data/**' \
@@ -117,6 +119,9 @@ stage_runtime_copy() {
   else
     tracked_top_levels=$'.gitignore\nREADME.md\nassets\nbenchmarks\nconfig\ndashboard.py\ndata\ndocs\nmain.py\nreports\nrequirements.txt\nsample_data\nscripts\nsrc\ntests'
     for path in $tracked_top_levels; do
+      if [[ "$path" == "data" || "$path" == "reports" ]]; then
+        continue
+      fi
       if [[ -e "$source_root/$path" ]]; then
         ditto "$source_root/$path" "$runtime_root/$path"
       fi
