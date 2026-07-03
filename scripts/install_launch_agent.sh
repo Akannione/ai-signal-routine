@@ -139,6 +139,12 @@ stage_runtime_copy() {
   if [[ ! -d "$runtime_root/reports" && -d "$source_root/reports" ]]; then
     ditto "$source_root/reports" "$runtime_root/reports"
   fi
+  if [[ -f "$source_root/reports/next_execution_plan.md" ]]; then
+    mkdir -p "$runtime_root/reports"
+    install -m 644 \
+      "$source_root/reports/next_execution_plan.md" \
+      "$runtime_root/reports/next_execution_plan.md"
+  fi
   if [[ ! -x "$runtime_root/.venv/bin/python" && -d "$source_root/.venv" ]]; then
     ditto "$source_root/.venv" "$runtime_root/.venv"
   fi
