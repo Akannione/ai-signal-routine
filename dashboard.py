@@ -16,6 +16,7 @@ if str(SRC) not in sys.path:
 
 from ai_signal_routine.benchmark import BENCHMARK_PACK, write_benchmark_pack  # noqa: E402
 from ai_signal_routine.digests import (  # noqa: E402
+    _operator_intel,
     build_email_digest,
     build_slack_digest,
     build_sms_digest,
@@ -496,18 +497,6 @@ def _dataframe_or_caption(rows: list[dict], empty_message: str) -> None:
         st.dataframe(rows, use_container_width=True, hide_index=True)
     else:
         st.caption(empty_message)
-
-
-def _operator_intel(item: dict) -> dict:
-    intel = item.get("operator_intelligence")
-    if isinstance(intel, dict):
-        return intel
-    metadata = item.get("metadata", {})
-    if isinstance(metadata, dict):
-        nested = metadata.get("operator_intelligence")
-        if isinstance(nested, dict):
-            return nested
-    return {}
 
 
 if __name__ == "__main__":
